@@ -4,7 +4,6 @@ project:
   output-dir: docs
 
 website:
-  twitter-card: true
   navbar:
     left:
       - text: "About"
@@ -29,7 +28,9 @@ website:
         href: introduction.qmd
         contents: 
           - index.qmd
-      - section: "News and Impact on price and volatilities dynamics"
+          - mindmap.qmd
+          - revsyslit.qmd
+      - section: "Commodities (grains) news"
         href: news.qmd
         contents:
           - news_google_trends.qmd
@@ -37,18 +38,19 @@ website:
       - section: "Predictive Models"
         href: predictive_model.qmd
         contents:
-          - basics-knitr.qmd
-          - basics-jupyter.qmd
-      - section: "MultiObjective Optimization"
+          - markovian_bayesian_timeseries.qmd
+          - machine_learning_models.qmd
+          - econometrics_model_sel.qmd
+      - section: "MultiObjective Multiperiod Optimization"
         href: optimization.qmd
         contents:
-          - layout.qmd
-          - layout-knitr.qmd
+          - portfolio_multiobj_opt_algos.qmd
+          - scenario_simulation_fuzzy_multicriteria.qmd
           - layout-jupyter.qmd
-      - section: advanced.qmd
+      - section: "Reinforcement Learning Strategies"
         contents:
-          - raw-code.qmd
-          - custom-theme.qmd
+          - pareto_front_reinforcement.qmd
+          - reinforcement_algos_decision_making.qmd
 
       - href: acknowlegment.qmd
 

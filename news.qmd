@@ -15,4 +15,48 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-... to be included...
+## Analyzing the Causal Impact of News on Commodity Prices, Returns, and Volatility
+
+The hypothesis that abrupt changes in prices, returns, and volatility in agricultural commodity markets are driven by emerging market news is supported by a robust body of literature. One of the foundational works in this area is Robert Engle's introduction of the **News Impact Curve** (Engle, 1993), which demonstrates how news can asymmetrically affect volatility in financial markets. Engle's work shows that negative news tends to increase volatility more than positive news, creating a nonlinear relationship between news and market behavior. This framework suggests that sudden shifts in market conditions may be attributed to external news shocks that alter expectations and investor sentiment, thereby influencing price dynamics and return volatility.
+
+In the context of agricultural commodities, this phenomenon is even more pronounced due to the sensitivity of these markets to **exogenous shocks** such as geopolitical developments, climatic events, and policy changes. A similar argument was made in the work of **Ozon (2008)**, who applied volatility forecasting models to the Brazilian agricultural market. His research, which utilized data-driven models for volatility prediction, highlights the importance of incorporating external information, such as market news, into predictive models to capture the **impact of unforeseen market shifts**. Ozon’s findings suggest that neglecting the influence of market news can lead to significant forecasting errors, particularly in markets characterized by high volatility and abrupt price changes. His work is documented in the project repository at [this link](http://leg.ufpr.br/doku.php/projetos:ehlers:volprev).
+
+### Objective of Causal Analysis Using Market News and Search Trends
+
+Building on the insights provided by Engle and Ozon, this research aims to investigate the **causal relationship** between news events, search trends, and market volatility in agricultural commodity markets. Our hypothesis is that **news events**, particularly those that are not easily quantifiable through traditional numerical data, have a measurable and statistically significant effect on commodity prices and returns. Additionally, we will explore how **search trends** (e.g., Google Trends data) for specific keywords related to commodities reflect real-time market sentiment and drive price changes.
+
+This study will utilize **causal inference techniques** to test whether certain news events are not only correlated with but are **causally linked to market volatility**. The innovative contribution of this research lies in combining news data with **large language models (LLMs)**, such as GPT, to automatically identify and rank the **most impactful news events**. These LLMs will help in filtering vast amounts of information, pinpointing the events most likely to influence market movements.
+
+### Methodological Approach
+
+1. **Data Collection**: We will collect time-series data on commodity prices, returns, and volatility from various financial databases. Additionally, news articles and reports related to agricultural commodities will be gathered from reputable financial news sources.
+   
+2. **Google Trends**: We will use Google Trends data to track **search frequencies** for specific keywords related to the commodities under study. The hypothesis here is that increased search activity correlates with heightened market volatility, as more people become aware of emerging news events.
+
+3. **News Filtering Using LLMs**: LLMs, such as **GPT**, will be employed to filter news articles and highlight those with the highest potential to influence market dynamics. This automated news filtering process allows us to focus on key events that are likely to cause **market disruptions**.
+
+4. **Causal Impact Testing**: Once we have identified key news events, we will conduct **causal impact tests** using methodologies such as **Granger causality tests**, **Bayesian structural time series (BSTS)** or maybe the most recent [**CausalImpact**](https://google.github.io/CausalImpact/CausalImpact.html) algorithm (Brodersen et. al., 2015), models. These tests will allow us to determine whether a specific news event had a **statistically significant impact** on commodity prices or volatility.
+
+5. **Evaluation**: Finally, we will evaluate the overall effectiveness of our news-based predictive models by comparing them against baseline models that do not account for news events or search trends.
+
+### Expected Contributions
+
+The **innovative contribution** of this research is twofold. First, it introduces a novel framework that links **market sentiment**, captured through **news data and search trends**, to **real-time volatility and price forecasting**. Second, by incorporating **LLMs for news filtering**, the research provides a more scalable and efficient method of analyzing vast amounts of textual data, which is crucial in fast-moving markets.
+
+This research aims to provide both theoretical insights and practical tools for market participants, enabling them to **anticipate market shifts** based on news events and search trends, and adjust their portfolio strategies accordingly.
+
+&nbsp;
+
+&nbsp;
+
+***
+
+### References
+
+- Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). **Inferring causal impact using Bayesian structural time-series models.** *Annals of Applied Statistics*, 9, 247–274.
+
+- Engle, R. F. (1993). **Statistical Models for Financial Volatility.** *Financial Analysts Journal*.
+
+- Ozon, R. H. (2008). **Volatility Forecasting in Agricultural Markets.** Available at [this link](http://leg.ufpr.br/doku.php/projetos:ehlers:volprev).
+
+

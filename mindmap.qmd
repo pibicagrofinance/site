@@ -1,0 +1,194 @@
+---
+title: "The Research Mindmap"
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+------------------------------------------------------------------------
+
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA) # Remove todos os coments # dos outputs do R
+knitr::opts_chunk$set(warning = FALSE) # Remove todos os warnings # dos outputs do R
+knitr::opts_chunk$set(message = FALSE) # Remove todas as mensagens # dos outputs do R
+
+```
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+</style>
+
+
+
+```{r echo=FALSE}
+
+# Libraries
+library(igraph)
+library(networkD3)
+library(dplyr)
+
+# Updated Topics:
+# A = Volatility Modeling (GAMLSS)
+# B = Regime Switching Models (MSGARCH)
+# C = Econometric Analysis
+# D = Predictive Models for Commodity Prices
+# E = Statistical Methods
+# F = Multiobjective Optimization
+# G = Reinforcement Learning for Portfolio Management
+# H = Financial Data Science
+# I = Temporal Analysis (Time Series Forecasting)
+
+# create a dataset:
+data <- data_frame(
+  from = c("Volatility Modeling (GAMLSS)", "Volatility Modeling (GAMLSS)", 
+           "Regime Switching Models (MSGARCH)", "Predictive Models for Commodity Prices", 
+           "Econometric Analysis", "Predictive Models for Commodity Prices", 
+           "Statistical Methods", "Regime Switching Models (MSGARCH)", 
+           "Econometric Analysis", "Predictive Models for Commodity Prices", 
+           "Reinforcement Learning for Portfolio Management", "Volatility Modeling (GAMLSS)", 
+           "Financial Data Science", "Temporal Analysis (Time Series Forecasting)"),
+  
+  to = c("Regime Switching Models (MSGARCH)", "Statistical Methods", 
+         "Financial Analytics", "Volatility Modeling (GAMLSS)", 
+         "Econometric Analysis", "Volatility Modeling (GAMLSS)", 
+         "Regime Switching Models (MSGARCH)", "Programming in R", 
+         "Volatility Modeling (GAMLSS)", "Econometric Analysis", 
+         "Volatility Modeling (GAMLSS)", "Regime Switching Models (MSGARCH)", 
+         "Reinforcement Learning for Portfolio Management", "Regime Switching Models (MSGARCH)")
+)
+
+# Plot the network
+p <- simpleNetwork(data, height="600px", width="100%",        
+                   Source = 1,                 # column number of source
+                   Target = 2,                 # column number of target
+                   linkDistance = 50,          # distance between nodes
+                   charge = -500,              # repulsion/attraction strength
+                   fontSize = 14,              # size of node names
+                   fontFamily = "serif",       # font of node names
+                   linkColour = "#666",        # color of edges
+                   nodeColour = "#69b3a2",     # color of nodes
+                   opacity = 0.9,              # opacity of nodes
+                   zoom = TRUE                 # enable zoom functionality
+)
+
+p
+
+```
+
+
+# Overview
+
+The following flowchart illustrates the research workflow, detailing the key methodologies and how they are interconnected. It starts from the problem identification and moves through volatility modeling, predictive modeling, and optimization processes.
+
+```{r echo=FALSE, fig.align='center'}
+
+# Libraries
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+
+# Create the flowchart using DiagrammeR
+graph <- grViz("
+  digraph research_flowchart {
+
+    # Graph attributes
+    graph [layout = dot, rankdir = TB]
+
+    # Node definitions with attributes for styling
+    node [shape = box, style = filled, fillcolor = lightblue, fontname = Helvetica, fontsize = 12]
+
+    ProblemIdentification [label = 'Problem Identification \n Agricultural Commodity Price Forecasting']
+    VolatilityModeling [label = 'Volatility Modeling \n (GAMLSS)']
+    RegimeSwitching [label = 'Regime Switching \n Models (MSGARCH)']
+    PredictiveModeling [label = 'Predictive Modeling \n for Commodity Prices']
+    StatisticalMethods [label = 'Application of \n Statistical Methods']
+    Optimization [label = 'Multiobjective Multiperiod \n Optimization Portfolio Strategy']
+    ReinforcementLearning [label = 'Reinforcement Learning \n for Dynamic Portfolio Management']
+    DecisionSupport [label = 'Decision Support \n Insights for Agriculture']
+
+    # Defining relationships/edges
+    ProblemIdentification -> VolatilityModeling
+    VolatilityModeling -> RegimeSwitching
+    RegimeSwitching -> PredictiveModeling
+    PredictiveModeling -> StatisticalMethods
+    PredictiveModeling -> Optimization
+    Optimization -> ReinforcementLearning
+    ReinforcementLearning -> DecisionSupport
+
+    # Additional styling for edge labels
+    edge [color = gray, arrowhead = vee, arrowsize = 0.8, fontname = Helvetica, fontsize = 10]
+
+  }
+")
+
+# Convert the graph to SVG and save as a PNG
+svg <- export_svg(graph)
+rsvg_png(charToRaw(svg), file = "flowchart.png")
+
+# Display the PNG file
+knitr::include_graphics("flowchart.png")
+
+```
+
+# Research Proposal: Advanced Techniques for Multiperiod Multiobjective Portfolio Optimization in Commodity Markets
+
+This research addresses the significant challenge of **modeling and forecasting agricultural commodity prices**, which are subject to high volatility and complex dynamics. Agricultural markets are highly sensitive to external factors such as **climatic changes, geopolitical events, and supply-demand imbalances**, making accurate forecasting and risk management difficult for investors and policymakers.
+
+### Key Components of the Research:
+
+1. **Volatility Modeling Using GAMLSS and MSGARCH**:
+   - **GAMLSS**: This technique provides a nuanced understanding of the **distributional characteristics** of commodity returns, capturing the probabilistic behaviors that traditional models often overlook.
+   - **MSGARCH**: By implementing the **Markov-Switching GARCH** model, the research captures **regime shifts in volatility**, which are common in commodities due to external shocks and systemic changes.
+
+2. **Multi-Objective Portfolio Optimization**:
+   - This step involves developing a **multi-objective optimization framework** using evolutionary algorithms such as **NSGA-II** and **Differential Evolution (DEOptim)**. These algorithms help optimize portfolio allocation by balancing risk, return, and diversification, particularly for portfolios with high-volatility assets like agricultural commodities.
+
+3. **Reinforcement Learning for Portfolio Management**:
+   - The research also introduces **Reinforcement Learning (RL)** methods, such as **Q-Learning** and **K-Bandit algorithms**, to adaptively manage portfolio strategies. These techniques are particularly suited for **dynamic portfolio management**, allowing strategies to evolve as market conditions change.
+
+### Contribution to Knowledge:
+
+The research's **innovative contribution** lies in combining these advanced econometric and machine learning techniques to tackle the unique challenges of commodity markets. It offers a **comprehensive methodological framework** that improves the modeling and forecasting of volatility and returns in agricultural commodities. This work enhances **portfolio optimization strategies**, offering practical applications for financial markets by providing tools that help portfolio managers make informed, data-driven decisions in the face of volatile market conditions.
+
+**Final Objective**: The primary goal of this research is to develop **robust methods for volatility modeling** and **portfolio optimization** that dynamically adapt to market conditions. This approach offers a significant advancement in both academic and professional fields by providing actionable insights for managing portfolios in volatile commodity markets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

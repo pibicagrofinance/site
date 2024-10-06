@@ -1,0 +1,26 @@
+---
+title: ""
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+------------------------------------------------------------------------
+
+<center> ![](https://static.pucpr.br/pucpr/2022/02/banner_ic.png){width="50%"} </center>
+
+------------------------------------------------------------------------
+
+This research project is being conducted at PUCPR with the support of undergraduate students participating in the Scientific Initiation Program (PIBIC Jr.). The primary aim is to explore advanced predictive models and multi-objective optimization approaches applied to agricultural commodities, particularly focusing on grains.
+
+The research combines the efforts of faculty members and students, promoting an enriching learning experience while addressing real-world agricultural challenges. By leveraging time series models for price forecasting and optimization techniques, this project aims to provide insights that support decision-making processes in the agricultural sector.
+
+Through the collaboration with our undergraduate students, we focus on developing practical skills and research capabilities, empowering the next generation of researchers and professionals in agricultural analytics and data-driven decision-making.
+
+## Learn More
+
+For more information about the Scientific Initiation Program, [visit the PUCPR Scientific Initiation Program.](https://www.pucpr.br/iniciacaocientificaetecnologica/)

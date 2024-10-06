@@ -1,34 +1,36 @@
 [
   {
-    "objectID": "projects.html#project-1",
-    "href": "projects.html#project-1",
-    "title": "Projects",
-    "section": "Project 1",
-    "text": "Project 1\n\nOur first Colab Notebook \\(\\Rightarrow\\) here"
-  },
-  {
-    "objectID": "projects.html#project-2",
-    "href": "projects.html#project-2",
-    "title": "Projects",
-    "section": "Project 2",
-    "text": "Project 2"
-  },
-  {
-    "objectID": "projects.html#project-3",
-    "href": "projects.html#project-3",
-    "title": "Projects",
-    "section": "Project 3",
-    "text": "Project 3"
-  },
-  {
-    "objectID": "optimization.html",
-    "href": "optimization.html",
-    "title": "Multiobjective Optimization",
+    "objectID": "revsyslit.html",
+    "href": "revsyslit.html",
+    "title": "Literature Review and Scientific Challenge",
     "section": "",
-    "text": "… to be included…",
+    "text": "Rev Sys Lit goes here…",
     "crumbs": [
       "About",
-      "MultiObjective Optimization"
+      "Intro",
+      "Literature Review and Scientific Challenge"
+    ]
+  },
+  {
+    "objectID": "predictive_model.html",
+    "href": "predictive_model.html",
+    "title": "Predictive Model",
+    "section": "",
+    "text": "Just for testing …",
+    "crumbs": [
+      "About",
+      "Predictive Models"
+    ]
+  },
+  {
+    "objectID": "news.html#analyzing-the-causal-impact-of-news-on-commodity-prices-returns-and-volatility",
+    "href": "news.html#analyzing-the-causal-impact-of-news-on-commodity-prices-returns-and-volatility",
+    "title": "News and Impact on price and volatilities dynamics",
+    "section": "Analyzing the Causal Impact of News on Commodity Prices, Returns, and Volatility",
+    "text": "Analyzing the Causal Impact of News on Commodity Prices, Returns, and Volatility\nThe hypothesis that abrupt changes in prices, returns, and volatility in agricultural commodity markets are driven by emerging market news is supported by a robust body of literature. One of the foundational works in this area is Robert Engle’s introduction of the News Impact Curve (Engle, 1993), which demonstrates how news can asymmetrically affect volatility in financial markets. Engle’s work shows that negative news tends to increase volatility more than positive news, creating a nonlinear relationship between news and market behavior. This framework suggests that sudden shifts in market conditions may be attributed to external news shocks that alter expectations and investor sentiment, thereby influencing price dynamics and return volatility.\nIn the context of agricultural commodities, this phenomenon is even more pronounced due to the sensitivity of these markets to exogenous shocks such as geopolitical developments, climatic events, and policy changes. A similar argument was made in the work of Ozon (2008), who applied volatility forecasting models to the Brazilian agricultural market. His research, which utilized data-driven models for volatility prediction, highlights the importance of incorporating external information, such as market news, into predictive models to capture the impact of unforeseen market shifts. Ozon’s findings suggest that neglecting the influence of market news can lead to significant forecasting errors, particularly in markets characterized by high volatility and abrupt price changes. His work is documented in the project repository at this link.\n\nObjective of Causal Analysis Using Market News and Search Trends\nBuilding on the insights provided by Engle and Ozon, this research aims to investigate the causal relationship between news events, search trends, and market volatility in agricultural commodity markets. Our hypothesis is that news events, particularly those that are not easily quantifiable through traditional numerical data, have a measurable and statistically significant effect on commodity prices and returns. Additionally, we will explore how search trends (e.g., Google Trends data) for specific keywords related to commodities reflect real-time market sentiment and drive price changes.\nThis study will utilize causal inference techniques to test whether certain news events are not only correlated with but are causally linked to market volatility. The innovative contribution of this research lies in combining news data with large language models (LLMs), such as GPT, to automatically identify and rank the most impactful news events. These LLMs will help in filtering vast amounts of information, pinpointing the events most likely to influence market movements.\n\n\nMethodological Approach\n\nData Collection: We will collect time-series data on commodity prices, returns, and volatility from various financial databases. Additionally, news articles and reports related to agricultural commodities will be gathered from reputable financial news sources.\nGoogle Trends: We will use Google Trends data to track search frequencies for specific keywords related to the commodities under study. The hypothesis here is that increased search activity correlates with heightened market volatility, as more people become aware of emerging news events.\nNews Filtering Using LLMs: LLMs, such as GPT, will be employed to filter news articles and highlight those with the highest potential to influence market dynamics. This automated news filtering process allows us to focus on key events that are likely to cause market disruptions.\nCausal Impact Testing: Once we have identified key news events, we will conduct causal impact tests using methodologies such as Granger causality tests, Bayesian structural time series (BSTS) or maybe the most recent CausalImpact algorithm (Brodersen et. al., 2015), models. These tests will allow us to determine whether a specific news event had a statistically significant impact on commodity prices or volatility.\nEvaluation: Finally, we will evaluate the overall effectiveness of our news-based predictive models by comparing them against baseline models that do not account for news events or search trends.\n\n\n\nExpected Contributions\nThe innovative contribution of this research is twofold. First, it introduces a novel framework that links market sentiment, captured through news data and search trends, to real-time volatility and price forecasting. Second, by incorporating LLMs for news filtering, the research provides a more scalable and efficient method of analyzing vast amounts of textual data, which is crucial in fast-moving markets.\nThis research aims to provide both theoretical insights and practical tools for market participants, enabling them to anticipate market shifts based on news events and search trends, and adjust their portfolio strategies accordingly.\n \n \n\n\n\nReferences\n\nBrodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. Annals of Applied Statistics, 9, 247–274.\nEngle, R. F. (1993). Statistical Models for Financial Volatility. Financial Analysts Journal.\nOzon, R. H. (2008). Volatility Forecasting in Agricultural Markets. Available at this link.",
+    "crumbs": [
+      "About",
+      "Commodities (grains) news"
     ]
   },
   {
@@ -76,7 +78,7 @@
     "href": "index.html",
     "title": "About the PIBIC and PIBITI Jr.",
     "section": "",
-    "text": "Thanks for checking out my web site!",
+    "text": "About the PIBIC and PIBITI Jr.\nThis project is carried out as part of a research initiation (PIBIC and PIBITI Jr.) at PUCPR, focusing on advanced forecasting and optimization techniques applied to agriculture.\n\nRodrigoRicardoGabrielly\n\n\n  \n\nAdvisor/Researcher\n\nEconomist and Msc. in Economic Development (UFPR, 2008 & 2010), PhD Candidate at PPGEPS/PUCPR (2022-2026)",
     "crumbs": [
       "About",
       "Intro",
@@ -84,37 +86,47 @@
     ]
   },
   {
-    "objectID": "index.html#team",
-    "href": "index.html#team",
-    "title": "About the PIBIC and PIBITI Jr.",
-    "section": "Team",
-    "text": "Team\n\nAdvisor/Researcher: - icon: linkedin Rodrigo Hermont Ozon, (PhD at PPGEPS/PUCPR Candidate)\nStudents: [Your Name], [Other Members]",
+    "objectID": "mindmap.html",
+    "href": "mindmap.html",
+    "title": "The Research Mindmap",
+    "section": "",
+    "text": "Overview\nThe following flowchart illustrates the research workflow, detailing the key methodologies and how they are interconnected. It starts from the problem identification and moves through volatility modeling, predictive modeling, and optimization processes.\n\n\n\n\n\n\n\n\n\n\n\nResearch Proposal: Advanced Techniques for Multiperiod Multiobjective Portfolio Optimization in Commodity Markets\nThis research addresses the significant challenge of modeling and forecasting agricultural commodity prices, which are subject to high volatility and complex dynamics. Agricultural markets are highly sensitive to external factors such as climatic changes, geopolitical events, and supply-demand imbalances, making accurate forecasting and risk management difficult for investors and policymakers.\n\nKey Components of the Research:\n\nVolatility Modeling Using GAMLSS and MSGARCH:\n\nGAMLSS: This technique provides a nuanced understanding of the distributional characteristics of commodity returns, capturing the probabilistic behaviors that traditional models often overlook.\nMSGARCH: By implementing the Markov-Switching GARCH model, the research captures regime shifts in volatility, which are common in commodities due to external shocks and systemic changes.\n\nMulti-Objective Portfolio Optimization:\n\nThis step involves developing a multi-objective optimization framework using evolutionary algorithms such as NSGA-II and Differential Evolution (DEOptim). These algorithms help optimize portfolio allocation by balancing risk, return, and diversification, particularly for portfolios with high-volatility assets like agricultural commodities.\n\nReinforcement Learning for Portfolio Management:\n\nThe research also introduces Reinforcement Learning (RL) methods, such as Q-Learning and K-Bandit algorithms, to adaptively manage portfolio strategies. These techniques are particularly suited for dynamic portfolio management, allowing strategies to evolve as market conditions change.\n\n\n\n\nContribution to Knowledge:\nThe research’s innovative contribution lies in combining these advanced econometric and machine learning techniques to tackle the unique challenges of commodity markets. It offers a comprehensive methodological framework that improves the modeling and forecasting of volatility and returns in agricultural commodities. This work enhances portfolio optimization strategies, offering practical applications for financial markets by providing tools that help portfolio managers make informed, data-driven decisions in the face of volatile market conditions.\nFinal Objective: The primary goal of this research is to develop robust methods for volatility modeling and portfolio optimization that dynamically adapt to market conditions. This approach offers a significant advancement in both academic and professional fields by providing actionable insights for managing portfolios in volatile commodity markets.",
     "crumbs": [
       "About",
       "Intro",
-      "About the PIBIC and PIBITI Jr."
+      "The Research Mindmap"
     ]
   },
   {
-    "objectID": "news.html",
-    "href": "news.html",
-    "title": "News and Impact on price and volatilities dynamics",
+    "objectID": "optimization.html",
+    "href": "optimization.html",
+    "title": "Multiobjective Optimization",
     "section": "",
     "text": "… to be included…",
     "crumbs": [
       "About",
-      "Commodities (grains) news"
+      "MultiObjective Multiperiod Optimization"
     ]
   },
   {
-    "objectID": "predictive_model.html",
-    "href": "predictive_model.html",
-    "title": "Predictive Model",
-    "section": "",
-    "text": "Just for testing …",
-    "crumbs": [
-      "About",
-      "Predictive Models"
-    ]
+    "objectID": "projects.html#project-1",
+    "href": "projects.html#project-1",
+    "title": "Projects",
+    "section": "Project 1",
+    "text": "Project 1\n\nOur first Colab Notebook  here\n\n This project is related with the step News and Impact on price and volatilities dynamics"
+  },
+  {
+    "objectID": "projects.html#project-2",
+    "href": "projects.html#project-2",
+    "title": "Projects",
+    "section": "Project 2",
+    "text": "Project 2"
+  },
+  {
+    "objectID": "projects.html#project-3",
+    "href": "projects.html#project-3",
+    "title": "Projects",
+    "section": "Project 3",
+    "text": "Project 3"
   }
 ]

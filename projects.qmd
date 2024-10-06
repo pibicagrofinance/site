@@ -1,0 +1,29 @@
+---
+title: "Projects"
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+------------------------------------------------------------------------
+
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+{{< fa brands >}}
+
+## Project 1
+
+-   Our first Colab Notebook <i class="fa-regular fa-hand-point-right"></i> [here](https://github.com/pibicagrofinance/Jupyter_Notebooks/blob/main/Google_Trends_extactor_for_commodities_(grains)_portfolio.ipynb)
+
+
+<i class="fa-regular fa-check"></i> This project is related with the step [News and Impact on price and volatilities dynamics](https://pibicagrofinance.github.io/site/news.html)
+
+## Project 2
+
+## Project 3
