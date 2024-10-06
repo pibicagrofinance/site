@@ -29,6 +29,11 @@ website:
         href: introduction.qmd
         contents: 
           - index.qmd
+      - section: "News and Impact on price and volatilities dynamics"
+        href: news.qmd
+        contents:
+          - news_google_trends.qmd
+          - openAi_agent.qmd
       - section: "Predictive Models"
         href: predictive_model.qmd
         contents:
