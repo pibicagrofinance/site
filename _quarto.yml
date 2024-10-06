@@ -1,0 +1,58 @@
+project:
+  type: website
+  title: "AgriPredict"
+  output-dir: docs
+
+website:
+  twitter-card: true
+  navbar:
+    left:
+      - text: "About"
+        href: index.qmd
+      - text: "Reports"
+        href: projects.qmd
+    tools:
+      - icon: linkedin
+        href: https://www.linkedin.com/showcase/ppgeps-ppucpr
+      - icon: github
+        href: https://pibicagrofinance.github.io/site/
+      - icon: whatsapp
+        href: https://chat.whatsapp.com/BWw4C46eSJ1EMq1EGflcOK
+  page-footer:
+    right: "Built with [Quarto](https://quarto.org/)"
+    left: "&copy; Copyright 2024, Commodities IA Team, AgriPredict"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Intro"
+        href: introduction.qmd
+        contents: 
+          - index.qmd
+      - section: "Predictive Models"
+        href: predictive_model.qmd
+        contents:
+          - basics-knitr.qmd
+          - basics-jupyter.qmd
+      - section: "MultiObjective Optimization"
+        href: optimization.qmd
+        contents:
+          - layout.qmd
+          - layout-knitr.qmd
+          - layout-jupyter.qmd
+      - section: advanced.qmd
+        contents:
+          - raw-code.qmd
+          - custom-theme.qmd
+
+      - href: acknowlegment.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+
+
+
