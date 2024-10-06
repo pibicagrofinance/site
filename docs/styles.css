@@ -1,0 +1,32 @@
+  #quarto-document-footer {
+    font-size: 7px; /* ou qualquer outro valor desejado */
+  }
+
+  .navbar {
+    background-color: #d3d3d3; /* Light gray background for the navbar */
+  }
+
+  /* Reduzindo o tamanho da fonte dos itens do menu lateral */
+  .quarto-sidebar a {
+    font-size: 13px;  /* Ajuste o valor conforme necessário, menor para reduzir mais */
+  }
+
+  body {
+    font-size: 11px;  /* Tamanho geral do texto */
+  }
+
+  .quarto-sidebar {
+    background-color: #e0e0e0; /* Light gray background for the sidebar */
+  }
+
+  h1 {
+    font-size: 13px; /* Ajuste o valor para o tamanho que desejar */
+  }
+
+  h2, h3 {
+    font-size: 13px;  /* Tamanho dos títulos */
+  }
+
+  footer {
+    font-size: 7px;  /* Tamanho da fonte do rodapé */
+  }
