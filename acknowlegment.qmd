@@ -9,10 +9,10 @@ format:
 editor: visual
 ---
 
-***
+------------------------------------------------------------------------
 
 <left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
 
-***
+------------------------------------------------------------------------
 
-To the professor Gilberto Reynoso-Meza for all the help needed to evaluate at this research subject.
+To the professor [Gilberto Reynoso-Meza](https://www.pucpr.br/escola-politecnica/docente/gilberto-reynoso-meza/) for all the help needed to evaluate at this research subject.

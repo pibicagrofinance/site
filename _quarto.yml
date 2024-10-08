@@ -38,6 +38,7 @@ website:
       - section: "Predictive Models"
         href: predictive_model.qmd
         contents:
+          - time_series_portfolio.qmd
           - markovian_bayesian_timeseries.qmd
           - machine_learning_models.qmd
           - econometrics_model_sel.qmd

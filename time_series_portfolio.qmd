@@ -1,0 +1,605 @@
+---
+title: "Data Extraction for preselected commodities portfolio"
+author: "Rodrigo Hermont Ozon, Érick Oliveira Rodrigues"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+```{r}
+
+start_time <- Sys.time()
+
+```
+
+```{css toc-content, echo = FALSE}
+
+#TOC {
+  left: 220px;
+  margin: 50px 30px 55px 30px;
+}
+
+.main-container {
+    margin-left: 300px;
+}
+
+```
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+------------------------------------------------------------------------
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+</style>
+
+::: {.callout-note icon="false"}
+## Abstract
+
+This small document have the goal to share the time series extraction and the two basic features building,
+like price returns and their conditional variance...
+
+
+
+:::
+
+------------------------------------------------------------------------
+
+<left> ![](https://upload.wikimedia.org/wikipedia/commons/f/f0/Pucpr-logo.jpg){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+# Intro {style="font-size:14pt;"}
+
+\[... to be written ...\]
+
+
+***
+
+# Python codes
+
+::: panel-tabset
+## Python libs {style="font-size:14pt;"}
+
+```{python}
+
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime
+from arch import arch_model
+
+```
+
+
+## Portfolio set {style="font-size:14pt;"}
+
+Loading time series data, for portfolio setting...
+
+
+```{python}
+
+# Tickers for portfolio
+TICKERS = [
+    "ZC=F",  # Corn Futures
+    "ZO=F",  # Wheat Futures
+    "KE=F",  # KC HRW Wheat Futures
+    "ZR=F",  # Rough Rice Futures
+    "GF=F",  # Feeder Cattle Futures
+    "ZS=F",  # SoyMeal Futures
+    "ZM=F",  # Soybean Meal Futures
+    "ZL=F"   # SoyBeans Futures
+]
+
+```
+
+
+Obtain daily prices and their returns:
+
+```{python}
+
+# Downloading data from Yahoo Finance
+portfolio_prices = yf.download(TICKERS, start="2019-01-01")['Adj Close']
+portfolio_prices.dropna(inplace=True)
+
+# Renaming columns for better readability
+portfolio_prices.columns = [
+    "corn_fut",
+    "wheat_fut",
+    "KCWheat_fut",
+    "rice_fut",
+    "Feeder_Cattle",
+    "soymeal_fut",
+    "soyF_fut",
+    "soybeans_fut"
+]
+
+```
+
+
+Plotting the time series prices (in level):
+
+```{python fig.width=9, fig.height=11}
+
+# Plot time series of portfolio prices one by one
+for column in portfolio_prices.columns:
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(x=portfolio_prices.index, y=portfolio_prices[column])
+    plt.title(f'Time Series of {column} Prices')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.grid(True)
+    plt.show()
+
+```
+
+
+Obtain the returns time series (first feature):
+
+
+$$
+\mbox{Price log returns}_t = ln(p_t) - ln(p_{t-1})
+$$
+
+```{python}
+
+# Calculate log returns
+portfolio_log_returns = np.log(portfolio_prices / portfolio_prices.shift(1)).dropna()
+portfolio_log_returns.columns = [
+    "ret_corn_fut",
+    "ret_wheat_fut",
+    "ret_KCWheat_fut",
+    "ret_rice_fut",
+    "ret_Feeder_Cattle",
+    "ret_soymeal_fut",
+    "ret_soyF_fut",
+    "ret_soybeans_fut"
+]
+```
+
+And plot it:
+
+```{python}
+
+# Plot time series of log returns one by one
+for column in portfolio_log_returns.columns:
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(x=portfolio_log_returns.index, y=portfolio_log_returns[column])
+    plt.title(f'Time Series of {column} Log Returns')
+    plt.xlabel('Date')
+    plt.ylabel('Log Returns')
+    plt.grid(True)
+    plt.show()
+    
+```
+
+
+The GARCH(1,1) model with an asymmetric Student-t distribution is not directly available in most Python libraries. However, we can still use a GARCH(1,1) model with a standard Student-t distribution to estimate the conditional variance. The GARCH(1,1) model is represented as follows:
+
+$$
+r_t = \mu + \epsilon_t
+$$
+
+$$
+\epsilon_t = \sigma_t z_t, \quad z_t \sim t_{\nu}(0, 1)
+$$
+
+$$
+\sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
+$$
+
+Where:
+
+- $r_t$ is the return at time $t$.
+- $\mu$ is the mean of the returns.
+- $\epsilon_t$ is the error term, modeled as conditional on past information.
+- $\sigma_t^2$ is the conditional variance at time $t$.
+- $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
+- $z_t$ follows a Student-t distribution with $\nu$ degrees of freedom to capture the heavy tails observed in financial returns.
+
+```{python}
+
+# Estimate GARCH(1,1) model for each asset and extract conditional variances
+conditional_variances = pd.DataFrame(index=portfolio_log_returns.index)
+
+for column in portfolio_log_returns.columns:
+    model = arch_model(portfolio_log_returns[column], vol='Garch', p=1, q=1, dist='t')
+    model_fitted = model.fit(disp='off')
+    conditional_variances[column] = model_fitted.conditional_volatility ** 2
+
+# Plot time series of conditional variances one by one
+for column in conditional_variances.columns:
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(x=conditional_variances.index, y=conditional_variances[column])
+    plt.title(f'Conditional Variance of {column} (GARCH(1,1) Estimated)')
+    plt.xlabel('Date')
+    plt.ylabel('Conditional Variance')
+    plt.grid(True)
+    plt.show()
+
+```
+
+
+
+:::
+
+
+
+***
+
+# R codes
+
+::: panel-tabset
+## R packages {style="font-size:14pt;"}
+
+```{r}
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+#library(plotly)
+library(rugarch)
+library(timeSeries)
+library(fPortfolio)
+library(quantmod)
+library(caTools)
+library(PerformanceAnalytics)
+library(MASS)
+library(PortfolioAnalytics)
+library(ROI)
+require(ROI.plugin.glpk)
+require(ROI.plugin.quadprog)
+library(quadprog)
+library(corpcor)
+library(DEoptim)
+library(cowplot) # devtools::install_github("wilkelab/cowplot/")
+library(lattice)
+library(timetk)
+
+```
+
+## Portfolio set {style="font-size:14pt;"}
+
+Loading time series data, for portfolio setting...
+
+```{r}
+
+tickers <- c(
+         "ZC=F", # Corn Futures
+         "ZO=F", # Wheat Futures
+         "KE=F", # Futuros KC HRW Wheat Futures
+         "ZR=F", # Rough Rice Futures
+         "GF=F", # Feeder Cattle Futures
+         "ZS=F", # SoyMeal Futures 
+         "ZM=F", # Futuros farelo soja
+         "ZL=F"  # SoyBeans Futures
+)
+
+```
+
+Obtain daily prices and their returns:
+
+```{r}
+
+portfolioPrices <- NULL
+  for ( Ticker in tickers )
+    portfolioPrices <- cbind(
+      portfolioPrices, 
+      getSymbols.yahoo(
+        Ticker,
+        from = "2019-01-01",
+        auto.assign = FALSE
+      )[,4]
+    )
+
+portfolioPrices <- portfolioPrices[apply(portfolioPrices, 1, function(x) all(!is.na(x))),]
+
+colnames(portfolioPrices) <- c(
+  "corn_fut",
+  "wheat_fut",
+  "KCWheat_fut",
+  "rice_fut",
+  "Feeder_Cattle",
+  "soymeal_fut",
+  "soyF_fut",
+  "soybeans_fut"
+)
+
+tail(portfolioPrices)
+
+```
+
+
+Plotting the time series prices (in level):
+
+```{r fig.width=9, fig.height=11}
+
+portfolioPrices |> as.data.frame() |>
+  mutate(
+    time = seq_along( corn_fut )
+  ) |>
+  pivot_longer(
+    !time,
+    names_to = "Variables",
+    values_to = "Value"  
+      ) |>
+  group_by(Variables) |>
+  plot_time_series(
+    time,
+    Value,
+    .interactive = F, # Change for TRUE for better visualization
+    .facet_ncol = 2,
+    .smooth = FALSE
+  ) +
+  theme(
+    strip.background = element_rect(fill = "white", colour = "white")
+  )
+
+```
+
+
+Obtain the returns time series (first feature):
+
+
+$$
+\mbox{Price log returns}_t = ln(p_t) - ln(p_{t-1})
+$$
+
+
+
+```{r}
+
+# Calculate log returns for the portfolio prices
+portfolioReturs <- na.omit(diff(log(portfolioPrices))) |> as.data.frame()
+
+colnames(portfolioReturs) <- c(
+  "ret_corn_fut",
+  "ret_wheat_fut",
+  "ret_KCWheat_fut",
+  "ret_rice_fut",
+  "ret_Feeder_Cattle",
+  "ret_soymeal_fut",
+  "ret_soyF_fut",
+  "ret_soybeans_fut"
+)
+
+glimpse(portfolioReturs)
+
+#portfolioReturs <- as.timeSeries(portfolioReturs)
+
+```
+
+Plot all time series and their returns:
+
+```{r fig.width=9, fig.height=11}
+
+portfolioReturs |> 
+  mutate(
+    time = seq_along( ret_corn_fut )
+  ) |>
+  pivot_longer(
+    !time,
+    names_to = "Variables",
+    values_to = "Value"  
+      ) |>
+  group_by(Variables) |>
+  plot_time_series(
+    time,
+    Value,
+    .interactive = F, # Change for TRUE for better visualization
+    .facet_ncol = 2,
+    .smooth = FALSE
+  ) +
+  theme(
+    strip.background = element_rect(fill = "white", colour = "white")
+  )
+
+```
+
+Plotting the histograms:
+
+```{r fig.width=9, fig.height=11}
+
+portfolioPrices_df <- as_tibble(portfolioPrices, rownames = "date")
+portfolioPrices_df$date <- ymd(portfolioPrices_df$date)
+
+portfolioReturs_df <- na.omit( ROC( portfolioPrices ), type = "discrete" ) |>
+  as_tibble(rownames = "date")
+portfolioReturs_df$date <- ymd(portfolioReturs_df$date)
+colnames(portfolioReturs_df) <- c(
+  "date",
+  "ret_corn_fut",
+  "ret_wheat_fut",
+  "ret_KCWheat_fut",
+  "ret_rice_fut",
+  "ret_Feeder_Cattle",
+  "ret_soymeal_fut",
+  "ret_soyF_fut",
+  "ret_soybeans_fut"
+)
+
+# Remover a coluna com nome NA
+portfolioReturs_df <- portfolioReturs_df[, !is.na(colnames(portfolioReturs_df))]
+
+# Verificar novamente os nomes das colunas para garantir que estão corretos
+colnames(portfolioReturs_df)
+
+portfolioReturs_long <- portfolioReturs_df |> 
+  pivot_longer(
+    cols = -date, # Exclui a coluna de data
+    names_to = "fut_type", 
+    values_to = "returns"
+  )
+
+ggplot(portfolioReturs_long, aes(x = returns)) + 
+  geom_histogram(aes(y = ..density..), binwidth = .01, color = "black", fill = "white") +
+  geom_density(alpha = .2, fill="lightgray") +
+  theme_minimal() +
+  theme(
+    axis.line  = element_line(colour = "black"),
+    axis.text  = element_text(colour = "black"),  
+    axis.ticks = element_line(colour = "black"), 
+    legend.position = c(.1,.9), 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank()
+  ) +
+  theme(plot.title   = element_text(size = 10),  
+        axis.title.x = element_text(size = 7), 
+        axis.title.y = element_text(size = 7)) + 
+  labs(x = "Returns", y = "Density") +
+  facet_wrap(~fut_type, scales = "free", ncol = 2) 
+
+```
+
+And finnaly, the last feature, is called, the conditional variance (risk measure), obtained by GARCH(1,1) model,
+formalized as:
+
+The GARCH(1,1) model with asymmetric Student-t distribution can be represented mathematically as:
+
+$$
+r_t = \mu + \epsilon_t
+$$
+
+$$
+\epsilon_t = \sigma_t z_t, \quad z_t \sim t_{\nu}(0, 1)
+$$
+
+$$
+\sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2
+$$
+
+Where:
+
+- $r_t$ is the return at time $t$.
+- $\mu$ is the mean of the returns.
+- $\epsilon_t$ is the error term, modeled as conditional on past information.
+- $\sigma_t^2$ is the conditional variance at time $t$.
+- $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
+- $z_t$ follows an asymmetric Student-t distribution with $\nu$ degrees of freedom to better capture the heavy tails and skewness observed in financial returns.
+
+
+```{r}
+
+# Load necessary packages
+library(rugarch)
+
+# Define the GARCH(1,1) model specification with Student-t distribution
+spec <- ugarchspec(
+  variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+  mean.model = list(armaOrder = c(0, 0), include.mean = TRUE),
+  distribution.model = "std" # Using Student-t distribution
+)
+
+# Estimate the model for each asset in the portfolio and extract conditional variances
+garch_models <- list()
+conditional_variances <- list()
+
+for (i in colnames(portfolioReturs)) {
+  garch_models[[i]] <- ugarchfit(spec, data = portfolioReturs[[i]])
+  conditional_variances[[i]] <- sigma(garch_models[[i]])^2
+}
+
+# Convert conditional variances list to a data frame
+conditional_variances_df <- do.call(cbind, conditional_variances) %>%
+  as.data.frame() %>%
+  mutate(time = seq_along(conditional_variances[[1]]))
+
+colnames(conditional_variances_df) <- c(
+  "cond_var_corn_fut",
+  "cond_var_wheat_fut",
+  "cond_var_KCWheat_fut",
+  "cond_var_rice_fut",
+  "cond_var_Feeder_Cattle",
+  "cond_var_soymeal_fut",
+  "cond_var_soyF_fut",
+  "cond_var_soybeans_fut",
+  "time"
+)
+
+# Reshape data for plotting
+conditional_variances_long <- conditional_variances_df %>%
+  pivot_longer(!time, names_to = "Variables", values_to = "Value")
+
+```
+
+And the plot of the conditional variance (risk):
+
+```{r fig.width=9, fig.height=11}
+
+conditional_variances_long |> 
+  group_by(Variables) |>
+  plot_time_series(
+    time,
+    Value,
+    .interactive = F, # Change for TRUE for better visualization
+    .facet_ncol = 2,
+    .smooth = FALSE
+  ) +
+  theme(
+    strip.background = element_rect(fill = "white", colour = "white")
+  )
+
+```
+
+:::
+
+ 
+
+ 
+
+------------------------------------------------------------------------
+
+# References {style="font-size:14pt;"}
+
+Gujarati, D., N. (2004) **Basic Econometrics**, fourth edition, The McGraw−Hill Companies
+
+Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). **Multivariate Data Analysis.** Pearson.
+
+Hyndman, R.J., & Athanasopoulos, G. (2021) **Forecasting: principles and practice,** 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. Accessed on oct 2023.
+
+## R packages {style="font-size:14pt;"}
+
+```{r}
+
+citation(package = "tidyverse")
+
+```
+
+------------------------------------------------------------------------
+
+```{r}
+
+# Total timing to compile this Quarto document
+
+Sys.time() - start_time
+
+```
+
+
