@@ -1,7 +1,7 @@
 ---
 title: "Data Extraction for preselected commodities portfolio"
 author: "Rodrigo Hermont Ozon, Érick Oliveira Rodrigues"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "2024-10-07"
 format:
   html:
     self-contained: true
@@ -11,52 +11,18 @@ format:
 editor: visual
 ---
 
-```{r}
 
-start_time <- Sys.time()
+```{python}
+#| echo: false
 
-```
+import time
+from datetime import datetime
 
-```{css toc-content, echo = FALSE}
-
-#TOC {
-  left: 220px;
-  margin: 50px 30px 55px 30px;
-}
-
-.main-container {
-    margin-left: 300px;
-}
+start_time = datetime.now()
 
 ```
 
-```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	comment = NA
-)
-knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
-knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
-knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
-
-```
-
-------------------------------------------------------------------------
-
-<style>
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: italic;
-}
-
-</style>
 
 ::: {.callout-note icon="false"}
 ## Abstract
@@ -70,21 +36,23 @@ like price returns and their conditional variance...
 
 ------------------------------------------------------------------------
 
-<left> ![](https://upload.wikimedia.org/wikipedia/commons/f/f0/Pucpr-logo.jpg){width="10%"} </left>
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
 
 ------------------------------------------------------------------------
 
-# Intro {style="font-size:14pt;"}
+# Intro 
 
 \[... to be written ...\]
 
 
 ***
 
+
 # Python codes
 
+
 ::: panel-tabset
-## Python libs {style="font-size:14pt;"}
+## Python libs 
 
 ```{python}
 
@@ -95,13 +63,26 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 from arch import arch_model
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
+from plotnine import ggplot, aes, geom_line, facet_wrap, labs, theme, element_text, theme_minimal
 
 ```
 
 
-## Portfolio set {style="font-size:14pt;"}
+## Loading time series
 
-Loading time series data, for portfolio setting...
+
+The portfolio contains the following commodities price returns:
+
+-   Corn Futures
+-   Wheat Futures
+-   KC HRW Wheat Futures
+-   Rough Rice Futures
+-   Feeder Cattle Futures
+-   SoyMeal Futures
+-   Soy Meal Futures
+-   SoyBeans Futures
 
 
 ```{python}
@@ -118,12 +99,6 @@ TICKERS = [
     "ZL=F"   # SoyBeans Futures
 ]
 
-```
-
-
-Obtain daily prices and their returns:
-
-```{python}
 
 # Downloading data from Yahoo Finance
 portfolio_prices = yf.download(TICKERS, start="2019-01-01")['Adj Close']
@@ -143,22 +118,39 @@ portfolio_prices.columns = [
 
 ```
 
+Showing the prices time series side by side: (data in level)
 
-Plotting the time series prices (in level):
+```{python}
 
-```{python fig.width=9, fig.height=11}
+from plotnine import ggplot, aes, geom_line, facet_wrap, labs, theme, element_text, theme_minimal, theme_void
 
-# Plot time series of portfolio prices one by one
-for column in portfolio_prices.columns:
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x=portfolio_prices.index, y=portfolio_prices[column])
-    plt.title(f'Time Series of {column} Prices')
-    plt.xlabel('Date')
-    plt.ylabel('Price')
-    plt.grid(True)
-    plt.show()
+# Preparar os dados no formato long (necessário para plotnine/ggplot2)
+portfolio_prices_long = portfolio_prices.reset_index().melt(id_vars='Date', var_name='Commodity', value_name='Price')
+
+def plot_with_ggplot(data, title, ylabel, background='white', fig_height=10, fig_width=10):
+    # Cria o gráfico usando plotnine (ggplot)
+    p = (ggplot(data, aes(x='Date', y='Price', color='Commodity')) +
+         geom_line() +
+         facet_wrap('~Commodity', ncol=1, scales='free_y') +  # Um gráfico em cima do outro
+         labs(title=title, x='Date', y=ylabel) +
+         theme_minimal() +  # Define o tema minimalista com fundo branco
+         theme(
+             figure_size=(fig_width, fig_height),  # Ajuste da altura e largura da figura
+             panel_background=element_text(fill=background),
+             plot_background=element_text(fill=background),
+             axis_text_x=element_text(rotation=45, hjust=1),
+             subplots_adjust={'wspace': 0.25, 'hspace': 0.5}  # Ajuste do espaçamento entre os gráficos
+         ))
+    return p
+
+p_prices = plot_with_ggplot(portfolio_prices_long, 'Commodity Prices Over Time', 'Price', background='white', fig_height=14, fig_width=8)
+
+p_prices
 
 ```
+
+
+## Prices log-returns
 
 
 Obtain the returns time series (first feature):
@@ -167,6 +159,8 @@ Obtain the returns time series (first feature):
 $$
 \mbox{Price log returns}_t = ln(p_t) - ln(p_{t-1})
 $$
+
+
 
 ```{python}
 
@@ -188,17 +182,36 @@ And plot it:
 
 ```{python}
 
-# Plot time series of log returns one by one
-for column in portfolio_log_returns.columns:
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x=portfolio_log_returns.index, y=portfolio_log_returns[column])
-    plt.title(f'Time Series of {column} Log Returns')
-    plt.xlabel('Date')
-    plt.ylabel('Log Returns')
-    plt.grid(True)
-    plt.show()
-    
+# Preparar os dados no formato long para os log-retornos
+portfolio_log_returns_long = portfolio_log_returns.reset_index().melt(id_vars='Date', var_name='Commodity', value_name='Log Return')
+
+def plot_log_returns_with_ggplot(data, title, ylabel, background='white', fig_height=10, fig_width=10):
+    # Cria o gráfico usando plotnine (ggplot)
+    p = (ggplot(data, aes(x='Date', y='Log Return', color='Commodity')) +
+         geom_line() +
+         facet_wrap('~Commodity', ncol=1, scales='free_y') +  # Um gráfico em cima do outro
+         labs(title=title, x='Date', y=ylabel) +
+         theme_minimal() +  # Define o tema minimalista com fundo branco
+         theme(
+             figure_size=(fig_width, fig_height),  # Ajuste da altura e largura da figura
+             panel_background=element_text(fill=background),
+             plot_background=element_text(fill=background),
+             axis_text_x=element_text(rotation=45, hjust=1),
+             subplots_adjust={'wspace': 0.25, 'hspace': 0.5}  # Ajuste do espaçamento entre os gráficos
+         ))
+    return p
+
+p_log_returns = plot_log_returns_with_ggplot(portfolio_log_returns_long, 'Log Returns of Commodities Over Time', 'Log Return', background='white', fig_height=12, fig_width=8)
+
+# Exibir o gráfico
+p_log_returns
+
 ```
+
+
+## Log-returns conditional variances
+
+As risk measure, we use the conditional variances (volatilities), to deal better with day by day of the prices log-returns.
 
 
 The GARCH(1,1) model with an asymmetric Student-t distribution is not directly available in most Python libraries. However, we can still use a GARCH(1,1) model with a standard Student-t distribution to estimate the conditional variance. The GARCH(1,1) model is represented as follows:
@@ -217,34 +230,65 @@ $$
 
 Where:
 
-- $r_t$ is the return at time $t$.
+- $r_t$ is the log-return at time $t$.
 - $\mu$ is the mean of the returns.
 - $\epsilon_t$ is the error term, modeled as conditional on past information.
 - $\sigma_t^2$ is the conditional variance at time $t$.
 - $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
 - $z_t$ follows a Student-t distribution with $\nu$ degrees of freedom to capture the heavy tails observed in financial returns.
 
+
 ```{python}
+#| warning: false
 
-# Estimate GARCH(1,1) model for each asset and extract conditional variances
-conditional_variances = pd.DataFrame(index=portfolio_log_returns.index)
+# Initialize an empty DataFrame to store conditional variances
+cond_variances = pd.DataFrame(index=portfolio_log_returns.index, columns=portfolio_log_returns.columns)
 
-for column in portfolio_log_returns.columns:
-    model = arch_model(portfolio_log_returns[column], vol='Garch', p=1, q=1, dist='t')
-    model_fitted = model.fit(disp='off')
-    conditional_variances[column] = model_fitted.conditional_volatility ** 2
+# Loop through each commodity's log-returns and fit a GARCH(1,1) model
+for col in portfolio_log_returns.columns:
+    # Fit a GARCH(1,1) model with a Student-t distribution for each series of log returns
+    model = arch_model(portfolio_log_returns[col], vol='Garch', p=1, q=1, dist='t')
+    res = model.fit(disp='off')
+    
+    # Extract conditional variances and store them in the DataFrame
+    cond_variances[col] = res.conditional_volatility
 
-# Plot time series of conditional variances one by one
-for column in conditional_variances.columns:
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x=conditional_variances.index, y=conditional_variances[column])
-    plt.title(f'Conditional Variance of {column} (GARCH(1,1) Estimated)')
-    plt.xlabel('Date')
-    plt.ylabel('Conditional Variance')
-    plt.grid(True)
-    plt.show()
+# Show the first few rows of the conditional variances DataFrame
+cond_variances.head()
 
 ```
+
+and visualizing them:
+
+```{python}
+
+# Preparar os dados no formato long para as variâncias condicionais
+cond_variances_long = cond_variances.reset_index().melt(id_vars='Date', var_name='Commodity', value_name='Conditional Variance')
+
+# Função para criar o gráfico com fundo branco ou transparente e ajustar o tamanho da figura
+def plot_cond_variances_with_ggplot(data, title, ylabel, background='white', fig_height=10, fig_width=10):
+    # Cria o gráfico usando plotnine (ggplot)
+    p = (ggplot(data, aes(x='Date', y='Conditional Variance', color='Commodity')) +
+         geom_line() +
+         facet_wrap('~Commodity', ncol=1, scales='free_y') +  # Um gráfico em cima do outro
+         labs(title=title, x='Date', y=ylabel) +
+         theme_minimal() +  # Define o tema minimalista com fundo branco
+         theme(
+             figure_size=(fig_width, fig_height),  # Ajuste da altura e largura da figura
+             panel_background=element_text(fill=background),
+             plot_background=element_text(fill=background),
+             axis_text_x=element_text(rotation=45, hjust=1),
+             subplots_adjust={'wspace': 0.25, 'hspace': 0.5}  # Ajuste do espaçamento entre os gráficos
+         ))
+    return p
+
+# Exemplo de uso para as variâncias condicionais das commodities
+p_cond_variances = plot_cond_variances_with_ggplot(cond_variances_long, 'Conditional Variances Over Time (GARCH(1,1))', 'Conditional Variance', background='white', fig_height=12, fig_width=8)
+
+p_cond_variances
+
+```
+
 
 
 
@@ -252,9 +296,25 @@ for column in conditional_variances.columns:
 
 
 
+
 ***
 
 # R codes
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
 
 ::: panel-tabset
 ## R packages {style="font-size:14pt;"}
@@ -570,13 +630,18 @@ conditional_variances_long |>
 
 :::
 
+
+
+
+
+
  
 
  
 
 ------------------------------------------------------------------------
 
-# References {style="font-size:14pt;"}
+# References 
 
 Gujarati, D., N. (2004) **Basic Econometrics**, fourth edition, The McGraw−Hill Companies
 
@@ -584,22 +649,69 @@ Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). **Multivariat
 
 Hyndman, R.J., & Athanasopoulos, G. (2021) **Forecasting: principles and practice,** 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. Accessed on oct 2023.
 
-## R packages {style="font-size:14pt;"}
 
-```{r}
 
-citation(package = "tidyverse")
 
-```
 
-------------------------------------------------------------------------
 
-```{r}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&nbsp;
+
+
+&nbsp;
+
+***
+
+```{python}
 
 # Total timing to compile this Quarto document
 
-Sys.time() - start_time
+end_time = datetime.now()
+time_diff = end_time - start_time
+
+print(f"Total Quarto document compiling time: {time_diff}")
 
 ```
+
 
 
