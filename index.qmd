@@ -19,26 +19,24 @@ editor: visual
 
 This project is carried out as part of a research initiation (PIBIC and PIBITI Jr.) at PUCPR, focusing on advanced forecasting and optimization techniques applied to agriculture.
 
-
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Rodrigo
 
-<right> ![](https://rhozon.github.io/site/me.jpg){width="5%"} </right>   
+<right> ![](https://rhozon.github.io/site/me.jpg){width="5%"} </right>
 
-***
+------------------------------------------------------------------------
 
 **Advisor/Researcher**
 
-- Economist and Msc. in Economic Development (UFPR, 2008 & 2010), PhD Candidate at PPGEPS/PUCPR (2022-2026)
+-   Economist and Msc. in Economic Development (UFPR, 2008 & 2010), PhD Candidate at PPGEPS/PUCPR (2022-2026)
 
-
-{{< fa thumbs >}} 
-
-```{=html}
-
+{{< fa thumbs >}}
 
 <!-- Pra instalar os icones no quarto vide https://github.com/quarto-ext/fontawesome -->
+
+<!-- Pra buscar icones vide https://fontawesome.com/search -->
+
+```{=html}
 
 <div style="margin-top: 10px; text-align: left;">
 
@@ -79,22 +77,20 @@ This project is carried out as part of a research initiation (PIBIC and PIBITI J
     </a>
 
 </div>
-
-
-
+  
 ```
 
 
 
-***
-
+------------------------------------------------------------------------
 
 ## Ricardo
+
+
+
 
 ## Gabrielly
 
 
+
 :::
-
-
-

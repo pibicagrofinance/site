@@ -15,4 +15,1650 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-Rev Sys Lit goes here...
+
+```{r}
+
+start_time <- Sys.time()
+
+```
+
+```{css toc-content, echo = FALSE}
+
+#TOC {
+  left: 220px;
+  margin: 50px 30px 55px 30px;
+}
+
+.main-container {
+    margin-left: 300px;
+}
+
+```
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+------------------------------------------------------------------------
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+</style>
+
+::: {.alert .alert-info}
+<strong> Systematic Literature Review </strong>
+:::
+
+------------------------------------------------------------------------
+
+<left> ![](https://432f5d.mannesoftprime.com.br/processo_seletivo/imagens/logo_puc.png){width="20%"} </left>
+
+------------------------------------------------------------------------
+
+<center>
+
+<p >
+
+<p style="font-family: times, serif; font-size:11pt; font-style:italic"; class="comment">
+
+
+Keywords used: 
+
+- "Sentiment Analysis AND Commodity Prices",
+
+- "Volatility Models AND Agricultural Markets";
+
+- "Structural Breaks AND Agricultural Prices"
+
+- "Multiobjective Portfolio Optimization AND Commodities"
+
+
+</p>
+
+<p >
+
+<p style="font-family: times, serif; font-size:11pt; font-style:italic"; class="comment">
+
+This exploratory literature review applies text mining techniques to investigate the intersection of sentiment analysis, volatility models, structural breaks, and multiobjective portfolio optimization within agricultural markets. The study focuses on identifying key research trends and gaps through keyword-based searches such as "Sentiment Analysis AND Commodity Prices," "Volatility Models AND Agricultural Markets," "Structural Breaks AND Agricultural Prices," and "Multiobjective Portfolio Optimization AND Commodities." By analyzing recent publications, this review aims to highlight the impact of sentiment metrics on commodity price volatility and structural disruptions, and how these factors influence portfolio optimization strategies in the agricultural sector. The results will provide insights into the evolving relationship between market sentiment, price dynamics, and risk management.
+
+</center>
+</p>
+
+------------------------------------------------------------------------
+
+# Systematic Literature Review Criteria
+
+-   <mark>***Keywords searched***</mark> $\Rightarrow$ `"Sentiment Analysis AND Commodity Prices"`, `"Volatility Models AND Agricultural Markets"`, `"Structural Breaks AND Agricultural Prices"`, `"Multiobjective Portfolio Optimization AND Commodities"`
+
+-   <mark>***Max results searched***<mark> $\Rightarrow$ 1000 (to be reduced, obviously)
+
+-   <mark>***published.print***<mark> $\Rightarrow$ \>= year 2020
+
+-   <mark>***is.referenced.by.count***<mark> $\Rightarrow$ is.referenced.by.count ordered by most for the minimum
+
+-   <mark>***score***</mark> $\Rightarrow$ In descendant order
+
+# R packages
+
+```{r}
+
+library(dplyr)
+library(rcrossref)
+library(fpp3)
+library(tidyr)
+library(purrr)
+library(scholar)
+library(ggplot2)
+library(plotly)
+library(tidyverse)
+
+```
+
+## Keyword: "Sentiment Analysis AND Commodity Prices
+
+```{r}
+
+# Realizar a busca por artigos contendo a palavra-chave "Sentiment Analysis AND Commodity Prices"
+results <- cr_works(query = "Sentiment Analysis AND Commodity Prices", limit = 1000)$data # Max is 1000 searches
+
+
+cat("Show all features avaiable in selected keywords... \n")
+
+# Exibir os resultados da busca
+glimpse(results)
+
+
+```
+
+Now showing only selected columns for the table (dataframe) necessary:
+
+```{r eval=FALSE }
+
+results <- results |> 
+  mutate(author_expand = map(author, ~as.character(.x))) |> 
+  unnest(author_expand) |>
+  mutate(author_expand = gsub("c\\(\"|\"\\)", "", author_expand))
+         
+results <- results |> 
+  mutate(link_expand = map(link, ~as.character(.x))) |> 
+  unnest(link_expand)
+
+```
+
+```{r}
+
+results <- results |> 
+  select(
+    title,
+    author,
+    type,
+    url,
+    container.title,
+    short.container.title,
+    publisher,
+    doi,
+    published.print,
+    score,
+    reference.count,
+    is.referenced.by.count,
+    link,
+    reference,
+    abstract,
+    issn
+) |>
+  mutate(
+    score = as.numeric(score),
+    published.print = coalesce(published.print, "1900-01"), # substitui NAs por "1900-01"
+    published.print = yearmonth( published.print )
+  ) |>
+  filter(
+    year(published.print) >= 2020
+  ) |> 
+  distinct()
+
+```
+
+Showing the results in a table:
+
+```{r}
+
+First_Keyword <- results |> 
+  arrange( desc(score), desc(is.referenced.by.count) ) |> 
+  distinct() |> 
+  filter(title != "Front Matter", 
+         title != "Cover",
+         title != "Books Received")
+
+First_Keyword
+
+```
+
+## Keyword: "Volatility Models AND Agricultural Markets"
+
+```{r}
+
+# Realizar a busca por artigos contendo a palavra-chave "Volatility Models AND Agricultural Markets"
+results <- cr_works(query = "Volatility Models AND Agricultural Markets", limit = 1000)$data # Max is 1000 searches
+
+```
+
+Now showing only selected columns for the table (dataframe) necessary:
+
+```{r eval=FALSE }
+
+results <- results |> 
+  mutate(author_expand = map(author, ~as.character(.x))) |> 
+  unnest(author_expand) |>
+  mutate(author_expand = gsub("c\\(\"|\"\\)", "", author_expand))
+         
+results <- results |> 
+  mutate(link_expand = map(link, ~as.character(.x))) |> 
+  unnest(link_expand)
+
+```
+
+```{r}
+
+results <- results |> 
+  select(
+    title,
+    author,
+    type,
+    url,
+    container.title,
+    short.container.title,
+    publisher,
+    doi,
+    published.print,
+    score,
+    reference.count,
+    is.referenced.by.count,
+    link,
+    reference,
+    abstract,
+    issn
+) |>
+  mutate(
+    score = as.numeric(score),
+    published.print = coalesce(published.print, "1900-01"), # substitui NAs por "1900-01"
+    published.print = yearmonth( published.print )
+  ) |>
+  filter(
+    year(published.print) >= 2020
+  ) |> 
+  distinct()
+
+```
+
+Showing the results in a table:
+
+```{r}
+
+Second_Keyword <- results |> arrange( desc(score), desc(is.referenced.by.count) ) |> distinct()
+
+Second_Keyword
+
+```
+
+## Keyword: "Structural Breaks AND Agricultural Prices"
+
+```{r}
+
+# Realizar a busca por artigos contendo a palavra-chave "Structural Breaks AND Agricultural Prices"
+results <- cr_works(query = "Structural Breaks AND Agricultural Prices", limit = 1000)$data # Max is 1000 searches
+
+```
+
+Now showing only selected columns for the table (dataframe) necessary:
+
+```{r eval=FALSE }
+
+results <- results |> 
+  mutate(author_expand = map(author, ~as.character(.x))) |> 
+  unnest(author_expand) |>
+  mutate(author_expand = gsub("c\\(\"|\"\\)", "", author_expand))
+         
+results <- results |> 
+  mutate(link_expand = map(link, ~as.character(.x))) |> 
+  unnest(link_expand)
+
+```
+
+```{r}
+
+results <- results |> 
+  select(
+    title,
+    author,
+    type,
+    url,
+    container.title,
+    short.container.title,
+    publisher,
+    doi,
+    published.print,
+    score,
+    reference.count,
+    is.referenced.by.count,
+    link,
+    reference,
+    abstract,
+    issn
+) |>
+  mutate(
+    score = as.numeric(score),
+    published.print = coalesce(published.print, "1900-01"), # substitui NAs por "1900-01"
+    published.print = yearmonth( published.print )
+  ) |>
+  filter(
+    year(published.print) >= 2020
+  ) |> 
+  distinct()
+
+```
+
+Showing the results in a table:
+
+```{r}
+
+Third_Keyword <- results |> 
+  arrange( desc(score), desc(is.referenced.by.count) ) |> distinct()
+
+Third_Keyword
+
+```
+
+## Final dataframe
+
+```{r}
+
+
+Final_df <- bind_rows(
+  First_Keyword,
+  Second_Keyword,
+  Third_Keyword
+) |> 
+  arrange( desc(title), desc(score) ) |> 
+  distinct()
+
+
+glimpse(Final_df)
+
+```
+
+```{r}
+
+Final_df_unique <- Final_df |>
+  distinct(title, doi, .keep_all = TRUE)
+
+glimpse(Final_df_unique)
+
+Final_df_unique
+
+```
+
+By expanding the author names columns:
+
+```{r}
+
+# Unnest the author column
+Final_df_unique_expanded <- Final_df_unique |>
+  unnest(author) |>
+  select(title, given, family)
+
+# Rename the author name columns
+Final_df_unique_expanded <- Final_df_unique_expanded |>
+  rename(Author_First_Name = given, Author_Last_Name = family)
+
+# Print the expanded data frame
+print(Final_df_unique_expanded)
+
+```
+
+Now inserting the authors name in a new df
+
+```{r}
+ 
+authors_df <- Final_df_unique_expanded |>
+  group_by(title) |>
+  summarise(Author_Names = paste(Author_First_Name, Author_Last_Name, collapse = "; ")) |>
+  ungroup()
+
+print(authors_df)
+
+```
+
+Author(s)
+
+```{r }
+
+df_author <- Final_df_unique |>
+  select(title,
+         author) |>
+  unnest(cols = author)
+
+glimpse(df_author)
+
+print(df_author)
+
+```
+
+Links
+
+```{r eval=FALSE }
+
+df_link <- Final_df |>
+  select(
+    title,
+    link
+  ) |>
+  unnest(
+    cols = link
+  )
+
+glimpse(df_link)
+
+```
+
+References
+
+```{r eval=FALSE }
+
+df_references <- Final_df |>
+  select(
+    title,
+    reference
+  ) |>
+  unnest(
+    cols = reference
+  )
+
+glimpse(df_references)
+
+```
+
+
+***
+
+# Text Mining
+
+```{r}
+
+library(tm)        # Para manipulação e limpeza de texto
+library(SnowballC) # Para stemming (reduzir palavras à sua raiz)
+library(wordcloud) # Para gerar nuvens de palavras
+library(RColorBrewer) # Paletas de cores para nuvem de palavras
+library(tidytext)  # Para tokenização e manipulação com dplyr
+library(topicmodels) # Para análise de tópicos
+
+```
+
+
+## N-grams
+
+Instead of analyzing individual words, N-gram analysis examines sequences of two or more words that frequently appear together (bi-grams, tri-grams).
+
+Objective: To identify more relevant phrases or compound terms in the literature, which may not be captured in the analysis of individual words.
+
+Application: To discover compound terms like "volatility spillover," "agricultural prices," or "portfolio optimization" that frequently appear.
+
+
+```{r}
+
+# Filtrar apenas artigos com abstracts disponíveis
+Final_df_filtered <- Final_df_unique |>
+  filter(!is.na(abstract))  # Remove os artigos com abstracts 'NA'
+
+# Verificar o resultado
+glimpse(Final_df_filtered)
+
+```
+
+Then we build corpus with only avaiable abstracts
+
+```{r}
+
+# Criar o corpus de texto a partir da coluna de resumos (abstracts) filtrados
+corpus <- Corpus(VectorSource(Final_df_filtered$abstract))
+
+# Visualizar parte do corpus
+inspect(corpus[1:3])
+
+```
+
+clean corpus and apply the N-grams processing
+
+
+```{r}
+
+# Função para limpar o texto e remover termos indesejados
+clean_text <- function(corpus){
+  # Remover tags HTML
+  corpus <- tm_map(corpus, content_transformer(function(x) gsub("<.*?>", "", x))) # Remove tags HTML
+  corpus <- tm_map(corpus, content_transformer(tolower)) # Converter para minúsculas
+  corpus <- tm_map(corpus, removePunctuation) # Remover pontuação
+  corpus <- tm_map(corpus, removeNumbers) # Remover números
+  corpus <- tm_map(corpus, removeWords, stopwords("english")) # Remover stopwords em inglês
+  corpus <- tm_map(corpus, stripWhitespace) # Remover espaços extras
+  
+  # Lista de termos indesejados a remover
+  termos_indesejados <- c("jats", "title", "sec", "abstract", "type", "content", "of the", "in the", "and the")
+  
+  # Remover termos indesejados
+  corpus <- tm_map(corpus, removeWords, termos_indesejados)
+  
+  return(corpus)
+}
+# Limpar o corpus
+corpus_clean <- clean_text(corpus)
+
+# Criar um dataframe de texto limpo
+clean_text_df <- data.frame(text = sapply(corpus_clean, as.character), stringsAsFactors = FALSE)
+
+# Criar um tokenizador de bigramas com o corpus limpo
+bigram_data_clean <- data.frame(text = sapply(corpus_clean, as.character), stringsAsFactors = FALSE) |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+# Contar a frequência dos bigramas
+bigram_filtered_clean <- bigram_data_clean |>
+  count(bigram, sort = TRUE)
+
+# Filtrar os bigramas que não estão vazios ou não são códigos
+bigram_filtered_clean <- bigram_filtered_clean |>
+  filter(!str_detect(bigram, "NA|jats|title|sec|abstract|type|content"))
+
+# Visualizar os bigramas mais frequentes
+head(bigram_filtered_clean, 10)
+
+```
+
+
+Now we can plot bars with the most frequent bigrams:
+
+
+```{r}
+
+# Filtrar os 10 bigramas mais frequentes
+top_bigrams_clean <- bigram_filtered_clean |> top_n(10, n)
+
+# Gerar o gráfico de barras
+ggplot(top_bigrams_clean, aes(x = reorder(bigram, n), y = n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 10 Bigramas Mais Frequentes", x = "Bigramas", y = "Frequência")
+
+```
+
+
+We can expand for three grams:
+
+```{r}
+
+# Tokenização em trigramas
+trigram_data_clean <- clean_text_df |>
+  unnest_tokens(trigram, text, token = "ngrams", n = 3)
+
+# Contar a frequência dos trigramas
+trigram_filtered_clean <- trigram_data_clean |>
+  count(trigram, sort = TRUE)
+
+# Filtrar os trigramas indesejados
+trigram_filtered_clean <- trigram_filtered_clean |>
+  filter(!str_detect(trigram, "NA|jats|title|sec|abstract|type|content"))
+
+# Visualizar os trigramas mais frequentes
+head(trigram_filtered_clean, 10)
+
+```
+
+
+```{r}
+
+# Filtrar os 10 trigramas mais frequentes
+top_trigrams_clean <- trigram_filtered_clean |> top_n(10, n)
+
+# Gerar o gráfico de barras
+ggplot(top_trigrams_clean, aes(x = reorder(trigram, n), y = n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 10 Trigramas Mais Frequentes", x = "Trigramas", y = "Frequência")
+
+```
+
+And quadrigrams:
+
+```{r}
+
+# Tokenização em quadrigramas
+quadrigram_data_clean <- clean_text_df |>
+  unnest_tokens(quadrigram, text, token = "ngrams", n = 4)
+
+# Contar a frequência dos quadrigramas
+quadrigram_filtered_clean <- quadrigram_data_clean |>
+  count(quadrigram, sort = TRUE)
+
+# Filtrar os quadrigram indesejados
+quadrigram_filtered_clean <- quadrigram_filtered_clean |>
+  filter(!str_detect(quadrigram, "NA|jats|title|sec|abstract|type|content"))
+
+# Visualizar os quadrigram mais frequentes
+head(quadrigram_filtered_clean, 10)
+
+```
+
+
+```{r}
+
+# Filtrar os 10 quadrigramas mais frequentes
+top_quadrigrams_clean <- quadrigram_filtered_clean |> top_n(10, n)
+
+# Gerar o gráfico de barras
+ggplot(top_quadrigrams_clean, aes(x = reorder(quadrigram, n), y = n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 10 Quadrigramas Mais Frequentes", x = "Quadrigramas", y = "Frequência")
+
+```
+
+And finnaly the darkest pentagram:
+
+```{r}
+
+# Tokenização em pentagram
+pentagram_data_clean <- clean_text_df |>
+  unnest_tokens(pentagram, text, token = "ngrams", n = 5)
+
+# Contar a frequência dos pentagram
+pentagram_filtered_clean <- pentagram_data_clean |>
+  count(pentagram, sort = TRUE)
+
+# Filtrar os pentagram indesejados
+pentagram_filtered_clean <- pentagram_filtered_clean |>
+  filter(!str_detect(pentagram, "NA|jats|title|sec|abstract|type|content"))
+
+# Visualizar os quadrigram mais frequentes
+head(pentagram_filtered_clean, 10)
+
+```
+
+
+```{r}
+
+# Filtrar os 10 pentagrams mais frequentes
+top_pentagrams_clean <- pentagram_filtered_clean |> top_n(10, n)
+
+# Gerar o gráfico de barras
+ggplot(top_pentagrams_clean, aes(x = reorder(pentagram, n), y = n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 10 Pentagramas Mais Frequentes", x = "Pentagramas", y = "Frequência")
+
+```
+
+
+## Word Co-Occurrence Analysis
+
+**What it is**: Examine which words tend to appear together in a text.
+
+**Objective**: Explore the relationships between different terms and how they are connected within a broader context.
+
+**Application**: Identify patterns in the associations between important terms such as "volatility" and "crisis" or "agricultural prices" and "portfolio optimization."
+
+
+```{r}
+
+# Carregar pacotes necessários
+library(tidyverse)
+library(tidytext)
+library(igraph)
+library(ggraph)
+library(tm)
+
+# Passo 1: Limpeza do Corpus (assumindo que o corpus já foi criado e limpo anteriormente)
+# Criar o dataframe com os textos limpos (usando o corpus_clean criado anteriormente)
+text_df <- data.frame(text = sapply(corpus_clean, as.character), stringsAsFactors = FALSE)
+
+# Passo 2: Tokenização para Bigramas (palavras em pares)
+bigrams <- text_df %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+# Passo 3: Separar os bigramas em duas colunas para fazer a análise de co-ocorrência
+bigram_separated <- bigrams %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+# Passo 4: Contar as co-ocorrências de palavras
+bigram_count <- bigram_separated %>%
+  count(word1, word2, sort = TRUE)
+
+# Passo 5: Filtrar co-ocorrências que aparecem mais de uma vez (ou outro limite que faça sentido)
+bigram_filtered <- bigram_count %>%
+  filter(n > 1)
+
+# Passo 6: Criar o grafo de co-ocorrência usando o pacote igraph
+word_network <- bigram_filtered %>%
+  graph_from_data_frame()
+
+# Passo 7: Plotar a rede de co-ocorrência usando o pacote ggraph
+set.seed(1234)  # Para reprodutibilidade
+plotly::ggplotly(ggraph(word_network, layout = "fr") +  # Layout da rede (fr = force-directed)
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE) +  # Conexões entre palavras
+  geom_node_point(color = "lightblue", size = 5) +  # Nós das palavras
+  geom_node_text(aes(label = name), vjust = 1.5, hjust = 1.5) +  # Textos das palavras
+  theme_void() +  # Remover fundo e eixos
+  labs(title = "Word Co-occurrence Network", subtitle = "Bigram Co-occurrences")
+)
+
+```
+
+
+## TDM and LDA
+
+
+**What it is**: Extract underlying topics from texts by grouping related keywords.
+
+**Objective**: Automatically discover the main themes discussed in a large collection of articles.
+Application: Help identify different research areas within a broader field, for example, whether articles on "sentiment analysis" focus more on price volatility, market predictions, or risk analysis.
+
+To continue with our Exploratory Lit Rev, we first need to build the corpus:
+
+
+```{r}
+
+# Criar um corpus de texto a partir da coluna de resumos (abstracts)
+corpus <- Corpus(VectorSource(Final_df_unique$abstract))
+
+# Visualizar parte do corpus
+inspect(corpus[1:3])
+
+```
+
+Then we proceed for the next step, cleaning the text:
+
+
+Now we can build the terms matrix (Term-Document Matrix - TDM), were each row represents an term and each column represents an document.
+
+
+```{r}
+
+# Criar a matriz de termos
+tdm <- TermDocumentMatrix(corpus_clean)
+
+# Converter para um dataframe
+tdm_matrix <- as.matrix(tdm)
+
+# Ver os termos mais frequentes
+term_freq <- rowSums(tdm_matrix)
+term_freq_sorted <- sort(term_freq, decreasing = TRUE)
+
+# Visualizar as palavras mais frequentes
+head(term_freq_sorted, 10)
+
+```
+
+Convert the matrix for an LDA format:
+
+```{r}
+
+# Criar a matriz de termos a partir do corpus limpo
+tdm <- TermDocumentMatrix(corpus_clean)
+
+# Converter a matriz de termos para um formato compatível com o LDA
+tdm_sparse <- as.matrix(tdm)
+
+# Verifique se a ordem dos termos é correta
+terms <- Terms(tdm)  # Extraia os termos da TDM
+
+```
+
+One wordcloud is an good view to see the most frequent terms:
+
+```{r}
+
+# Criar uma nuvem de palavras
+wordcloud(words = names(term_freq_sorted), freq = term_freq_sorted, min.freq = 5,
+          max.words=100, random.order=FALSE, colors=brewer.pal(8, "Dark2"))
+
+```
+
+
+If we needs an more quant analisys, we can generate an bar graph with the most frequent words:
+
+```{r}
+
+# Converter para dataframe
+df_term_freq <- data.frame(term = names(term_freq_sorted), freq = term_freq_sorted)
+
+# Filtrar as 10 palavras mais frequentes
+top_terms <- df_term_freq |> top_n(10, freq)
+
+# Criar gráfico de barras
+ggplot(top_terms, aes(x = reorder(term, freq), y = freq)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 10 Frequent Terms", x = "Terms", y = "Frequency")
+
+```
+
+
+To indentify the principal topics inside the papers, we can use Latent Dirichlet Allocation (LDA).
+
+```{r}
+
+# Definir o número de tópicos
+num_topics <- 3
+
+# Rodar o modelo LDA
+lda_model <- LDA(tdm_sparse, k = num_topics, control = list(seed = 1234))
+
+# Extrair os tópicos e garantir que os termos sejam corretamente mapeados
+topics <- tidy(lda_model, matrix = "beta")
+
+# Conecte os IDs de termos reais
+topics <- topics |>
+  mutate(term = terms[as.numeric(term)])  # Substituir os índices pelos termos reais
+
+topics
+
+```
+
+Seeing the most representatives terms by topic:
+
+```{r}
+
+# Mostrar as palavras mais importantes para cada tópico
+top_terms_per_topic <- topics |>
+  group_by(topic) |>
+  top_n(10, beta) |>
+  ungroup() |>
+  arrange(topic, -beta)
+
+# Visualização corrigida com os termos reais
+library(ggplot2)
+library(forcats)
+
+top_terms_per_topic |>
+  mutate(term = fct_reorder(term, beta)) |>
+  ggplot(aes(term, beta, fill = as.factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip() +
+  labs(title = "Top terms in each topic", x = "Terms", y = "Beta (Importance)")
+
+```
+
+The graph generated is a topic modeling visualization based on an LDA (Latent Dirichlet Allocation) model. Each bar shows the most important words in each identified topic, derived from the text data provided. Let's break down each part:
+
+**Interpreting the Axes:**
+
+- **X-axis ("Beta Importance")**: The "beta" value indicates the probability that the word is relevant to the specific topic. The higher the beta value, the more important the word is in describing that topic.
+
+- **Y-axis (Terms)**: Shows the terms (words) that are most representative within each topic.
+
+**Interpretation by Topic:**
+
+**Topic 1 (red bar)**
+
+- The most relevant terms include: "novel", "exposes", "way", "contracts", "volatility", "surge", "specifics", "birrs", "calendar", "consumer."
+
+- These terms suggest a set of documents focused on **new contracts** or **methods** related to volatility and consumption. The term "volatility" indicates that this topic likely discusses market fluctuations or innovations in managing contracts and consumption.
+
+**Topic 2 (green bar)**
+
+- Most relevant terms: "contracts", "propose", "studies", "etfs", "correspond", "lag", "measure", "new", "consumption", "based."
+
+- This topic seems to be related to **studies** proposing the use of **ETFs (Exchange-Traded Funds)** and financial contracts, with a focus on **consumption measures** and market response **lags**. It could be discussing proposals for new studies on contracts and ETFs related to different consumption patterns.
+
+**Topic 3 (blue bar)**
+
+- Most relevant terms: "consumed", "propose", "trading", "impact", "component", "consumers", "country", "affordability", "risky", "amplifies."
+
+- This topic is clearly related to **consumption**, **trading**, and **impact** across different regions or countries. The terms "affordability" and "risky" suggest that this topic might be discussing market accessibility and associated risks, perhaps in the context of **trade policies**.
+
+**Conclusion:**
+
+The graph highlights the most relevant words within each of the three topics, which seem to be:
+
+1. **Innovations and contracts** in the context of volatility and consumption.
+
+2. **Proposals and studies on ETFs** and financial contracts, with a focus on consumption and performance measures.
+
+3. **Trade and consumption**, focusing on the impact on countries, market affordability, and potential associated risks.
+
+Each topic provides insight into different areas of study within the context of the analyzed documents. If you're interested in a deeper analysis, you can explore how these topics relate to specific articles and contexts they cover.
+
+## Exploratory Literature Review with Text Mining: Final Considerations
+
+In this section, we applied text mining techniques to explore the main themes and trends in the literature related to sentiment analysis, volatility models, structural breaks, and multiobjective portfolio optimization in agricultural markets. The Latent Dirichlet Allocation (LDA) method was used to extract latent topics from the abstracts of papers, providing insights into the key terms that characterize the body of research.
+
+### Key Insights from Topic Modeling
+
+Three topics were identified through LDA, each represented by a set of significant terms with their respective importance (Beta values):
+
+- **Topic 1** primarily emphasizes **GARCH models**, including terms like "bekk-garch" and "dcc-garch," as well as terms related to **market quality**, **volatility spillovers** ("vov"), and **settlement** effects. This topic highlights a focus on econometric models used to assess volatility and risk in financial markets, with applications to agricultural commodities.
+
+- **Topic 2** features terms such as "return," "option-impli," and "long," indicating that this topic revolves around the **long-term returns** and **option pricing** in agricultural markets. Other terms like "find" and "pcs" suggest explorations of statistical methods used to identify patterns and model market behavior.
+
+- **Topic 3** focuses on **spillovers** and **global market trends**, with terms like "spillov," "precis," "global," and "detect." This topic suggests an emphasis on **crisis detection**, **market interdependence**, and the global nature of agricultural commodities. The presence of "india" and "japan" also suggests the regional analysis of agricultural markets.
+
+### Implications for Future Research
+
+The results of this exploratory text mining analysis indicate that the literature in the field of agricultural market volatility, sentiment analysis, and portfolio optimization is deeply rooted in econometric modeling, risk assessment, and global market interconnections. Moving forward, researchers may want to delve further into the integration of sentiment metrics with econometric models to enhance predictive capabilities, especially in the context of volatility and structural breaks.
+
+By leveraging these insights, future work could focus on developing multiobjective optimization strategies that incorporate both **financial metrics** and **qualitative sentiment data**, offering a more holistic approach to managing risk and improving investment decisions in agricultural markets.
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+# Author´s relevance
+
+## Frank Fabozzi
+
+Scholar link <https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en>
+
+```{r}
+
+## Define the id for Frank Fabozzi
+id <- 'tqXS4IMAAAAJ'
+
+## Get his profile
+l <- get_profile(id)
+
+## Print his name and affliation
+l$name
+
+l$affiliation
+
+```
+
+```{r}
+
+## Print his citation index
+l$h_index
+
+l$i10_index
+
+```
+
+Retrieving publications
+
+```{r}
+
+## Get his publications (a large data frame)
+p <- get_publications(id)
+p
+
+```
+
+Retrieving citation data
+
+```{r fig.width=9}
+
+## Get his citation history, i.e. citations to his work in a given year
+ct <- get_citation_history(id)
+
+## Plot citation trend
+ggplotly(
+ggplot(ct, aes(year, cites)) + geom_line() + geom_point()
+)
+
+```
+
+Users can retrieve the citation history of a particular publication with `get_article_cite_history()`.
+
+```{r}
+
+## The following publication will be used to demonstrate article citation history
+as.character(p$title[6])
+
+```
+
+```{r}
+
+## Get article citation history
+ach <- get_article_cite_history(id, p$pubid[6])
+
+## Plot citation trend
+plotly::ggplotly(
+ggplot(ach, aes(year, cites)) +
+    geom_segment(aes(xend = year, yend = 0), size=1, color='darkgrey') +
+    geom_point(size=3, color='firebrick')
+)
+
+```
+
+Comparing scholars
+
+You can compare the citation history of scholars by fetching data with compare_scholars.
+
+```{r}
+
+# Compare Fabozzi and David Ardia
+ids <- c('tqXS4IMAAAAJ', 'BPNrOUYAAAAJ')
+
+# Get a data frame comparing the number of citations to their work in
+# a given year
+cs <- compare_scholars(ids)
+
+## remove some 'bad' records without sufficient information
+cs <- subset(cs, !is.na(year) & year > 2000)
+
+plotly::ggplotly(
+ggplot(cs, aes(year, cites, group=name, color=name)) + geom_line() + theme(legend.position="bottom")
+)
+
+```
+
+```{r}
+
+## Compare their career trajectories, based on year of first citation
+csc <- compare_scholar_careers(ids)
+
+plotly::ggplotly(
+ggplot(csc, aes(career_year, cites, group=name, color=name)) + geom_line() + geom_point() +
+    theme(legend.position=c(.2, .8))
+)
+
+```
+
+Visualizing and comparing network of coauthors
+
+```{r}
+
+
+coautorias <- 'BPNrOUYAAAAJ&hl'
+get_profile(coautorias)$name
+
+get_profile('BPNrOUYAAAAJ')$name
+
+
+# Be careful with specifying too many coauthors as the visualization of the
+# network can get very messy.
+coauthor_network <- get_coauthors('BPNrOUYAAAAJ&hl', n_coauthors = 7)
+
+coauthor_network
+
+```
+
+And then we have a built-in function to plot this visualization.
+
+```{r}
+
+plot_coauthors(coauthor_network)
+
+```
+
+## Duan Li
+
+Scholar link <https://scholar.google.com/citations?user=e0IkYKcAAAAJ&hl=en>
+
+```{r}
+
+## Define the id for Duan Li
+id <- 'e0IkYKcAAAAJ'
+
+## Get his profile
+l <- get_profile(id)
+
+## Print his name and affliation
+l$name
+
+l$affiliation
+
+```
+
+```{r}
+
+## Print his citation index
+l$h_index
+
+l$i10_index
+
+```
+
+Retrieving publications
+
+```{r}
+
+## Get his publications (a large data frame)
+p <- get_publications(id)
+p
+
+```
+
+Retrieving citation data
+
+```{r fig.width=9}
+
+## Get his citation history, i.e. citations to his work in a given year
+ct <- get_citation_history(id)
+
+## Plot citation trend
+ggplotly(
+ggplot(ct, aes(year, cites)) + geom_line() + geom_point()
+)
+
+```
+
+Users can retrieve the citation history of a particular publication with `get_article_cite_history()`.
+
+```{r}
+
+## The following publication will be used to demonstrate article citation history
+as.character(p$title[1])
+
+```
+
+```{r}
+
+## Get article citation history
+ach <- get_article_cite_history(id, p$pubid[1])
+
+## Plot citation trend
+plotly::ggplotly(
+ggplot(ach, aes(year, cites)) +
+    geom_segment(aes(xend = year, yend = 0), size=1, color='darkgrey') +
+    geom_point(size=3, color='firebrick')
+)
+
+```
+
+Comparing scholars
+
+You can compare the citation history of scholars by fetching data with compare_scholars.
+
+```{r}
+
+# Compare Fabozzi and Duan Li
+ids <- c('tqXS4IMAAAAJ', 'e0IkYKcAAAAJ')
+
+# Get a data frame comparing the number of citations to their work in
+# a given year
+cs <- compare_scholars(ids)
+
+## remove some 'bad' records without sufficient information
+cs <- subset(cs, !is.na(year) & year > 2000)
+
+plotly::ggplotly(
+ggplot(cs, aes(year, cites, group=name, color=name)) + geom_line() + theme(legend.position="bottom")
+)
+
+```
+
+```{r}
+
+## Compare their career trajectories, based on year of first citation
+csc <- compare_scholar_careers(ids)
+
+plotly::ggplotly(
+ggplot(csc, aes(career_year, cites, group=name, color=name)) + geom_line() + geom_point() +
+    theme(legend.position=c(.2, .8))
+)
+
+```
+
+Visualizing and comparing network of coauthors
+
+```{r}
+
+coautorias <- 'e0IkYKcAAAAJ&hl'
+get_profile(coautorias)$name
+
+get_profile('e0IkYKcAAAAJ')$name
+
+
+# Be careful with specifying too many coauthors as the visualization of the
+# network can get very messy.
+coauthor_network <- get_coauthors('e0IkYKcAAAAJ&hl', n_coauthors = 7)
+
+coauthor_network
+
+```
+
+And then we have a built-in function to plot this visualization.
+
+```{r}
+
+plot_coauthors(coauthor_network)
+
+```
+
+## Woo Chang Kim
+
+Scholar link <https://scholar.google.com/citations?user=e0IkYKcAAAAJ&hl=en>
+
+```{r}
+
+## Define the id for Woo Chang Kim
+id <- '7NmBs1kAAAAJ'
+
+## Get his profile
+l <- get_profile(id)
+
+## Print his name and affliation
+l$name
+
+l$affiliation
+
+```
+
+```{r}
+
+## Print his citation index
+l$h_index
+
+l$i10_index
+
+```
+
+Retrieving publications
+
+```{r}
+
+## Get his publications (a large data frame)
+p <- get_publications(id)
+p
+
+```
+
+Retrieving citation data
+
+```{r fig.width=9}
+
+## Get his citation history, i.e. citations to his work in a given year
+ct <- get_citation_history(id)
+
+## Plot citation trend
+ggplotly(
+ggplot(ct, aes(year, cites)) + geom_line() + geom_point()
+)
+
+```
+
+Users can retrieve the citation history of a particular publication with `get_article_cite_history()`.
+
+```{r}
+
+## The following publication will be used to demonstrate article citation history
+as.character(p$title[1])
+
+```
+
+```{r}
+
+## Get article citation history
+ach <- get_article_cite_history(id, p$pubid[1])
+
+## Plot citation trend
+plotly::ggplotly(
+ggplot(ach, aes(year, cites)) +
+    geom_segment(aes(xend = year, yend = 0), size=1, color='darkgrey') +
+    geom_point(size=3, color='firebrick')
+)
+
+```
+
+Comparing scholars
+
+You can compare the citation history of scholars by fetching data with compare_scholars.
+
+```{r}
+
+# Compare Fabozzi and Woo Chang Kim
+ids <- c('tqXS4IMAAAAJ', '7NmBs1kAAAAJ')
+
+# Get a data frame comparing the number of citations to their work in
+# a given year
+cs <- compare_scholars(ids)
+
+## remove some 'bad' records without sufficient information
+cs <- subset(cs, !is.na(year) & year > 2000)
+
+plotly::ggplotly(
+ggplot(cs, aes(year, cites, group=name, color=name)) + geom_line() + theme(legend.position="bottom")
+)
+
+```
+
+```{r}
+
+## Compare their career trajectories, based on year of first citation
+csc <- compare_scholar_careers(ids)
+
+plotly::ggplotly(
+ggplot(csc, aes(career_year, cites, group=name, color=name)) + geom_line() + geom_point() +
+    theme(legend.position=c(.2, .8))
+)
+
+```
+
+Visualizing and comparing network of coauthors
+
+```{r}
+
+coautorias <- '7NmBs1kAAAAJ&hl'
+get_profile(coautorias)$name
+
+get_profile('7NmBs1kAAAAJ')$name
+
+
+# Be careful with specifying too many coauthors as the visualization of the
+# network can get very messy.
+coauthor_network <- get_coauthors('7NmBs1kAAAAJ&hl', n_coauthors = 7)
+
+coauthor_network
+
+```
+
+And then we have a built-in function to plot this visualization.
+
+```{r}
+
+plot_coauthors(coauthor_network)
+
+```
+
+## David Ardia
+
+Scholar link <https://scholar.google.com/citations?hl=en&user=BPNrOUYAAAAJ>
+
+```{r}
+
+## Define the id for David Ardia
+id <- 'BPNrOUYAAAAJ'
+
+## Get his profile
+l <- get_profile(id)
+
+## Print his name and affliation
+l$name
+
+l$affiliation
+
+```
+
+```{r}
+
+## Print his citation index
+l$h_index
+
+l$i10_index
+
+```
+
+Retrieving publications
+
+```{r}
+
+## Get his publications (a large data frame)
+p <- get_publications(id)
+p
+
+```
+
+Retrieving citation data
+
+```{r fig.width=9}
+
+## Get his citation history, i.e. citations to his work in a given year
+ct <- get_citation_history(id)
+
+## Plot citation trend
+ggplotly(
+ggplot(ct, aes(year, cites)) + geom_line() + geom_point()
+)
+
+```
+
+Users can retrieve the citation history of a particular publication with `get_article_cite_history()`.
+
+```{r}
+
+## The following publication will be used to demonstrate article citation history
+as.character(p$title[1])
+
+```
+
+```{r}
+
+## Get article citation history
+ach <- get_article_cite_history(id, p$pubid[1])
+
+## Plot citation trend
+plotly::ggplotly(
+ggplot(ach, aes(year, cites)) +
+    geom_segment(aes(xend = year, yend = 0), size=1, color='darkgrey') +
+    geom_point(size=3, color='firebrick')
+)
+
+```
+
+Comparing scholars
+
+You can compare the citation history of scholars by fetching data with compare_scholars.
+
+```{r}
+
+# Compare Fabozzi and David Ardia
+ids <- c('tqXS4IMAAAAJ', 'BPNrOUYAAAAJ')
+
+# Get a data frame comparing the number of citations to their work in
+# a given year
+cs <- compare_scholars(ids)
+
+## remove some 'bad' records without sufficient information
+cs <- subset(cs, !is.na(year) & year > 2000)
+
+plotly::ggplotly(
+ggplot(cs, aes(year, cites, group=name, color=name)) + geom_line() + theme(legend.position="bottom")
+)
+
+```
+
+```{r}
+
+## Compare their career trajectories, based on year of first citation
+csc <- compare_scholar_careers(ids)
+
+plotly::ggplotly(
+ggplot(csc, aes(career_year, cites, group=name, color=name)) + geom_line() + geom_point() +
+    theme(legend.position=c(.2, .8))
+)
+
+```
+
+Visualizing and comparing network of coauthors
+
+```{r}
+
+coautorias <- 'BPNrOUYAAAAJ&hl'
+get_profile(coautorias)$name
+
+get_profile('BPNrOUYAAAAJ')$name
+
+
+# Be careful with specifying too many coauthors as the visualization of the
+# network can get very messy.
+coauthor_network <- get_coauthors('BPNrOUYAAAAJ&hl', n_coauthors = 7)
+
+coauthor_network
+
+```
+
+And then we have a built-in function to plot this visualization.
+
+```{r}
+
+plot_coauthors(coauthor_network)
+
+```
+
+## Herman Koene Van Dijk
+
+Scholar link <https://scholar.google.com/citations?user=8y5_FWQAAAAJ&hl=en>
+
+```{r eval=FALSE }
+
+## Define the id for Herman Koene Van Dijk
+id <- 'FWQAAAAJ'
+
+## Get his profile
+l <- get_profile(id)
+
+## Print his name and affliation
+l$name
+
+l$affiliation
+
+```
+
+```{r eval=FALSE }
+
+## Print his citation index
+l$h_index
+
+l$i10_index
+
+```
+
+Retrieving publications
+
+```{r eval=FALSE }
+
+## Get his publications (a large data frame)
+p <- get_publications(id)
+p
+
+```
+
+Retrieving citation data
+
+```{r fig.width=9, eval=FALSE }
+
+## Get his citation history, i.e. citations to his work in a given year
+ct <- get_citation_history(id)
+
+## Plot citation trend
+ggplotly(
+ggplot(ct, aes(year, cites)) + geom_line() + geom_point()
+)
+
+```
+
+Users can retrieve the citation history of a particular publication with `get_article_cite_history()`.
+
+```{r, eval=FALSE }
+
+## The following publication will be used to demonstrate article citation history
+as.character(p$title[1])
+
+```
+
+```{r eval=FALSE }
+
+## Get article citation history
+ach <- get_article_cite_history(id, p$pubid[1])
+
+## Plot citation trend
+plotly::ggplotly(
+ggplot(ach, aes(year, cites)) +
+    geom_segment(aes(xend = year, yend = 0), size=1, color='darkgrey') +
+    geom_point(size=3, color='firebrick')
+)
+
+```
+
+Comparing scholars
+
+You can compare the citation history of scholars by fetching data with compare_scholars.
+
+```{r, eval=FALSE }
+
+# Compare Fabozzi and Herman Van Dijk
+ids <- c('tqXS4IMAAAAJ', 'FWQAAAAJ')
+
+# Get a data frame comparing the number of citations to their work in
+# a given year
+cs <- compare_scholars(ids)
+
+## remove some 'bad' records without sufficient information
+cs <- subset(cs, !is.na(year) & year > 2000)
+
+plotly::ggplotly(
+ggplot(cs, aes(year, cites, group=name, color=name)) + geom_line() + theme(legend.position="bottom")
+)
+
+```
+
+```{r, eval=FALSE }
+
+## Compare their career trajectories, based on year of first citation
+csc <- compare_scholar_careers(ids)
+
+plotly::ggplotly(
+ggplot(csc, aes(career_year, cites, group=name, color=name)) + geom_line() + geom_point() +
+    theme(legend.position=c(.2, .8))
+)
+
+```
+
+Visualizing and comparing network of coauthors
+
+```{r eval=FALSE }
+
+coautorias <- 'FWQAAAAJ&hl'
+get_profile(coautorias)$name
+
+get_profile('FWQAAAAJ')$name
+
+
+# Be careful with specifying too many coauthors as the visualization of the
+# network can get very messy.
+coauthor_network <- get_coauthors('FWQAAAAJ&hl', n_coauthors = 7)
+
+coauthor_network
+
+```
+
+And then we have a built-in function to plot this visualization.
+
+```{r eval=FALSE }
+
+plot_coauthors(coauthor_network)
+
+```
+
+## Bernhard Pfaff
+
+-   GitHub <https://github.com/bpfaff/>
+
+-   Scholar <https://scholar.google.com.br/scholar?q=bernhard+pfaff&hl=pt-BR&as_sdt=0&as_vis=1&oi=scholart>
+
+ 
+
+ 
+
+------------------------------------------------------------------------
+
+# R Packages reference list
+
+------------------------------------------------------------------------
+
+```{r}
+
+citation(package = "rcrossref")
+
+citation(package = "scholar")
+
+citation(package = "tm")
+
+citation(package = "tidytext")
+
+citation(package = "RColorBrewer")
+
+citation(package = "topicmodels")
+
+citation(package = "SnowballC")
+
+```
+
+
+
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+Total Quarto compiling document:
+
+```{r}
+
+Sys.time() - start_time 
+
+```
+
