@@ -11,7 +11,6 @@ format:
 editor: visual
 ---
 
-
 ```{python}
 #| echo: false
 
@@ -22,16 +21,10 @@ start_time = datetime.now()
 
 ```
 
-
-
 ::: {.callout-note icon="false"}
 ## Abstract
 
-This small document have the goal to share the time series extraction and the two basic features building,
-like price returns and their conditional variance...
-
-
-
+This small document have the goal to share the time series extraction and the two basic features building, like price returns and their conditional variance...
 :::
 
 ------------------------------------------------------------------------
@@ -40,19 +33,16 @@ like price returns and their conditional variance...
 
 ------------------------------------------------------------------------
 
-# Intro 
+# Intro
 
 \[... to be written ...\]
 
-
-***
-
+------------------------------------------------------------------------
 
 # Python codes
 
-
 ::: panel-tabset
-## Python libs 
+## Python libs
 
 ```{python}
 
@@ -69,9 +59,7 @@ from plotnine import ggplot, aes, geom_line, facet_wrap, labs, theme, element_te
 
 ```
 
-
 ## Loading time series
-
 
 The portfolio contains the following commodities price returns:
 
@@ -83,7 +71,6 @@ The portfolio contains the following commodities price returns:
 -   SoyMeal Futures
 -   Soy Meal Futures
 -   SoyBeans Futures
-
 
 ```{python}
 
@@ -149,18 +136,13 @@ p_prices
 
 ```
 
-
 ## Prices log-returns
 
-
 Obtain the returns time series (first feature):
-
 
 $$
 \mbox{Price log returns}_t = ln(p_t) - ln(p_{t-1})
 $$
-
-
 
 ```{python}
 
@@ -208,11 +190,9 @@ p_log_returns
 
 ```
 
-
 ## Log-returns conditional variances
 
 As risk measure, we use the conditional variances (volatilities), to deal better with day by day of the prices log-returns.
-
 
 The GARCH(1,1) model with an asymmetric Student-t distribution is not directly available in most Python libraries. However, we can still use a GARCH(1,1) model with a standard Student-t distribution to estimate the conditional variance. The GARCH(1,1) model is represented as follows:
 
@@ -230,13 +210,12 @@ $$
 
 Where:
 
-- $r_t$ is the log-return at time $t$.
-- $\mu$ is the mean of the returns.
-- $\epsilon_t$ is the error term, modeled as conditional on past information.
-- $\sigma_t^2$ is the conditional variance at time $t$.
-- $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
-- $z_t$ follows a Student-t distribution with $\nu$ degrees of freedom to capture the heavy tails observed in financial returns.
-
+-   $r_t$ is the log-return at time $t$.
+-   $\mu$ is the mean of the returns.
+-   $\epsilon_t$ is the error term, modeled as conditional on past information.
+-   $\sigma_t^2$ is the conditional variance at time $t$.
+-   $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
+-   $z_t$ follows a Student-t distribution with $\nu$ degrees of freedom to capture the heavy tails observed in financial returns.
 
 ```{python}
 #| warning: false
@@ -288,19 +267,11 @@ p_cond_variances = plot_cond_variances_with_ggplot(cond_variances_long, 'Conditi
 p_cond_variances
 
 ```
-
-
-
-
 :::
 
-
-
-
-***
+------------------------------------------------------------------------
 
 # R codes
-
 
 ```{r setup, include=FALSE}
 
@@ -396,7 +367,6 @@ tail(portfolioPrices)
 
 ```
 
-
 Plotting the time series prices (in level):
 
 ```{r fig.width=9, fig.height=11}
@@ -424,15 +394,11 @@ portfolioPrices |> as.data.frame() |>
 
 ```
 
-
 Obtain the returns time series (first feature):
-
 
 $$
 \mbox{Price log returns}_t = ln(p_t) - ln(p_{t-1})
 $$
-
-
 
 ```{r}
 
@@ -538,8 +504,7 @@ ggplot(portfolioReturs_long, aes(x = returns)) +
 
 ```
 
-And finnaly, the last feature, is called, the conditional variance (risk measure), obtained by GARCH(1,1) model,
-formalized as:
+And finnaly, the last feature, is called, the conditional variance (risk measure), obtained by GARCH(1,1) model, formalized as:
 
 The GARCH(1,1) model with asymmetric Student-t distribution can be represented mathematically as:
 
@@ -557,13 +522,12 @@ $$
 
 Where:
 
-- $r_t$ is the return at time $t$.
-- $\mu$ is the mean of the returns.
-- $\epsilon_t$ is the error term, modeled as conditional on past information.
-- $\sigma_t^2$ is the conditional variance at time $t$.
-- $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
-- $z_t$ follows an asymmetric Student-t distribution with $\nu$ degrees of freedom to better capture the heavy tails and skewness observed in financial returns.
-
+-   $r_t$ is the return at time $t$.
+-   $\mu$ is the mean of the returns.
+-   $\epsilon_t$ is the error term, modeled as conditional on past information.
+-   $\sigma_t^2$ is the conditional variance at time $t$.
+-   $\omega, \alpha, \beta$ are the parameters to be estimated, with $\omega > 0, \alpha \geq 0, \beta \geq 0$.
+-   $z_t$ follows an asymmetric Student-t distribution with $\nu$ degrees of freedom to better capture the heavy tails and skewness observed in financial returns.
 
 ```{r}
 
@@ -627,13 +591,7 @@ conditional_variances_long |>
   )
 
 ```
-
 :::
-
-
-
-
-
 
  
 
@@ -641,7 +599,7 @@ conditional_variances_long |>
 
 ------------------------------------------------------------------------
 
-# References 
+# References
 
 Gujarati, D., N. (2004) **Basic Econometrics**, fourth edition, The McGraw−Hill Companies
 
@@ -649,58 +607,11 @@ Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). **Multivariat
 
 Hyndman, R.J., & Athanasopoulos, G. (2021) **Forecasting: principles and practice,** 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. Accessed on oct 2023.
 
+ 
 
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&nbsp;
-
-
-&nbsp;
-
-***
+------------------------------------------------------------------------
 
 ```{python}
 
@@ -712,6 +623,3 @@ time_diff = end_time - start_time
 print(f"Total Quarto document compiling time: {time_diff}")
 
 ```
-
-
-

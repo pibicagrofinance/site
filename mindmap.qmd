@@ -15,7 +15,6 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(
@@ -30,7 +29,6 @@ knitr::opts_chunk$set(message = FALSE) # Remove todas as mensagens # dos outputs
 
 ```
 
-
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -41,8 +39,6 @@ border-radius: 5px;
 font-style: italic;
 }
 </style>
-
-
 
 ```{r echo=FALSE}
 
@@ -98,7 +94,6 @@ p <- simpleNetwork(data, height="600px", width="100%",
 p
 
 ```
-
 
 # Overview
 
@@ -160,35 +155,16 @@ This research addresses the significant challenge of **modeling and forecasting 
 
 ### Key Components of the Research:
 
-1. **Volatility Modeling Using GAMLSS and MSGARCH**:
-   - **GAMLSS**: This technique provides a nuanced understanding of the **distributional characteristics** of commodity returns, capturing the probabilistic behaviors that traditional models often overlook.
-   - **MSGARCH**: By implementing the **Markov-Switching GARCH** model, the research captures **regime shifts in volatility**, which are common in commodities due to external shocks and systemic changes.
-
-2. **Multi-Objective Portfolio Optimization**:
-   - This step involves developing a **multi-objective optimization framework** using evolutionary algorithms such as **NSGA-II** and **Differential Evolution (DEOptim)**. These algorithms help optimize portfolio allocation by balancing risk, return, and diversification, particularly for portfolios with high-volatility assets like agricultural commodities.
-
-3. **Reinforcement Learning for Portfolio Management**:
-   - The research also introduces **Reinforcement Learning (RL)** methods, such as **Q-Learning** and **K-Bandit algorithms**, to adaptively manage portfolio strategies. These techniques are particularly suited for **dynamic portfolio management**, allowing strategies to evolve as market conditions change.
+1.  **Volatility Modeling Using GAMLSS and MSGARCH**:
+    -   **GAMLSS**: This technique provides a nuanced understanding of the **distributional characteristics** of commodity returns, capturing the probabilistic behaviors that traditional models often overlook.
+    -   **MSGARCH**: By implementing the **Markov-Switching GARCH** model, the research captures **regime shifts in volatility**, which are common in commodities due to external shocks and systemic changes.
+2.  **Multi-Objective Portfolio Optimization**:
+    -   This step involves developing a **multi-objective optimization framework** using evolutionary algorithms such as **NSGA-II** and **Differential Evolution (DEOptim)**. These algorithms help optimize portfolio allocation by balancing risk, return, and diversification, particularly for portfolios with high-volatility assets like agricultural commodities.
+3.  **Reinforcement Learning for Portfolio Management**:
+    -   The research also introduces **Reinforcement Learning (RL)** methods, such as **Q-Learning** and **K-Bandit algorithms**, to adaptively manage portfolio strategies. These techniques are particularly suited for **dynamic portfolio management**, allowing strategies to evolve as market conditions change.
 
 ### Contribution to Knowledge:
 
 The research's **innovative contribution** lies in combining these advanced econometric and machine learning techniques to tackle the unique challenges of commodity markets. It offers a **comprehensive methodological framework** that improves the modeling and forecasting of volatility and returns in agricultural commodities. This work enhances **portfolio optimization strategies**, offering practical applications for financial markets by providing tools that help portfolio managers make informed, data-driven decisions in the face of volatile market conditions.
 
 **Final Objective**: The primary goal of this research is to develop **robust methods for volatility modeling** and **portfolio optimization** that dynamically adapt to market conditions. This approach offers a significant advancement in both academic and professional fields by providing actionable insights for managing portfolios in volatile commodity markets.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
