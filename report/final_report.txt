@@ -13,8 +13,8 @@ Forecast future returns of a commodity portfolio using LSTM Neural Networks.
 - Conducting residual analysis to identify uncaptured patterns and issues like autocorrelation or heteroscedasticity.
 
 3. Results:
-               GF=F      KE=F      ZC=F      ZL=F     ZM=F      ZR=F      ZS=F      ZW=F
-Best Model  0.00011  0.000387  0.000305  0.000383  0.00034  0.092212  0.000149  0.000413
+                GF=F      KE=F      ZC=F      ZL=F      ZM=F      ZR=F      ZS=F      ZW=F
+Best Model  0.000109  0.000387  0.000303  0.000367  0.000335  0.135327  0.000149  0.000409
 
 4. Best Parameters Found (Grid Search):
 {
@@ -28,13 +28,13 @@ Best Model  0.00011  0.000387  0.000305  0.000383  0.00034  0.092212  0.000149  
         "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     },
     "ZC=F": {
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     },
     "ZL=F": {
         "activation": "tanh",
@@ -43,26 +43,26 @@ Best Model  0.00011  0.000387  0.000305  0.000383  0.00034  0.092212  0.000149  
         "neurons": 50
     },
     "ZM=F": {
-        "activation": "relu",
+        "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZR=F": {
         "activation": "tanh",
-        "batch_size": 64,
+        "batch_size": 32,
         "learning_rate": 0.001,
-        "neurons": 30
+        "neurons": 50
     },
     "ZS=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     },
     "ZW=F": {
-        "activation": "relu",
-        "batch_size": 64,
+        "activation": "tanh",
+        "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     }
@@ -70,36 +70,36 @@ Best Model  0.00011  0.000387  0.000305  0.000383  0.00034  0.092212  0.000149  
 
 5. Residual Analysis:
 Residual Analysis for GF=F:
-Ljung-Box Test p-value: 0.5551851219748782
-Breusch-Pagan Test p-value: 0.5365514705366838
+Ljung-Box Test p-value: 0.6149055352747539
+Breusch-Pagan Test p-value: 0.5417013474231573
 
 Residual Analysis for KE=F:
-Ljung-Box Test p-value: 0.05306196224279944
-Breusch-Pagan Test p-value: 0.49106476458731285
+Ljung-Box Test p-value: 0.047616062924282575
+Breusch-Pagan Test p-value: 0.7681831658529716
 
 Residual Analysis for ZC=F:
-Ljung-Box Test p-value: 7.202116522769158e-08
-Breusch-Pagan Test p-value: 0.5100352991486232
+Ljung-Box Test p-value: 1.6816955454395122e-07
+Breusch-Pagan Test p-value: 0.3900210897405696
 
 Residual Analysis for ZL=F:
-Ljung-Box Test p-value: 0.044746324768678666
-Breusch-Pagan Test p-value: 0.055517643635449275
+Ljung-Box Test p-value: 0.07770054528105452
+Breusch-Pagan Test p-value: 0.053726032033174435
 
 Residual Analysis for ZM=F:
-Ljung-Box Test p-value: 0.09892678997091417
-Breusch-Pagan Test p-value: 0.08886243753771032
+Ljung-Box Test p-value: 0.18560215768903138
+Breusch-Pagan Test p-value: 0.2931586013919177
 
 Residual Analysis for ZR=F:
-Ljung-Box Test p-value: 5.093100705655985e-19
-Breusch-Pagan Test p-value: 9.897825903366331e-07
+Ljung-Box Test p-value: 1.2496568367821187e-07
+Breusch-Pagan Test p-value: 9.925312108037482e-05
 
 Residual Analysis for ZS=F:
-Ljung-Box Test p-value: 0.09318055867010877
-Breusch-Pagan Test p-value: 0.1709595221317968
+Ljung-Box Test p-value: 0.07478371488168428
+Breusch-Pagan Test p-value: 0.08273601050163251
 
 Residual Analysis for ZW=F:
-Ljung-Box Test p-value: 0.01195207491601392
-Breusch-Pagan Test p-value: 0.6043930862398821
+Ljung-Box Test p-value: 0.022688647117527824
+Breusch-Pagan Test p-value: 0.9190635517977029
 
 
 6. Conclusions:
@@ -118,9 +118,9 @@ System Information and Execution Time:
     "CPU_cores": 12,
     "CPU_freq_MHz": 1800.0,
     "Total_RAM_GB": 31.69,
-    "Available_RAM_GB": 8.97,
+    "Available_RAM_GB": 10.03,
     "GPU_info": "Not available",
-    "Execution_Time_seconds": 704.599657
+    "Execution_Time_seconds": 684.535889
 }
 
 End of Report.
