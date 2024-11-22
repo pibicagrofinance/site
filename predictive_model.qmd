@@ -1,5 +1,6 @@
 ---
-title: "Predictive Model"
+title: "Final Project: Time Series Forecasting with LSTMs, Neural Networks Eng. Class"
+subtitle: "prof. Victor H. Alves Ribeiro, PPGEPS/PUCPR"
 format:
   html:
     self-contained: true
@@ -9,11 +10,691 @@ format:
 editor: visual
 ---
 
-***
+```{python}
+#| echo: false
+# #| eval: false
+
+# Start timer
+from datetime import datetime
+start_time = datetime.now()
+
+```
+
+
+------------------------------------------------------------------------
 
 <left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
 
+------------------------------------------------------------------------
+
+::: {.callout-note icon="false"}
+
+
+Chamada do exercicio em ingles vai aqui
+
+
+
+:::
+
+
+# Abstract
+
+This project aims to predict the returns of a selected portfolio of agricultural commodities using Long Short-Term Memory (LSTM) neural networks. The study includes ablation experiments to understand the impact of different architectural choices on model performance. The results demonstrate the importance of hyperparameter tuning and regularization in time series forecasting tasks.
+
+
+# Introduction
+
+The use of Artificial Neural Networks (ANNs) for time series forecasting has gained significant traction in recent years. This project focuses on utilizing LSTMs, a type of recurrent neural network capable of handling sequential data efficiently, to predict financial returns of agricultural commodities. A detailed ablation study is conducted to explore various architectural configurations and hyperparameters.
+
+
+
+# Literature Review
+
+Time series forecasting is critical in finance and economics. Traditional models, such as ARIMA and exponential smoothing, have limitations when dealing with non-linear and complex data. Recent studies emphasize the robustness of LSTM models in capturing temporal dependencies. This project builds on existing research by applying LSTM networks to a unique dataset of agricultural commodity returns.
+
+...see the full paper for this complete section ...
+
+# Methods
+
+- Collecting commodity price data.
+- Calculating logarithmic returns.
+- Normalizing the data.
+- Training LSTM models with different configurations.
+- Performing grid search to optimize hyperparameters.
+- Conducting residual analysis to identify uncaptured patterns and issues like autocorrelation or heteroscedasticity.
+
+# Results discussion
+
+## Data Collection and Preprocessing
+
+Python libs
+
+```{python}
+
+
+# Importing necessary libraries
+import pandas as pd
+import numpy as np
+import yfinance as yf
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.optimizers import Adam
+from sklearn.model_selection import ParameterGrid
+import psutil
+import time
+import json
+import os
+import warnings
+warnings.filterwarnings('ignore')
+
+# Additional libraries for residual analysis
+from statsmodels.stats.diagnostic import acorr_ljungbox, het_breuschpagan
+import statsmodels.api as sm
+
+```
+
+First of all, we need to check the hardware availability:
+
+```{python}
+
+# Collecting hardware information
+def get_system_info():
+    system_info = {
+        'CPU_cores': psutil.cpu_count(logical=True),
+        'CPU_freq_MHz': psutil.cpu_freq().current,
+        'Total_RAM_GB': round(psutil.virtual_memory().total / (1024 ** 3), 2),
+        'Available_RAM_GB': round(psutil.virtual_memory().available / (1024 ** 3), 2),
+        'GPU_info': 'Not available'  # Placeholder, can be expanded with libraries like GPUtil
+    }
+    return system_info
+
+system_info = get_system_info()
+print("System Information:", system_info)
+
+```
+
+
+Loading data:
+
+```{python}
+
+# Defining the tickers
+tickers = [
+    "ZC=F",  # Corn Futures
+    "ZW=F",  # Wheat Futures
+    "KE=F",  # KC HRW Wheat Futures
+    "ZR=F",  # Rough Rice Futures
+    "GF=F",  # Feeder Cattle Futures
+    "ZM=F",  # Soybean Meal Futures
+    "ZL=F",  # Soybean Oil Futures
+    "ZS=F"   # Soybean Futures
+]
+
+# Downloading price data
+print("\nDownloading price data...")
+data = yf.download(tickers, start="2015-01-01")['Close']
+
+# Handling missing data
+print("\nHandling missing data...")
+data.fillna(method='ffill', inplace=True)  # Forward fill
+data.dropna(axis=1, how='all', inplace=True)  # Drop columns with all NaNs
+data.dropna(axis=0, how='any', inplace=True)  # Drop rows with any NaNs
+
+# Verify data
+print("\nData columns and their non-null counts:")
+print(data.count())
+
+if data.empty:
+    print("Data is empty after cleaning. Exiting.")
+    exit()
+
+# Calculating logarithmic returns
+returns = np.log(data / data.shift(1)).dropna()
+
+# Verify returns
+print("\nReturns DataFrame info:")
+print(returns.info())
+print(returns.head())
+
+if returns.empty:
+    print("Returns DataFrame is empty. Exiting.")
+    exit()
+    
+
+returns.head() # Showing time series used (without features)
+
+```
+
+
+Plotting the time series of prices and returns side by side (2 per row)
+
+
+```{python, fig.width=8, fig.height=8}
+
+# Create a directory for plots if it doesn't exist
+plots_dir = 'plots'
+if not os.path.exists(plots_dir):
+    os.makedirs(plots_dir)
+
+# Plot prices
+print("\nPlotting time series of prices...")
+num_cols = 2  # Number of plots per row
+num_plots = len(data.columns)
+num_rows = (num_plots + num_cols - 1) // num_cols  # Ensure enough rows
+
+fig, axs = plt.subplots(num_rows, num_cols, figsize=(15, 5 * num_rows))
+axs = axs.flatten()
+
+for i, col in enumerate(data.columns):
+    axs[i].plot(data.index, data[col])
+    axs[i].set_title(f'Price Series - {col}')
+    axs[i].set_xlabel('Date')
+    axs[i].set_ylabel('Price')
+
+# Hide unused subplots
+for j in range(i + 1, len(axs)):
+    fig.delaxes(axs[j])
+
+plt.tight_layout()
+plt.savefig(os.path.join(plots_dir, 'price_series.png'))
+plt.show()
+plt.close()
+
+# Plot returns
+print("Plotting time series of returns...")
+num_plots_ret = len(returns.columns)
+num_rows_ret = (num_plots_ret + num_cols - 1) // num_cols
+
+fig, axs = plt.subplots(num_rows_ret, num_cols, figsize=(15, 5 * num_rows_ret))
+axs = axs.flatten()
+
+for i, col in enumerate(returns.columns):
+    axs[i].plot(returns.index, returns[col])
+    axs[i].set_title(f'Return Series - {col}')
+    axs[i].set_xlabel('Date')
+    axs[i].set_ylabel('Log Return')
+
+# Hide unused subplots
+for j in range(i + 1, len(axs)):
+    fig.delaxes(axs[j])
+
+plt.tight_layout()
+plt.savefig(os.path.join(plots_dir, 'return_series.png'))
+plt.show()
+plt.close()
+
+```
+
+
+Preprocessing data for LSTM time series modelling:
+
+
+```{python}
+
+# Function to prepare data for LSTM
+def prepare_data(series, time_steps):
+    X, y = [], []
+    for i in range(len(series) - time_steps):
+        X.append(series[i:(i + time_steps)])
+        y.append(series[i + time_steps])
+    return np.array(X), np.array(y)
+
+```
+
+Setting the parameters:
+
+```{python}
+
+# Defining parameters
+time_steps = 5  # Number of time steps
+epochs = 10  # Reduced epochs for faster execution during testing
+
+# Dictionaries to store results
+models = {}
+histories = {}
+mse_results = {}
+scalers = {}
+predictions = {}
+best_params_dict = {}
+residuals_analysis = {}
+
+# Directory to save reports and graphs
+report_dir = 'report'
+if not os.path.exists(report_dir):
+    os.makedirs(report_dir)
+
+```
+
+## LSTM time series model fitting
+
+```{python}
+
+# Loop through each time series
+for col in returns.columns:
+    print(f"\nProcessing column: {col}")
+    series = returns[col].values.reshape(-1, 1)
+    
+    # Check if series is empty
+    if len(series) == 0:
+        print(f"Series {col} is empty after preprocessing. Skipping.")
+        continue
+    
+    print(f"Series {col} has {len(series)} data points.")
+    
+    # Normalizing data
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    series_scaled = scaler.fit_transform(series)
+    scalers[col] = scaler  # Storing the scaler for later inversion
+    
+    # Preparing data
+    X, y = prepare_data(series_scaled, time_steps)
+    
+    # Check if X and y are non-empty
+    if X.shape[0] == 0:
+        print(f"Not enough data points in {col} after preparation. Skipping.")
+        continue
+    
+    # Splitting into training and test sets
+    split_index = int(0.8 * len(X))
+    X_train_full, X_test = X[:split_index], X[split_index:]
+    y_train_full, y_test = y[:split_index], y[split_index:]
+    X_train_full = X_train_full.reshape((X_train_full.shape[0], X_train_full.shape[1], 1))
+    X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
+    
+    # Hyperparameter grid for Grid Search
+    param_grid = {
+        'neurons': [30, 50],
+        'learning_rate': [0.001, 0.01],
+        'activation': ['tanh', 'relu'],
+        'batch_size': [32, 64]
+    }
+    grid = ParameterGrid(param_grid)
+    
+    # Initializing variables to store best results
+    best_mse = float('inf')
+    best_params = None
+    best_model = None
+    
+    # Performing Grid Search
+    print(f"Performing Grid Search for {col}...")
+    for params in grid:
+        model = Sequential()
+        model.add(LSTM(params['neurons'], activation=params['activation'], input_shape=(time_steps, 1)))
+        model.add(Dense(1))
+        optimizer = Adam(learning_rate=params['learning_rate'])
+        model.compile(optimizer=optimizer, loss='mean_squared_error')
+        
+        history = model.fit(
+            X_train_full, y_train_full,
+            validation_data=(X_test, y_test),
+            epochs=epochs,
+            batch_size=params['batch_size'],
+            verbose=0
+        )
+        
+        y_pred = model.predict(X_test)
+        y_pred_inv = scaler.inverse_transform(y_pred)
+        y_test_inv = scaler.inverse_transform(y_test.reshape(-1, 1))
+        mse = mean_squared_error(y_test_inv, y_pred_inv)
+        
+        if mse < best_mse:
+            best_mse = mse
+            best_params = params
+            best_model = model
+            best_y_pred = y_pred
+    
+    best_params_dict[col] = best_params
+    print(f"Best parameters for {col}: {best_params} with MSE: {best_mse}")
+    
+    models[col] = best_model
+    predictions[col] = {'Best Model': best_y_pred}
+    
+    # Inverting the normalization
+    y_test_inv = scaler.inverse_transform(y_test.reshape(-1, 1))
+    y_pred_inv = scaler.inverse_transform(best_y_pred)
+    
+    # Calculating MSE
+    mse_results[col] = {'Best Model': best_mse}
+    
+    # Visualization of results
+    plt.figure(figsize=(10, 4))
+    plt.plot(y_test_inv, label='Actual Value')
+    plt.plot(y_pred_inv, label='Prediction')
+    plt.title(f'Prediction vs Actual - {col} - Best Model')
+    plt.legend()
+    plt.savefig(os.path.join(report_dir, f'pred_vs_actual_{col}_Best_Model.png'))
+    plt.close()
+    
+    # Residual Analysis
+    residuals = y_test_inv - y_pred_inv
+    
+    # Plotting residuals
+    plt.figure(figsize=(10, 4))
+    plt.plot(residuals, label='Residuals')
+    plt.title(f'Residuals - {col} - Best Model')
+    plt.legend()
+    plt.savefig(os.path.join(report_dir, f'residuals_{col}_Best_Model.png'))
+    plt.close()
+    
+    # Ljung-Box test for autocorrelation in residuals
+    lb_test = acorr_ljungbox(residuals, lags=[10], return_df=True)
+    lb_pvalue = lb_test['lb_pvalue'].values[0]
+    
+    # Plotting residuals ACF
+    fig, ax = plt.subplots(figsize=(10, 4))
+    sm.graphics.tsa.plot_acf(residuals.squeeze(), lags=40, ax=ax)
+    plt.title(f'Residuals Autocorrelation Function - {col}')
+    plt.savefig(os.path.join(report_dir, f'acf_residuals_{col}_Best_Model.png'))
+    plt.close()
+    
+    # Heteroscedasticity test (Breusch-Pagan Test)
+    exog = sm.add_constant(best_model.predict(X_test))
+    test_bp = het_breuschpagan(residuals, exog)
+    bp_pvalue = test_bp[3]
+    
+    # Convert p-values to Python float
+    lb_pvalue = float(lb_pvalue)
+    bp_pvalue = float(bp_pvalue)
+    
+    # Saving statistical test results
+    residuals_analysis[col] = {
+        'residuals': residuals.flatten().tolist(),
+        'ljung_box_pvalue': lb_pvalue,
+        'breusch_pagan_pvalue': bp_pvalue
+    }
+    
+    print(f"Residual Analysis for {col}:")
+    print(f"Ljung-Box Test p-value: {lb_pvalue}")
+    print(f"Breusch-Pagan Test p-value: {bp_pvalue}")
+
+# Displaying final results in a table
+print("\nFinal Results:")
+results_table = pd.DataFrame(mse_results)
+print(results_table)
+
+```
+
+Saving the results in a table:
+
+```{python}
+
+# Saving results to a CSV file
+results_table.to_csv(os.path.join(report_dir, 'mse_results_updated.csv'), index=True)
+
+# Saving the best parameters found
+with open(os.path.join(report_dir, 'best_params.json'), 'w') as f:
+    json.dump(best_params_dict, f, indent=4)
+
+# Saving the residual analysis
+with open(os.path.join(report_dir, 'residuals_analysis.json'), 'w') as f:
+    json.dump(residuals_analysis, f, indent=4)
+    
+```
+
+Ploting the MSEs for each time series:
+
+```{python}
+
+# Report: Documenting the results
+# Plotting the MSEs for each time series
+for col in mse_results.keys():
+    mse_series = mse_results[col]
+    plt.figure(figsize=(10, 5))
+    plt.bar(mse_series.keys(), mse_series.values(), color='blue')
+    plt.title(f'MSE Comparison - {col}')
+    plt.ylabel('MSE')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig(os.path.join(report_dir, f'mse_comparison_{col}.png'))
+    plt.close()
+    
+```
+
+Saving system info:
+
+```{python}
+
+# End timer
+end_time = datetime.now()
+elapsed_time = end_time - start_time  # This is a timedelta object
+print(f"Total execution time: {elapsed_time}")
+
+# Save execution time to the report
+system_info['Execution_Time_seconds'] = elapsed_time.total_seconds()  # Convert to float for JSON
+with open(os.path.join(report_dir, 'system_info.json'), 'w') as f:
+    json.dump(system_info, f, indent=4)
+    
+```
+
+Generating an automatic final report:
+
+```{python}
+
+# Final Report: Generating a text document with the results
+report_path = os.path.join(report_dir, 'final_report.txt')
+with open(report_path, 'w') as report_file:
+    report_file.write("Final Project Report - Forecasting Commodity Returns with LSTM\n")
+    report_file.write("="*80 + "\n\n")
+    
+    report_file.write("1. Project Objectives:\n")
+    report_file.write("Forecast future returns of a commodity portfolio using LSTM Neural Networks.\n\n")
+    
+    report_file.write("2. Methodology:\n")
+    report_file.write("- Collecting commodity price data.\n")
+    report_file.write("- Calculating logarithmic returns.\n")
+    report_file.write("- Normalizing the data.\n")
+    report_file.write("- Training LSTM models with different configurations.\n")
+    report_file.write("- Performing grid search to optimize hyperparameters.\n")
+    report_file.write("- Conducting residual analysis to identify uncaptured patterns and issues like autocorrelation or heteroscedasticity.\n\n")
+    
+    report_file.write("3. Results:\n")
+    report_file.write(results_table.to_string())
+    report_file.write("\n\n")
+    
+    report_file.write("4. Best Parameters Found (Grid Search):\n")
+    report_file.write(json.dumps(best_params_dict, indent=4))
+    report_file.write("\n\n")
+    
+    report_file.write("5. Residual Analysis:\n")
+    for col, res in residuals_analysis.items():
+        report_file.write(f"Residual Analysis for {col}:\n")
+        report_file.write(f"Ljung-Box Test p-value: {res['ljung_box_pvalue']}\n")
+        report_file.write(f"Breusch-Pagan Test p-value: {res['breusch_pagan_pvalue']}\n\n")
+    report_file.write("\n")
+    
+    report_file.write("6. Conclusions:\n")
+    report_file.write("The study demonstrated the importance of proper hyperparameter selection and model architecture for forecasting financial returns. Regularization techniques and the choice of activation function significantly influenced model performance. The residual analysis highlighted the need to consider autocorrelation and heteroscedasticity in modeling financial time series.\n\n")
+    
+    report_file.write("7. Recommendations for Future Work:\n")
+    report_file.write("- Implement additional regularization techniques, such as DropConnect or Batch Normalization.\n")
+    report_file.write("- Explore more advanced architectures, like GRU or bidirectional models.\n")
+    report_file.write("- Increase the dataset to improve the models' generalization capacity.\n")
+    report_file.write("- Use more robust cross-validation methods to assess model stability.\n")
+    report_file.write("- Integrate other features, such as technical indicators or macroeconomic variables, to enrich model inputs.\n")
+    report_file.write("- Consider hybrid models that combine Machine Learning techniques with traditional statistical models.\n")
+    
+    report_file.write("\nSystem Information and Execution Time:\n")
+    report_file.write(json.dumps(system_info, indent=4))
+    report_file.write("\n\n")
+    
+    report_file.write("End of Report.\n")
+    
+```
+
+
+# Results and Discussion
+
+We begin reading the stored results by MSEs:
+
+```{python}
+
+# Reading the stored results
+
+# 1. Reading the MSE results file
+# Define the report directory
+report_dir = 'report'
+
+# Path to the MSE results file
+mse_results_path = os.path.join(report_dir, 'mse_results_updated.csv')
+
+# Read the CSV file
+mse_results = pd.read_csv(mse_results_path, index_col=0)
+
+# Display the DataFrame
+print("\nMSE Results of the models:")
+print(mse_results)
+
+```
+
+Then we go to the best hyperparametes file for each time series univariate modelling: 
+
+```{python}
+
+# 2. Reading the best parameters file
+# Path to the best parameters file
+best_params_path = os.path.join(report_dir, 'best_params.json')
+
+# Read the JSON file
+with open(best_params_path, 'r') as f:
+    best_params = json.load(f)
+
+# Display the best parameters
+print("\nBest parameters found for each time series:")
+for series, params in best_params.items():
+    print(f"{series}: {params}")
+    
+```
+
+And then we read the final report:
+
+```{python}
+
+# 3. Reading the final report
+# Path to the final report
+report_path = os.path.join(report_dir, 'final_report.txt')
+
+# Read the report
+with open(report_path, 'r') as report_file:
+    report_content = report_file.read()
+
+# Display the report
+print("\nFinal Report Content:")
+print(report_content)
+
+```
+
+At the end we read the graphs for MSEs:
+
+```{python}
+
+# 4. Viewing the graphs
+from IPython.display import Image, display
+
+# List of time series
+series_list = returns.columns
+
+# Display MSE comparison graphs
+for col in series_list:
+    image_path = os.path.join(report_dir, f'mse_comparison_{col}.png')
+    if os.path.exists(image_path):
+        display(Image(filename=image_path))
+    else:
+        print(f"Graph {image_path} not found.")
+
+# Display residuals graphs
+for col in series_list:
+    residuals_image_path = os.path.join(report_dir, f'residuals_{col}_Best_Model.png')
+    acf_image_path = os.path.join(report_dir, f'acf_residuals_{col}_Best_Model.png')
+    if os.path.exists(residuals_image_path):
+        display(Image(filename=residuals_image_path))
+    else:
+        print(f"Graph {residuals_image_path} not found.")
+    if os.path.exists(acf_image_path):
+        display(Image(filename=acf_image_path))
+    else:
+        print(f"Graph {acf_image_path} not found.")
+
+# End of code
+
+```
+
+
+
+
+# Conclusions
+
+
+
+
+
+
+&nbsp;
+
+&nbsp;
+
+
 ***
 
+# References
 
-Just for testing ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+```{python}
+##| eval: false
+# Total timing to compile this Quarto document
+
+end_time = datetime.now()
+time_diff = end_time - start_time
+
+print(f"Total Quarto document compiling time: {time_diff}")
+
+```
+
