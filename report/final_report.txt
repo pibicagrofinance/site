@@ -14,12 +14,12 @@ Forecast future returns of a commodity portfolio using LSTM Neural Networks.
 
 3. Results:
                 GF=F      KE=F      ZC=F      ZL=F      ZM=F      ZR=F      ZS=F      ZW=F
-Best Model  0.000109  0.000387  0.000303  0.000367  0.000335  0.135327  0.000149  0.000409
+Best Model  0.000109  0.000387  0.000309  0.000369  0.000344  0.133828  0.000148  0.000411
 
 4. Best Parameters Found (Grid Search):
 {
     "GF=F": {
-        "activation": "relu",
+        "activation": "tanh",
         "batch_size": 64,
         "learning_rate": 0.01,
         "neurons": 50
@@ -31,75 +31,75 @@ Best Model  0.000109  0.000387  0.000303  0.000367  0.000335  0.135327  0.000149
         "neurons": 50
     },
     "ZC=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZL=F": {
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZM=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     },
     "ZR=F": {
         "activation": "tanh",
-        "batch_size": 32,
+        "batch_size": 64,
         "learning_rate": 0.001,
         "neurons": 50
     },
     "ZS=F": {
-        "activation": "relu",
+        "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     },
     "ZW=F": {
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     }
 }
 
 5. Residual Analysis:
 Residual Analysis for GF=F:
-Ljung-Box Test p-value: 0.6149055352747539
-Breusch-Pagan Test p-value: 0.5417013474231573
+Ljung-Box Test p-value: 0.6465617036308142
+Breusch-Pagan Test p-value: 0.607106723235823
 
 Residual Analysis for KE=F:
-Ljung-Box Test p-value: 0.047616062924282575
-Breusch-Pagan Test p-value: 0.7681831658529716
+Ljung-Box Test p-value: 0.06101952054513237
+Breusch-Pagan Test p-value: 0.7703717467402291
 
 Residual Analysis for ZC=F:
-Ljung-Box Test p-value: 1.6816955454395122e-07
-Breusch-Pagan Test p-value: 0.3900210897405696
+Ljung-Box Test p-value: 1.691637174316611e-08
+Breusch-Pagan Test p-value: 0.19721753710975867
 
 Residual Analysis for ZL=F:
-Ljung-Box Test p-value: 0.07770054528105452
-Breusch-Pagan Test p-value: 0.053726032033174435
+Ljung-Box Test p-value: 0.03254574442852987
+Breusch-Pagan Test p-value: 0.004286054871326341
 
 Residual Analysis for ZM=F:
-Ljung-Box Test p-value: 0.18560215768903138
-Breusch-Pagan Test p-value: 0.2931586013919177
+Ljung-Box Test p-value: 0.0677886374217796
+Breusch-Pagan Test p-value: 0.0630170347619398
 
 Residual Analysis for ZR=F:
-Ljung-Box Test p-value: 1.2496568367821187e-07
-Breusch-Pagan Test p-value: 9.925312108037482e-05
+Ljung-Box Test p-value: 1.5595739231253437e-07
+Breusch-Pagan Test p-value: 0.009371824023816823
 
 Residual Analysis for ZS=F:
-Ljung-Box Test p-value: 0.07478371488168428
-Breusch-Pagan Test p-value: 0.08273601050163251
+Ljung-Box Test p-value: 0.15802795040957712
+Breusch-Pagan Test p-value: 0.15583617287652474
 
 Residual Analysis for ZW=F:
-Ljung-Box Test p-value: 0.022688647117527824
-Breusch-Pagan Test p-value: 0.9190635517977029
+Ljung-Box Test p-value: 0.02879213302612529
+Breusch-Pagan Test p-value: 0.9504163299737127
 
 
 6. Conclusions:
@@ -118,9 +118,9 @@ System Information and Execution Time:
     "CPU_cores": 12,
     "CPU_freq_MHz": 1800.0,
     "Total_RAM_GB": 31.69,
-    "Available_RAM_GB": 10.03,
+    "Available_RAM_GB": 15.5,
     "GPU_info": "Not available",
-    "Execution_Time_seconds": 684.535889
+    "Execution_Time_seconds": 340.423017
 }
 
 End of Report.

@@ -1,0 +1,331 @@
+---
+title: "Análise de Dados do Mercado Financeiro:"
+subtitle: "***utilizando R ou Python com ferramentas de Big Data***"
+author: <a href="https://rhozon.github.io/selecaodeprodutosnor/index.html">Rodrigo Hermont Ozon</a>
+author-meta: "<a href='https://rhozon.github.io/selecaodeprodutosnor/index.html'>Rodrigo Hermont Ozon</a>"
+date: " `r Sys.Date()` "
+title-slide-attributes:
+    data-background-image: "https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png"
+    data-background-size: contain
+    data-background-opacity: "number"
+format:
+  revealjs:
+    incremental: true   
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    preview-links: auto
+    css: stylespres.css
+    subtitle-font-size: 8
+---
+
+
+
+```{css, include=FALSE}
+
+.title {
+  font-size: 60px !important;
+  color: red !important;
+}
+
+.author {
+  font-size: 50px;
+  color: blue;
+}
+
+.date {
+  font-size: 50px;
+  color: green;
+}
+
+```
+
+
+```{r setup, include=FALSE}
+
+start_time <- Sys.time()
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+
+## Problemática de Pesquisa{background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+
+```{r echo=FALSE}
+
+library(plotly)
+library(fpp3)
+library(tsibble)
+library(dplyr)
+library(quantmod)
+library(gridExtra)
+
+tickers <- c(
+         "ZC=F", # Futuros Milho
+#         "ZO=F", # Futuros Aveia
+#         "KE=F", # Futuros KC HRW Wheat Futures
+#         "ZR=F", # Rough Rice Futures
+#         "GF=F", # Feeder Cattle Futures
+#         "ZS=F", # Futuros oleo de soja
+#         "ZM=F",  # Futuros farelo soja
+         "ZL=F" # Futuros Soja
+)
+
+# Calcula os retornos diários:
+
+portfolioPrices <- NULL
+  for ( Ticker in tickers )
+    portfolioPrices <- cbind(
+      portfolioPrices, 
+      getSymbols.yahoo(
+        Ticker,
+        from = "2019-01-01",
+        auto.assign = FALSE
+      )[,4]
+    )
+
+# Limpa todas as datas sem preços:
+portfolioPrices <- portfolioPrices[apply(portfolioPrices, 1, function(x) all(!is.na(x))),]
+
+# Renomeio as colunas
+colnames(portfolioPrices) <- tickers
+
+#tail(portfolioPrices)
+
+data_df <- data.frame(
+                      time = index(portfolioPrices), 
+                      coredata(portfolioPrices)
+)
+
+#glimpse(data_df)
+
+# Quebras 2021-05-07 
+# 2022-04-18
+# 2022-06-30
+```
+
+```{r, echo=FALSE }
+
+milho <- ggplotly(
+data_df |> ggplot(aes(x = time,
+                      y = ZC.F )) +
+  geom_line() +
+    geom_vline(xintercept = as.numeric(as.Date(c("2021-05-07", "2022-04-18", "2022-06-30"))),
+               linetype = "dashed",
+               color = "red",
+               alpha = 0.5) +
+  theme(plot.title = element_text(size = 9, face = "bold" )) + 
+  theme(legend.position = "none") + xlab("") + ylab("US$\bushel") +
+  theme(axis.title.y = element_text(size = 9)) +
+  ggtitle("Evolução dos valores dos preços dos contratos futuros de milho na CBOT") +
+  labs(  
+  caption = "Source: Data extraction from Yahoo!Finances API"
+ )
+)
+
+soja <- ggplotly(
+data_df |> ggplot(aes(x = time,
+                      y = ZL.F )) +
+  geom_line() +
+    geom_vline(xintercept = as.numeric(as.Date(c("2021-05-07", "2022-04-18", "2022-06-30"))),
+               linetype = "dashed",
+               color = "red",
+               alpha = 0.5) +
+  theme(plot.title = element_text(size = 9, face = "bold" )) + 
+  theme(legend.position = "none") + xlab("") + ylab("US$\bushel") +
+  theme(axis.title.y = element_text(size = 9)) +
+  ggtitle("Evolução dos valores dos preços dos contratos futuros de milho e de soja na CBOT (em US$/bushel)") +
+  labs(  
+  caption = "Source: Data extraction from Yahoo!Finances API"
+ )
+)
+
+subplot(milho, soja, nrows = 2, shareX = TRUE)
+
+
+```
+
+
+
+<font size = -1>
+
+**Source:** Data extraction from [Yahoo!Finances API](https://cran.r-project.org/web/packages/quantmod/quantmod.pdf)
+
+</font>
+
+
+
+
+## Problemática de Pesquisa {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 6>
+
+::: {.callout-important icon=false}
+## Perguntas
+
+- Quais as causas ou desencadeadores desses movimentos repentinos de inversão de tendência nas séries de preços ?
+
+
+
+- É possível estimar/medir o quanto essas mudanças bruscas de tendência geram de impacto na economia e no mercado de _commodities_ agrícolas ?
+
+
+
+
+- Como podemos antecipar/prever o acontecimento dessas "quebras" nas séries temporais de preços no futuro ?
+
+
+
+
+- Pode-se otimizar o processo decisório de compra e venda de grãos recomendando as melhores alocações de portfólio de _commodities_ em condições de risco e incerteza ?
+
+
+
+:::
+
+
+</font>
+
+## Teorias de Base {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+
+<font size = 5>
+
+::: {.callout-note appearance="simple" icon=false}
+
+| Área de Ciência | Teoria                                                | Pensadores                                                       |
+|----------------|-------------------------------------------------------|------------------------------------------------------------------|
+| Microeconomia   | Teoria da Demanda e do Consumidor                     | Walrás, Pareto, Arrow, Debreu, Samuelson, Hicks                   |
+| Microeconomia   | Estruturas de Mercado                                 | Porter, Chamberlin, Joan Robinson, Bain                           |
+| Microeconomia   | Finanças Comportamentais                              | Daniel Kahneman, Amos Tversky, Robert Shiller                     |
+| Microeconomia   | Eficiência de Mercado                                  | Eugene Fama, Fischer Black e Myron Scholes, Jensen                |
+| Microeconomia   | Teoria do Portfólio                                    | Harry Markowitz, Milton Friedman, Keynes                          |
+| Finanças        | Teoria dos Ciclos Financeiros                          | Hyman Minsky, Irving Fischer, Joseph Schumpeter e Kondratiev      |
+| Finanças        | Teoria do Mais Tolo (ou Teoria do Toque de Midas Reverso)| John Kenneth Galbraith, Nassim Taleb                             |
+| Econometria Financeira | Bayesian GARCH with Markov Regime Switching     | David Ardia, Robert Engle, Tim Bollerslev, Gary Koop               |
+| Macroeconomia   | Teoria da Formação das Expectativas                   | Robert Lucas, Milton Friedman, Edmund Phelps, Franco Modigliani   |
+| Neuroeconomia   | Teoria da Hipótese da Antecipação de Recompensa       | Wolfram Schultz, Antonio Rangel, Paul Glimcher                    |
+| Microeconomia   | Teoria da Seleção Adversa                             | George Akerlof, Michael Spence, Stiglitz                          |
+| Complexidade (Física de redes) | Sistemas Dinâmicos Adpatativos não-lineares | Arthur Ávila, Brian Arthur, Robert May                         |
+
+:::
+
+
+</font>
+
+
+
+
+
+## Hipóteses Científicas {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+
+
+<font size = 6>
+
+::: {.callout-tip }
+## Insights
+
+- _Volatility Clustering_ e mudanças estruturais
+
+&nbsp;
+
+- Análise de Intervenção Causal em Séries Temporais nas quebras e "efeito disseminação"
+
+&nbsp;
+
+- Desenvolvimentos do modelo de otimização de portfolio de Markowitz (CAPM, B&S, Merton, Black-Litterman ...)
+
+&nbsp;
+
+- Múltiplos Objetivos variando conforme o contexto de mercado e as expectativas percebidas (risco e incerteza)
+
+:::
+
+
+</font>
+
+
+## Justificativa e relevância {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+::: {.callout-caution collapse="false" appearance="simple"}
+## Contribuições teóricas
+
+- Identificação dos _drivers_ dos preços auxilia na investigação da causa dos movimentos repentinos nas séries de preços (Teoria da Demanda do Consumidor, Estruturas de Mercado e Teoria do Portfólio [motivo transação, especulação ou precaução]) pode ser utilizada em conjunto com a técnica Econométrica de Análise de Intervenção em Séries Temporais [Angrist e Imbens, Brodersen _et. alli_ (2015)] para avaliar seu impacto causal na série de preço estudada;
+
+- A Teoria dos Ciclos Financeiros ajuda a compreender em qual contexto econômico a disseminação de efeito econômico-financeiro nocivo ou positivo está inserida frente a quebra repentina da tendência da trajetória de preços de alimentos (_commodities_)
+
+- O uso das técnicas pertinentes dentro da teoria da Econometria Financeira com o uso do modelo Bayesiano GARCH com mudanças de regime markovianos se mostra aderente à realidade dos dados e condizente com os últimos desenvolvimentos teóricos a respeito do fenômeno da dinâmica complexa dos preços dessas _commodities_;
+
+- A teoria de alocação de portfólio desde Markowitz pode ser melhor elaborada combinando as ferramentas de otimização multiobjetivo multiperíodo de maneira dinâmica em consonância com modelos econométricos que consigam incorporar com maior clareza a "incerteza" percebida pelos _players_ de mercado na sua aferição de risco x retorno. Assim, os processos decisórios de compra e venda em momentos oportunos se tornariam mais claros.
+
+:::
+</font>
+
+
+
+
+
+
+
+
+
+
+
+
+## Obrigado! {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+
+
+&nbsp;
+
+<font size = 6>
+
+::: {.callout-note appearance="simple"}
+## Rodrigo Hermont Ozon
+
+$\Rightarrow$  Agradecimentos à PUCPR, ao prof. Guilherme e aos ouvintes e em especial ao meu orientador, prof. Gilberto Reynoso Meza 
+
+- Meu perfil no [Google Scholar](https://scholar.google.com/citations?user=hPcIR9oAAAAJ&hl=en)
+- Meu [CV Lattes](http://lattes.cnpq.br/3532649625879285)
+- Meu [site com posts, tutoriais e artigos](https://rhozon.github.io/selecaodeprodutosnor/index.html) 
+- Meu [perfil no LinkeDin](https://www.linkedin.com/in/rodrigohermontozon/)
+
+:::
+
+&nbsp;
+
+&nbsp;
+
+```{=html}
+
+<p style="font-family: times, serif; font-size:11pt; font-style:italic"; class="quote">
+
+"Situations emerge in the process of creative destruction in which many firms may have to perish that nevertheless would be able to live on vigorously and usefully if they could weather a particular storm.
+
+[... Capitalism requires] the perennial gale of Creative Destruction." Schumpeter, Joseph A. (1994) [1942]. Capitalism, Socialism and Democracy. London: Routledge. pp. 82–83. ISBN 978-0-415-10762-4. Retrieved 23 November 2011. 
+
+</p>
+```
+
+ 
+
+</font>
+
+
+
+
+

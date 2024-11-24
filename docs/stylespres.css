@@ -1,0 +1,25 @@
+#nextsteps {
+   color: blue;
+}
+
+body {
+ background-image: url("capa_ppt_Felipe.png");
+ background-color: #cccccc;
+}
+
+.emphasized {
+   font-size: .5em;
+}
+
+.reveal h1 { font-size: 1em; }
+.reveal h2 { font-size: 1em; }
+.reveal h3 { font-size: .8em; }
+
+.test h3 {
+  text-align: center;
+}
+
+.panel-tabset .nav-item {
+  font-size: 5px;
+  font-style: italic
+}

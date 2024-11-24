@@ -39,7 +39,7 @@ website:
         href: predictive_model.qmd
         contents:
           - time_series_portfolio.qmd
-          - CNNLSTM_ABlation_Corn.qmd
+          - CNNLSTM_Ablation_Corn.qmd
           - markovian_bayesian_timeseries.qmd
           - machine_learning_models.qmd
           - econometrics_model_sel.qmd
