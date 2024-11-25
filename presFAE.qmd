@@ -3,7 +3,7 @@ title: "Análise de Dados do Mercado Financeiro:"
 subtitle: "***utilizando R ou Python com ferramentas de Big Data***"
 author: <a href="https://rhozon.github.io/selecaodeprodutosnor/index.html">Rodrigo Hermont Ozon</a>
 author-meta: "<a href='https://rhozon.github.io/selecaodeprodutosnor/index.html'>Rodrigo Hermont Ozon</a>"
-date: " `r Sys.Date()` "
+date: "29-nov-2024"
 title-slide-attributes:
     data-background-image: "https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png"
     data-background-size: contain
@@ -152,21 +152,20 @@ data_df |> ggplot(aes(x = time,
 
 subplot(milho, soja, nrows = 2, shareX = TRUE)
 
-
 ```
 
 
 
 <font size = -1>
 
-**Source:** Data extraction from [Yahoo!Finances API](https://cran.r-project.org/web/packages/quantmod/quantmod.pdf)
+**Source:** Data extraction from [Yahoo!Finances API](https://cran.r-project.org/web/packages/quantmod/quantmod.pdf) ploted by using [Plotly](https://plotly.com/)
 
 </font>
 
 
 
 
-## Problemática de Pesquisa {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+## Problemática de Pesquisa {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 &nbsp;
 
@@ -174,6 +173,7 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 
 ::: {.callout-important icon=false}
 ## Perguntas
+
 
 - Quais as causas ou desencadeadores desses movimentos repentinos de inversão de tendência nas séries de preços ?
 
@@ -183,13 +183,17 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 
 
 
-
 - Como podemos antecipar/prever o acontecimento dessas "quebras" nas séries temporais de preços no futuro ?
 
 
 
-
 - Pode-se otimizar o processo decisório de compra e venda de grãos recomendando as melhores alocações de portfólio de _commodities_ em condições de risco e incerteza ?
+
+
+- Como decidir ou facilitar o processo decisório humano dentro de um contexto de massivo volume e velocidade de informações ?
+
+
+- Qual o volume de dados ou tamanho de série histórica necessária pra construir um modelo eficiente ?
 
 
 
@@ -198,7 +202,7 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 
 </font>
 
-## Teorias de Base {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+## Teorias de Base {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 <font size = 5>
 
@@ -225,10 +229,7 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 </font>
 
 
-
-
-
-## Hipóteses Científicas {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+## Hipóteses Científicas {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 
 <font size = 6>
@@ -256,7 +257,7 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 </font>
 
 
-## Justificativa e relevância {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+## Justificativa e relevância {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 &nbsp;
 
@@ -277,17 +278,164 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 </font>
 
 
+## Big Data na Análise de Commodities{background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+::: {.callout-caution collapse="false" appearance="simple"}
+## Por que Big Data é relevante ?
+
+
+- Volume de Dados: A análise do mercado de commodities envolve um enorme volume de dados financeiros e econômicos que cresce rapidamente, especialmente considerando históricos de preços diários, transações e eventos externos que influenciam os mercados.
+
+- Variabilidade e Velocidade: As séries de preços de commodities possuem mudanças rápidas e variações, exigindo a capacidade de processar e analisar dados em tempo hábil para garantir insights relevantes.
+
+- Análises em Profundidade: Necessidade de descobrir padrões ocultos que requerem recursos computacionais consideráveis para manipular e analisar um volume grande e complexo de dados.
+
+
+:::
+
+
+::: {.callout-tip appearance="simple" icon=false}
+
+## Amostragem de Dados Significativa
+
+- Estratégia de Amostragem: Utilizar amostragem estratificada para garantir que a variabilidade ao longo do tempo seja capturada de forma adequada (como choques econômicos ou eventos climáticos que impactam os preços).
+
+- Redução de Dimensionalidade: Utilizar técnicas de PCA (Principal Component Analysis) para reduzir o número de variáveis sem perder informações importantes, permitindo uma análise mais eficiente dos dados.
+
+- Uso de Dados Representativos: A seleção de um subconjunto representativo de dados pode ser feita para capturar as tendências de mercado de diferentes períodos, garantindo que os insights gerados sejam válidos e aplicáveis.
+
+:::
+
+
+</font>
+
+
+## Big Data na Análise de Commodities{background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+
+::: {.callout-tip appearance="simple" icon=false}
+
+## Ferramentas e Bibliotecas Utilizadas (alguns exemplos)
+
+Python:
+
+- PySpark: Uma ferramenta poderosa para processamento distribuído e análise de grandes volumes de dados, ideal para trabalhar com dados de commodities de históricos extensivos.
+
+- Dask: Alternativa à biblioteca Pandas, que facilita o processamento de grandes datasets que não cabem na memória. Dask permite a execução de operações paralelas, otimizando análises.
+
+R:
+
+- sparklyr e SparkR: Integração do Spark no ambiente R, possibilitando o processamento distribuído e a manipulação eficiente de datasets gigantescos, com foco em análises financeiras.
+
+- vroom e data.table: Utilizadas para leitura rápida e manipulação de grandes volumes de dados armazenados em arquivos CSV, permitindo o carregamento de arquivos grandes em poucos segundos.
+
+*Existem algumas outras pra R e Python que poderiam ser mencionadas aqui, mas por questões de parcimônia limitaremos a pequenos exemplos.
+
+:::
+
+
+</font>
+
+
+## Big Data com R {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+**Análise de Commodities com ``sparklyr`` e ``vroom``**
+
+```{r, eval = FALSE}
+
+library(sparklyr)
+library(dplyr)
+library(vroom)
+
+# Conectar ao Spark
+sc <- spark_connect(master = "local[*]") # Você pode rodar também no Databricks, Azure, AWS, Google Colab...
+
+# Ler grandes volumes de dados usando vroom
+file_list <- list.files("data", pattern = "*_data.csv", full.names = TRUE)
+combined_data <- vroom(file_list, col_types = list(
+  Date = col_date(),
+  Open = col_double(),
+  High = col_double(),
+  Low = col_double(),
+  Close = col_double(),
+  Volume = col_double(),
+  Adj.Close = col_double(),
+  Ticker = col_character()
+))
+
+# Copiar os dados para o Spark
+spark_data <- copy_to(sc, combined_data, "commodities_data", overwrite = TRUE)
+
+# Executar análise no Spark: calcular a média de fechamento ajustado por commodity
+average_close <- spark_data |>
+  group_by(Ticker) |>
+  summarise(Average_Close = mean(Adj.Close, na.rm = TRUE)) |>
+  collect()
+
+print(average_close)
+
+# Desconectar do Spark
+spark_disconnect(sc)
+
+```
 
 
 
+</font>
 
 
 
+## Big Data com Python {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+**Análise de Commodities com ``PySpark `` e ``Dask``**
+
+```{python}
+#| eval: false
+
+from pyspark.sql import SparkSession
+import dask.dataframe as dd
+
+# Inicializar a sessão Spark
+spark = SparkSession.builder.master("local").appName("Commodities Analysis").getOrCreate()
+
+# Carregar dados grandes de commodities usando Dask
+file_list = ["data/ZC=F_data.csv", "data/ZO=F_data.csv", "data/KE=F_data.csv"]
+df_dask = dd.read_csv(file_list)
+
+# Converter o DataFrame Dask para Spark
+df_spark = spark.createDataFrame(df_dask.compute())
+
+# Analisar os dados no Spark
+df_spark.createOrReplaceTempView("commodities_data")
+result = spark.sql("SELECT Ticker, AVG(Adj_Close) as Average_Close FROM commodities_data GROUP BY Ticker")
+result.show()
+
+# Finalizar a sessão Spark
+spark.stop()
+
+```
 
 
 
+</font>
 
-## Obrigado! {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png" background-size="1500px" background-repeat="no-repeat"}
+## Obrigado! {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 
 &nbsp;
@@ -297,7 +445,7 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 ::: {.callout-note appearance="simple"}
 ## Rodrigo Hermont Ozon
 
-$\Rightarrow$  Agradecimentos à PUCPR, ao prof. Guilherme e aos ouvintes e em especial ao meu orientador, prof. Gilberto Reynoso Meza 
+$\Rightarrow$ Agradecimentos à todos os membros da banca examinadora e demais ouvintes:
 
 - Meu perfil no [Google Scholar](https://scholar.google.com/citations?user=hPcIR9oAAAAJ&hl=en)
 - Meu [CV Lattes](http://lattes.cnpq.br/3532649625879285)
