@@ -58,6 +58,32 @@ knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
 ```
 
 
+## Introdução {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 5>
+
+- **Mercado financeiro**:
+  - É um ambiente dinâmico onde decisões baseadas em dados podem otimizar resultados.
+- **Data driven decision making**:
+  - Como tomar uma decisão econômica de maneira rápida, ótima e eficiente ?
+
+::: {.callout-caution collapse="false" appearance="simple"}
+## Por que Big Data é relevante ?
+
+
+- Volume de Dados: A análise do mercado de commodities envolve um enorme volume de dados financeiros e econômicos que cresce rapidamente, especialmente considerando históricos de preços diários, transações e eventos externos que influenciam os mercados.
+
+- Variabilidade e Velocidade: As séries de preços de commodities possuem mudanças rápidas e variações, exigindo a capacidade de processar e analisar dados em tempo hábil para garantir insights relevantes.
+
+- Análises em Profundidade: Necessidade de descobrir padrões ocultos que requerem recursos computacionais consideráveis para manipular e analisar um volume grande e complexo de dados.
+
+:::
+
+
+</font>
+
 ## Problemática de Pesquisa{background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 
@@ -278,25 +304,11 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 </font>
 
 
-## Big Data na Análise de Commodities{background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+## Big Data na Análise de Commodities {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
 &nbsp;
 
 <font size = 5>
-
-::: {.callout-caution collapse="false" appearance="simple"}
-## Por que Big Data é relevante ?
-
-
-- Volume de Dados: A análise do mercado de commodities envolve um enorme volume de dados financeiros e econômicos que cresce rapidamente, especialmente considerando históricos de preços diários, transações e eventos externos que influenciam os mercados.
-
-- Variabilidade e Velocidade: As séries de preços de commodities possuem mudanças rápidas e variações, exigindo a capacidade de processar e analisar dados em tempo hábil para garantir insights relevantes.
-
-- Análises em Profundidade: Necessidade de descobrir padrões ocultos que requerem recursos computacionais consideráveis para manipular e analisar um volume grande e complexo de dados.
-
-
-:::
-
 
 ::: {.callout-tip appearance="simple" icon=false}
 

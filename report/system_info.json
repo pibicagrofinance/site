@@ -2,7 +2,7 @@
     "CPU_cores": 12,
     "CPU_freq_MHz": 1800.0,
     "Total_RAM_GB": 31.69,
-    "Available_RAM_GB": 16.78,
+    "Available_RAM_GB": 15.43,
     "GPU_info": "Not available",
-    "Execution_Time_seconds": 348.888984
+    "Execution_Time_seconds": 286.581668
 }
