@@ -339,15 +339,15 @@ subplot(milho, soja, nrows = 2, shareX = TRUE)
 
 Python:
 
-- PySpark: Uma ferramenta poderosa para processamento distribuído e análise de grandes volumes de dados, ideal para trabalhar com dados de commodities de históricos extensivos.
+- ``PySpark``: Uma ferramenta poderosa para processamento distribuído e análise de grandes volumes de dados, ideal para trabalhar com dados de commodities de históricos extensivos.
 
-- Dask: Alternativa à biblioteca Pandas, que facilita o processamento de grandes datasets que não cabem na memória. Dask permite a execução de operações paralelas, otimizando análises.
+- ``Dask``: Alternativa à biblioteca Pandas, que facilita o processamento de grandes datasets que não cabem na memória. Dask permite a execução de operações paralelas, otimizando análises.
 
 R:
 
-- sparklyr e SparkR: Integração do Spark no ambiente R, possibilitando o processamento distribuído e a manipulação eficiente de datasets gigantescos, com foco em análises financeiras.
+- ``sparklyr`` e ``SparkR``: Integração do Spark no ambiente R, possibilitando o processamento distribuído e a manipulação eficiente de datasets gigantescos, com foco em análises financeiras.
 
-- vroom e data.table: Utilizadas para leitura rápida e manipulação de grandes volumes de dados armazenados em arquivos CSV, permitindo o carregamento de arquivos grandes em poucos segundos.
+- ``vroom`` e ``data.table``: Utilizadas para leitura rápida e manipulação de grandes volumes de dados armazenados em arquivos CSV, permitindo o carregamento de arquivos grandes em poucos segundos.
 
 *Existem algumas outras pra R e Python que poderiam ser mencionadas aqui, mas por questões de parcimônia limitaremos a pequenos exemplos.
 
@@ -445,7 +445,46 @@ spark.stop()
 
 
 
+
 </font>
+
+## Exercícios rápidos {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+
+&nbsp;
+
+<font size = 4>
+
+ 1. A partir das instruções contidas no post em [como ler com o Sparklyr Big Data localmente](https://rhozon.github.io/selecaodeprodutosnor/sparklyr.html), leia e processe usando o pacote do R ``sparklyr`` localmente o conjunto de dados [vix-daily.csv (menor)](https://github.com/rhozon/Doutorado/blob/main/vix-daily.csv) e o .rds [gbt-model-responses](https://github.com/rhozon/Doutorado/blob/main/gbt-model-responses.rds). 
+  1.a) Agora leia eles usando o ``Dask`` (Python), ``data.table`` e ``vroom`` (R) localmente e as reporte num documento [Quarto](https://quarto.org/)
+ 
+2. Como você analisaria o conjunto de dados de [hipotecas (mortgages)](https://assets.datacamp.com/production/repositories/721/datasets/c07698e46226e841b9cdb1ad0248c664c2c20bbb/mortgage-sample.csv) [ou outra fonte aqui no repo](https://github.com/rhozon/Doutorado/blob/main/mortgage-sample.csv) ? Ele contém dados fictícios ou anonimizados sobre empréstimos imobiliários, fornecendo informações que podem ser usadas para estudar padrões de empréstimos, análise de risco de crédito ou previsões de inadimplência. Elabore uma proposta de projeto a partir desse dataset em R ou em Python utilizando o report utilizando o [quarto.org](https://quarto.org/) pra ganhar velocidade!
+
+3. E quando o Spark, ``data.table``, ``vroom``, ``Dask`` e etc. não derem mais conta do recado ? Pesquise alternativas e sugira algumas estratégias pra lidar com grandes volumes de dados e modelá-los ! Lembre-se de citar as fontes, pacotes, métodos e referências necessárias. (Algumas sugestões de uso de dados brasileiros via extração por API em [Repo Doc. gitHub](https://github.com/leonardogrig/dados-mercado-financeiro-brasil))
+ 
+4. Expanda o exemplo do portfólio de commodities, utilizando uma extração de séries temporais mais longas no tempo, inserindo mais ativos no portfólio (utilize o pacote do R ``quantmod`` ou do Python ``yfinance``) utilizando a sintaxe do Spark e experimente os pacotes do R úteis pra isso como a sintaxe do ``data.table`` ou a leitura do conjunto de dados com o ``vroom`` localmente. Como poderemos analisar tendências desses dados utilizando um modelo de médias móveis simples ?
+ 
+
+</font>
+
+## Mais informações e referências {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
+
+&nbsp;
+
+<font size = 6>
+
+::: {.callout-note appearance="simple"}
+
+- Envie esses reports nos formatos .qmd e .html num arquivo .zip para [rodrigo.ozon@fae.edu.br](mailto:rodrigo.ozon@fae.edu.br)
+
+- Prazo de envio (1 e 2 até o final da próxima semana) e 3 e 4 (até o final da semana subsequente)
+
+- Maiores detalhes a respeito de fontes, referências, recomendações de cursos online, pacotes e libs, consulte por favor o Plano de Aula de hoje
+
+:::
+
+</font>
+
 
 ## Obrigado! {background-color="white" background-image="https://raw.githubusercontent.com/rhozon/Doutorado/main/fae_bckground.png" background-size="1500px" background-repeat="no-repeat"}
 
