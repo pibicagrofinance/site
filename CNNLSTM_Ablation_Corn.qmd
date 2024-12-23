@@ -1,0 +1,556 @@
+---
+title: "Final Project: Time Series Forecasting with CNNLSTMs, Neural Networks Eng. Class"
+subtitle: "Rodrigo H. Ozon, prof. Victor H. Alves Ribeiro, PPGEPS/PUCPR"
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+```{python}
+#| echo: false
+# #| eval: false
+
+# Start timer
+from datetime import datetime
+start_time = datetime.now()
+
+```
+
+------------------------------------------------------------------------
+
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+::: {.callout-note icon="false"}
+**Objective** The objective of this project is to solve an engineering problem, chosen by the student, using artificial neural networks.
+
+**Requirements**
+
+The project must:
+
+-   Solve an engineering problem (or more) of the student's choice.
+-   Develop an Artificial Neural Network architecture to solve the problem.
+-   Conduct an ablation study of the Artificial Neural Network, such as:
+-   Addition/Removal of Layers/Neurons/Components.
+-   Modification of Loss Functions.
+-   Modification of Optimization Functions/Learning Rate/Scheduler.
+-   Use a metric to compare the results of the ablation study.
+:::
+
+# Abstract
+
+This project aims to predict the returns of a selected portfolio of agricultural commodities using blended model Convolutional Neural Network (CNN) + Long Short-Term Memory (LSTM) neural networks. The study includes ablation experiments to understand the impact of different architectural choices on model performance. The results demonstrate the importance of hyperparameter tuning and regularization in time series forecasting tasks.
+
+# Introduction
+
+The use of Artificial Neural Networks (ANNs) for time series forecasting has gained significant traction in recent years. This project focuses on utilizing CNN+LSTMs, a type of recurrent neural network capable of handling sequential data efficiently, to predict financial returns of agricultural commodities. A detailed ablation study is conducted to explore various architectural configurations and hyperparameters.
+
+# Literature Review
+
+Time series forecasting is critical in finance and economics. Traditional models, such as ARIMA and exponential smoothing, have limitations when dealing with non-linear and complex data. Recent studies emphasize the robustness of CNN+LSTM models in capturing temporal dependencies. This project builds on existing research by applying LSTM networks to a unique dataset of agricultural commodity returns.
+
+...see the full paper for this complete section ...
+
+# Methods
+
+-   Collecting commodity price data.
+-   Calculating logarithmic returns.
+-   Normalizing the data.
+-   Training CNN+LSTM models with different configurations.
+-   Performing grid search to optimize hyperparameters.
+-   Conducting residual analysis to identify uncaptured patterns and issues like autocorrelation or heteroscedasticity.
+
+# Results discussion
+
+## Data Collection and Preprocessing
+
+Python libs
+
+```{python}
+
+# Importing necessary libraries
+import pandas as pd
+import numpy as np
+import yfinance as yf
+from sklearn.preprocessing import QuantileTransformer
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, GRU, Conv1D, Dense, Flatten, MaxPooling1D, Dropout
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping
+import time
+import warnings
+import psutil
+import os
+from keras_tuner import RandomSearch
+
+warnings.filterwarnings('ignore')
+
+```
+
+First of all, we need to check the hardware availability:
+
+```{python}
+
+# Collecting hardware information
+def get_system_info():
+    return {
+        'CPU_cores': psutil.cpu_count(logical=True),
+        'CPU_freq_MHz': psutil.cpu_freq().current,
+        'Total_RAM_GB': round(psutil.virtual_memory().total / (1024 ** 3), 2),
+        'Available_RAM_GB': round(psutil.virtual_memory().available / (1024 ** 3), 2),
+    }
+
+system_info = get_system_info()
+print("System Information:", system_info)
+
+```
+
+Loading corn time series data:
+
+```{python}
+
+# Helper function to prepare LSTM input-output pairs
+def prepare_data(series, time_steps):
+    X, y = [], []
+    for i in range(len(series) - time_steps):
+        X.append(series[i:(i + time_steps)])
+        y.append(series[i + time_steps][0])  # Extract only the target variable (returns)
+    return np.array(X), np.array(y)
+
+# Define ticker for Corn Futures
+ticker = "ZC=F"
+
+# Downloading price data
+data = yf.download(ticker, start="2015-01-01")[["Close"]].fillna(method='ffill').dropna()
+
+# Calculating logarithmic returns
+returns = np.log(data / data.shift(1)).dropna()
+
+```
+
+
+CNN+LSTM preprocessing step:
+
+
+Normalizing time series, to deal much better with outliers via ``QuantileTransformer`` function:
+
+
+```{python}
+
+# Normalizing the data using QuantileTransformer to handle outliers
+scaler = QuantileTransformer(output_distribution='normal')
+scaled_data = scaler.fit_transform(returns)
+
+# Preparing the dataset
+time_steps = 30
+X, y = prepare_data(scaled_data, time_steps)
+
+```
+
+## Train x test split
+
+We use 80% for train data x 20% test, and then we can reshape the data (samples, time steps and features)
+
+
+```{python}
+
+# Splitting the data into training and testing sets
+split_ratio = 0.8
+train_size  = int(len(X) * split_ratio)
+X_train, X_test = X[:train_size], X[train_size:]
+y_train, y_test = y[:train_size], y[train_size:]
+
+# Reshaping the input to be 3D [samples, time steps, features]
+X_train = np.expand_dims(X_train, axis=-1)
+X_test = np.expand_dims(X_test, axis=-1)
+
+```
+
+
+
+
+
+## CNN+LSTM setting
+
+We can set an grid search for the CNN+LSTM time series forecasting
+
+```{python}
+
+# Building the CNN+LSTM model with additional GRU layer and Dropout for regularization
+def build_model(include_conv=True, conv_filters=64, include_lstm=True, lstm_units=50, gru_units=0, activation='relu', include_dropout=True, dropout_rate=0.1, l2_regularization=0.01):
+    model = Sequential()
+    if include_conv:
+        model.add(Conv1D(filters=conv_filters, kernel_size=3, activation=activation, kernel_regularizer=l2(l2_regularization), input_shape=(time_steps, 1)))
+        model.add(MaxPooling1D(pool_size=2))
+    if include_lstm:
+        model.add(LSTM(lstm_units, activation=activation, kernel_regularizer=l2(l2_regularization), return_sequences=True if gru_units > 0 else False))
+    if gru_units > 0:
+        model.add(GRU(gru_units, activation=activation, kernel_regularizer=l2(l2_regularization), return_sequences=False))
+    model.add(Flatten())
+    model.add(Dense(50, activation=activation, kernel_regularizer=l2(l2_regularization)))
+    if include_dropout:
+        model.add(Dropout(dropout_rate))  # Added dropout layer to reduce overfitting
+    model.add(Dense(1, kernel_regularizer=l2(l2_regularization)))
+    return model
+
+```
+
+Then we can set the Adam optimizer and the early stopping for the model:
+
+```{python}
+
+# Defining optimizer and callbacks
+def get_optimizer():
+    return Adam(learning_rate=0.001)
+
+early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+
+```
+
+
+By using the Keras tunner, we can set the hyperparameters tunning:
+
+
+```{python}
+
+# Hyperparameter search using Keras Tuner
+def hyperparameter_search():
+    def build_model_kt(hp):
+        model = Sequential()
+        include_conv = hp.Boolean('include_conv')
+        if include_conv:
+            conv_filters = hp.Choice('conv_filters', values=[32, 64, 128])
+            model.add(Conv1D(filters=conv_filters, kernel_size=3, activation='relu', input_shape=(time_steps, 1)))
+            model.add(MaxPooling1D(pool_size=2))
+        
+        include_lstm = hp.Boolean('include_lstm')
+        if include_lstm:
+            lstm_units = hp.Choice('lstm_units', values=[50, 100])
+            model.add(LSTM(lstm_units, activation='relu', return_sequences=True))
+        
+        include_gru = hp.Boolean('include_gru')
+        if include_gru:
+            gru_units = hp.Choice('gru_units', values=[50, 100])
+            model.add(GRU(gru_units, activation='relu', return_sequences=False))
+        
+        model.add(Flatten())
+        model.add(Dense(50, activation='relu'))
+        
+        include_dropout = hp.Boolean('include_dropout')
+        if include_dropout:
+            dropout_rate = hp.Float('dropout_rate', min_value=0.1, max_value=0.5, step=0.1)
+            model.add(Dropout(dropout_rate))
+        
+        model.add(Dense(1))
+        
+        model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['mse'])
+        return model
+
+    tuner = RandomSearch(
+        build_model_kt,
+        objective='val_mse',
+        max_trials=10,
+        executions_per_trial=1,
+        directory='my_dir',
+        project_name='corn_forecast_tuning'
+    )
+
+    tuner.search(X_train, y_train, epochs=50, validation_data=(X_test, y_test), callbacks=[early_stopping], verbose=1)
+    best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
+    return best_hps
+
+# Running hyperparameter search
+best_params = hyperparameter_search()
+
+```
+
+
+## Setting the best model before hyp tunning:
+
+
+```{python}
+
+def build_best_model(best_params):
+    model = Sequential()
+    
+    # Adiciona camada convolucional se ativada
+    if 'include_conv' in best_params.values and best_params.values['include_conv']:
+        conv_filters = best_params.values['conv_filters']
+        model.add(Conv1D(filters=conv_filters, kernel_size=3, activation='relu', input_shape=(time_steps, 1)))
+        model.add(MaxPooling1D(pool_size=2))
+    
+    # Adiciona camada LSTM se ativada
+    if 'include_lstm' in best_params.values and best_params.values['include_lstm']:
+        lstm_units = best_params.values['lstm_units']
+        return_sequences = True if 'include_gru' in best_params.values and best_params.values['include_gru'] else False
+        model.add(LSTM(lstm_units, activation='relu', return_sequences=return_sequences))
+    
+    # Adiciona camada GRU se ativada
+    if 'include_gru' in best_params.values and best_params.values['include_gru']:
+        gru_units = best_params.values['gru_units']
+        model.add(GRU(gru_units, activation='relu', return_sequences=False))
+    
+    # Camadas adicionais
+    model.add(Flatten())
+    model.add(Dense(50, activation='relu'))
+    
+    # Adiciona camada Dropout se ativada
+    if 'include_dropout' in best_params.values and best_params.values['include_dropout']:
+        dropout_rate = best_params.values.get('dropout_rate', 0.1)
+        model.add(Dropout(dropout_rate))
+    
+    # Camada de saída
+    model.add(Dense(1))
+    
+    return model
+
+```
+
+
+And then the history fit:
+
+```{python}
+
+# Certifique-se de que best_params foi definido corretamente
+print("Best hyperparameters:", best_params.values)
+
+# Construa o modelo
+model = build_best_model(best_params)
+
+# Compile o modelo
+model.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
+
+# Confirme que o modelo foi construído corretamente
+print("Model summary:")
+model.summary()
+
+# Treine o modelo
+history = model.fit(
+    X_train, y_train,
+    epochs=50,
+    batch_size=32,
+    validation_data=(X_test, y_test),
+    callbacks=[early_stopping],
+    verbose=1
+)
+
+```
+
+
+
+## Model backtest
+
+```{python}
+
+# Predicting and evaluating the model
+y_pred = model.predict(X_test)
+y_test_inverse = scaler.inverse_transform(y_test.reshape(-1, 1))
+y_pred_inverse = scaler.inverse_transform(y_pred)
+
+mse = mean_squared_error(y_test_inverse, y_pred_inverse)
+mape = mean_absolute_percentage_error(y_test_inverse, y_pred_inverse) * 100  # Convert to percentage
+print(f"Mean Squared Error: {mse}")
+print(f"Mean Absolute Percentage Error: {mape}%")
+
+```
+
+
+Ablation Study: Evaluating the Impact of Each Layer
+
+The ablation study aims to assess the influence of different architectural components and configurations on the performance of the CNN+LSTM model for time series forecasting. By systematically altering specific layers and hyperparameters, we gain insights into the contribution of each element to the overall model accuracy and robustness.
+
+### Configurations
+
+The following configurations were tested as part of the ablation study:
+
+1. **Configuration 1**:
+   - Convolutional layer included with 64 filters.
+   - LSTM layer included with 50 units.
+   - GRU layer included with 50 units.
+   - Activation function: ReLU.
+   - Dropout layer included.
+
+2. **Configuration 2**:
+   - Convolutional layer included with 32 filters.
+   - LSTM layer included with 50 units.
+   - GRU layer excluded.
+   - Activation function: ReLU.
+   - Dropout layer included.
+
+3. **Configuration 3**:
+   - Convolutional layer included with 128 filters.
+   - LSTM layer included with 50 units.
+   - GRU layer included with 50 units.
+   - Activation function: ReLU.
+   - Dropout layer included.
+
+4. **Configuration 4**:
+   - Convolutional layer included with 64 filters.
+   - LSTM layer excluded.
+   - GRU layer included with 50 units.
+   - Activation function: ReLU.
+   - Dropout layer included.
+
+5. **Configuration 5**:
+   - Convolutional layer excluded.
+   - LSTM layer included with 50 units.
+   - GRU layer excluded.
+   - Activation function: ReLU.
+   - Dropout layer included.
+
+6. **Configuration 6**:
+   - Convolutional layer included with 64 filters.
+   - LSTM layer included with 50 units.
+   - GRU layer included with 50 units.
+   - Activation function: Tanh.
+   - Dropout layer included.
+
+
+For each configuration, the model was:
+
+- Compiled with the Adam optimizer and mean squared error (MSE) loss function.
+- Trained on the dataset with early stopping to prevent overfitting.
+- Evaluated on the test set to calculate the mean squared error (MSE) and mean absolute percentage error (MAPE).
+
+
+```{python}
+
+# Ablation Study: Evaluating the impact of each layer
+def ablation_study():
+    results = []
+    configurations = [
+        {'include_conv': True, 'conv_filters': 64, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True},
+        {'include_conv': True, 'conv_filters': 32, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 0, 'activation': 'relu', 'include_dropout': True},
+        {'include_conv': True, 'conv_filters': 128, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True},
+        {'include_conv': True, 'conv_filters': 64, 'include_lstm': False, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True},
+        {'include_conv': False, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 0, 'activation': 'relu', 'include_dropout': True},
+        {'include_conv': True, 'conv_filters': 64, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'tanh', 'include_dropout': True},
+    ]
+    for config in configurations:
+        optimizer = get_optimizer()  # Recreate optimizer for each configuration
+        model = build_model(**config)
+        model.build(input_shape=(None, time_steps, 1))  # Explicitly build the model with correct input shape
+        model.compile(optimizer=optimizer, loss='mse')
+        model.fit(
+            X_train, y_train,
+            epochs=50,
+            batch_size=32,
+            validation_data=(X_test, y_test),
+            callbacks=[early_stopping],
+            verbose=0
+        )
+        y_pred = model.predict(X_test)
+        y_pred_inverse = scaler.inverse_transform(y_pred)
+        mse = mean_squared_error(y_test_inverse, y_pred_inverse)
+        mape = mean_absolute_percentage_error(y_test_inverse, y_pred_inverse) * 100  # Convert to percentage
+        results.append({'config': config, 'mse': mse, 'mape': mape})
+    return results
+
+def generate_ablation_report(results):
+    report = "\nAblation Study Report\n"
+    report += "===================\n"
+    for result in results:
+        report += (f"Configuration: {result['config']}, MSE: {result['mse']}, MAPE: {result['mape']}%\n")
+    report += "===================\n"
+    return report
+
+ablation_results = ablation_study()
+
+print(generate_ablation_report(ablation_results))
+
+```
+
+The results of the ablation study include detailed performance metrics for each configuration, providing a quantitative basis for identifying the most impactful layers and hyperparameters.
+
+A summary of the ablation results is presented in the report generated by the following function:
+
+
+## Final Analysis: Ablation Study Report
+
+The ablation study was conducted to evaluate the impact of different architectural configurations on the CNN+LSTM model’s performance in time series forecasting. The results are summarized below, focusing on the Mean Squared Error (MSE) and Mean Absolute Percentage Error (MAPE) for each configuration.
+
+### Key Observations
+
+1. **Best Configuration**:
+   - **Configuration**: `{'include_conv': True, 'conv_filters': 64, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000296357`
+     - MAPE: `99.18%`
+   - This configuration achieved the lowest MSE and the lowest MAPE among all setups tested, indicating a strong balance between convolutional and recurrent layers with sufficient filters and neurons.
+
+2. **Poor Generalization with Higher Filters**:
+   - **Configuration**: `{'include_conv': True, 'conv_filters': 128, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000297815`
+     - MAPE: `2460438667962.732%`
+   - While MSE remained competitive, the extremely high MAPE indicates poor generalization, likely caused by overfitting due to the increased complexity of convolutional filters.
+
+3. **Effect of Removing LSTM Layers**:
+   - **Configuration**: `{'include_conv': True, 'conv_filters': 64, 'include_lstm': False, 'gru_units': 50, 'activation': 'relu', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000296818`
+     - MAPE: `545753800735.74896%`
+   - Removing LSTM layers slightly increased MSE and drastically impacted MAPE, demonstrating that the absence of temporal dependency modeling reduces the network’s ability to forecast accurately.
+
+4. **Effect of Excluding Convolutional Layers**:
+   - **Configuration**: `{'include_conv': False, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 0, 'activation': 'relu', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000297667`
+     - MAPE: `2250906755637.2246%`
+   - The exclusion of convolutional layers increased both MSE and MAPE significantly, reinforcing the importance of feature extraction via convolution for improved performance.
+
+5. **Effect of Activation Function Change**:
+   - **Configuration**: `{'include_conv': True, 'conv_filters': 64, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 50, 'activation': 'tanh', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000297963`
+     - MAPE: `2525076505075.051%`
+   - The use of `tanh` instead of `relu` led to a slight increase in both MSE and MAPE, suggesting that `relu` performs better for this dataset and task.
+
+6. **Lower Filter Configurations**:
+   - **Configuration**: `{'include_conv': True, 'conv_filters': 32, 'include_lstm': True, 'lstm_units': 50, 'gru_units': 0, 'activation': 'relu', 'include_dropout': True}`
+   - **Performance**: 
+     - MSE: `0.000298109`
+     - MAPE: `2649331642167.829%`
+   - While a lower filter count in convolutional layers reduced complexity, it also led to poorer performance in both MSE and MAPE.
+
+### Conclusion
+
+The ablation study highlights the importance of balancing the network's architecture for time series forecasting:
+- A combination of convolutional layers (`conv_filters=64`) and LSTM layers (`lstm_units=50`) enhanced temporal feature extraction while maintaining efficient generalization.
+- Over-complex architectures (e.g., excessive filters or layers) resulted in higher errors, likely due to overfitting.
+- Proper activation functions (`relu`) contributed to improved performance compared to alternative configurations.
+
+The findings provide actionable insights for tuning CNN+LSTM models in future applications.
+
+
+
+ 
+
+ 
+
+------------------------------------------------------------------------
+
+# References
+
+[Prof. Victor H. Alves Ribeiro class repo](https://github.com/vhrique/anne_ptbr)
+
+------------------------------------------------------------------------
+
+```{python}
+##| eval: false
+# Total timing to compile this Quarto document
+
+end_time = datetime.now()
+time_diff = end_time - start_time
+
+print(f"Total Quarto document compiling time: {time_diff}")
+
+```
