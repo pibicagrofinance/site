@@ -6,45 +6,45 @@
         "neurons": 50
     },
     "KE=F": {
-        "activation": "tanh",
-        "batch_size": 32,
-        "learning_rate": 0.01,
-        "neurons": 50
+        "activation": "relu",
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "neurons": 30
     },
     "ZC=F": {
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     },
     "ZL=F": {
         "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZM=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZR=F": {
         "activation": "tanh",
-        "batch_size": 64,
+        "batch_size": 32,
         "learning_rate": 0.001,
         "neurons": 50
     },
     "ZS=F": {
         "activation": "tanh",
-        "batch_size": 32,
+        "batch_size": 64,
         "learning_rate": 0.01,
         "neurons": 30
     },
     "ZW=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     }
 }
