@@ -21,9 +21,58 @@ editor: visual
 
 -   Our first Colab Notebook <i class="fa-regular fa-hand-point-right"></i> [here](https://github.com/pibicagrofinance/Jupyter_Notebooks/blob/main/Google_Trends_extactor_for_commodities_(grains)_portfolio.ipynb)
 
-
 <i class="fa-regular fa-check"></i> This project is related with the step [News and Impact on price and volatilities dynamics](https://pibicagrofinance.github.io/site/news.html)
 
 ## Project 2
+
+<i class="fa-regular fa-check"></i> This project aims to find how and why the corn prices flows down for the zero in 2024-jun-16.
+
+### MERCADO GLOBAL DE ARROZ ENFRENTA FORTE VOLATILIDADE EM JUNHO DE 2024
+
+Preço do Arroz Marca Zero no Gráfico em 16 de Junho: Erro Técnico ou Anomalia no Mercado?
+
+O Yahoo Finance, uma plataforma amplamente utilizada para acessar dados financeiros, cotações em tempo real e gráficos históricos, apresentou um dado intrigante sobre as variações do preço do arroz. No dia 16 de junho de 2024, o preço do alimento foi registrado como zero. Essa informação incomum levanta questionamentos sobre sua origem, com duas possíveis explicações: um erro técnico na plataforma ou uma anomalia no mercado de commodities.
+
+**Erro Técnico**
+
+Especialistas sugerem que a hipótese de um erro técnico não deve ser descartada. Falhas em plataformas financeiras podem ocorrer por problemas no endpoint, parâmetros incorretos ou dificuldades relacionadas ao processamento de dados por meio de APIs. Vale destacar que a data em questão cai em um domingo, dia em que muitos mercados permanecem fechados, o que pode ter gerado inconsistências nos registros.
+
+**Anomalia no Mercado de Commodities**
+
+Por outro lado, o mercado de commodities agrícolas, como o arroz, vive constante volatilidade devido a fatores como mudanças climáticas, safras impactadas, variações na demanda global e problemas logísticos. Em junho de 2024, os preços globais do arroz apresentaram um leve aumento de 0,5%, mas começaram a cair na metade do mês. Esse movimento foi impulsionado pela redução na demanda internacional e pelo aumento na oferta de exportação.
+
+Além disso, previsões otimistas de produção nos principais países asiáticos indicaram um aumento global de 2% em relação ao ano anterior, contribuindo para a queda dos preços. No Brasil, o avanço no plantio da nova safra e a realização de leilões governamentais com valores abaixo dos registrados anteriormente pressionaram as cotações.
+
+A tendência de baixa continuou nos meses seguintes, com os preços internacionais atingindo, em novembro, o menor patamar em seis meses. A combinação de uma oferta crescente e um cenário positivo de produção nos principais produtores asiáticos intensificou a queda no mercado global.
+
+**Conclusão**
+
+Embora o registro de preço zero no dia 16 de junho tenha causado estranheza, a hipótese mais plausível é a ocorrência de um erro técnico na plataforma, devido à falta de movimentação no mercado nesse dia. Ainda assim, a volatilidade observada no mercado global de arroz durante o período reflete tendências de oferta e demanda, com a expectativa de safras robustas influenciando significativamente a queda nos preços. É essencial que plataformas financeiras revisem suas metodologias de coleta de dados para evitar informações equivocadas que possam confundir investidores e analistas.
+
+
+**Appendix**
+
+Gráfico feito pela plataforma Yahoo finance 
+
+![](https://raw.githubusercontent.com/rhozon/Doutorado/main/yahoofinancecorn_quotes.png) 
+
+
+
+
+
+**REFERÊNCIAS** 
+
+
+[astera.com](https://www.astera.com/pt/type/blog/api-errors/)
+
+[infoarroz.org](https://infoarroz.org/pt/blog/2024/07/11/junho-2024-244-tendencia-de-queda-nos-precos-mundiais-do-arroz/)
+
+[globorural.globo.com](https://globorural.globo.com/agricultura/arroz/noticia/2024/11/preco-do-arroz-em-casca-atinge-o-menor-nivel-em-seis-meses.ghtml)
+
+[Yahoo!Finance](https://finance.yahoo.com/quote/ZR%3DF/)
+
+Por: Gabrielly dos Santos Mateus da Rosa, Rodrigo Hermont Ozon e Ricardo Vianna.
+
+
 
 ## Project 3
