@@ -1,0 +1,9 @@
+---
+title: "Interactive full mindmap"
+author: "Rodrigo Hermont Ozon"
+editor: visual
+---
+
+::: {html}
+<iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/4KahXwYqBXLwQHDBvjPK5j"></iframe>
+:::

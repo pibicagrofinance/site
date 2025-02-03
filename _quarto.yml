@@ -29,6 +29,7 @@ website:
         contents: 
           - index.qmd
           - mindmap.qmd
+          - interactivemindmap.qmd
           - revsyslit.qmd
       - section: "Commodities (grains) news"
         href: news.qmd

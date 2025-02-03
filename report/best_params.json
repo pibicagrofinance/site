@@ -1,7 +1,7 @@
 {
     "GF=F": {
         "activation": "tanh",
-        "batch_size": 64,
+        "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     },
@@ -12,7 +12,7 @@
         "neurons": 50
     },
     "ZC=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 50
@@ -21,7 +21,7 @@
         "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 50
+        "neurons": 30
     },
     "ZM=F": {
         "activation": "tanh",
@@ -31,7 +31,7 @@
     },
     "ZR=F": {
         "activation": "tanh",
-        "batch_size": 64,
+        "batch_size": 32,
         "learning_rate": 0.001,
         "neurons": 50
     },
@@ -39,12 +39,12 @@
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     },
     "ZW=F": {
-        "activation": "tanh",
-        "batch_size": 64,
+        "activation": "relu",
+        "batch_size": 32,
         "learning_rate": 0.01,
-        "neurons": 30
+        "neurons": 50
     }
 }
