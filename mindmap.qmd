@@ -174,9 +174,4 @@ Here we can see an much more complete and [interactive mindmap: (if the HTML doe
 
 
 
-::: {html}
-<iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/4KahXwYqBXLwQHDBvjPK5j"></iframe>
-:::
-
-
 ![](https://raw.githubusercontent.com/pibicagrofinance/site/main/mindmap_thesis_proposal.png)

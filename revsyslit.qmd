@@ -70,7 +70,7 @@ font-style: italic;
 
 ------------------------------------------------------------------------
 
-<left> ![](https://432f5d.mannesoftprime.com.br/processo_seletivo/imagens/logo_puc.png){width="20%"} </left>
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="20%"} </left>
 
 ------------------------------------------------------------------------
 

@@ -53,11 +53,7 @@ website:
         contents:
           - pareto_front_reinforcement.qmd
           - reinforcement_algos_decision_making.qmd
-      - section: "Big Data in financial markets"
-        contents:
-          - presFAE.qmd
       - href: acknowlegment.qmd
-
 
 format:
   html:
