@@ -1,0 +1,77 @@
+---
+title: "Research proposal"
+subtitle: "***MindMap***"
+author: <a href="https://rhozon.github.io/selecaodeprodutosnor/index.html">Rodrigo Hermont Ozon</a>
+author-meta: "<a href='https://rhozon.github.io/selecaodeprodutosnor/index.html'>Rodrigo Hermont Ozon</a>"
+date: "06-feb-2025"
+title-slide-attributes:
+    data-background-image: "https://raw.githubusercontent.com/rhozon/Doutorado/main/puc_background_presentation.png"
+    data-background-size: contain
+    data-background-opacity: "number"
+format:
+  revealjs:
+    incremental: true   
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    preview-links: auto
+    css: stylespres.css
+    subtitle-font-size: 8
+---
+
+
+
+```{css, include=FALSE}
+
+.title {
+  font-size: 60px !important;
+  color: red !important;
+}
+
+.author {
+  font-size: 50px;
+  color: blue;
+}
+
+.date {
+  font-size: 50px;
+  color: green;
+}
+
+```
+
+
+```{r setup, include=FALSE}
+
+start_time <- Sys.time()
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+
+## MindMap 
+
+<font size = 4>
+
+**Advanced Techniques for Multiperiod Multiobjective Portfolio Optimization in Agricultural Commodity Markets:**
+
+***Combining Volatility Modeling and Reinforcement Learning and Exploring Strategic Asset Allocation***
+
+
+
+::: {html}
+<iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/4KahXwYqBXLwQHDBvjPK5j"></iframe>
+:::
+
+
+
+

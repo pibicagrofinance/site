@@ -29,7 +29,7 @@ website:
         contents: 
           - index.qmd
           - mindmap.qmd
-          - interactivemindmap.qmd
+          - resmindmap.qmd
           - revsyslit.qmd
       - section: "Commodities (grains) news"
         href: news.qmd
@@ -53,11 +53,7 @@ website:
         contents:
           - pareto_front_reinforcement.qmd
           - reinforcement_algos_decision_making.qmd
-      - section: "Big Data in financial markets"
-        contents:
-          - presFAE.qmd
       - href: acknowlegment.qmd
-
 
 format:
   html:
