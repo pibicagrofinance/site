@@ -1,9 +1,172 @@
 ---
-title: "About"
+title: ""
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
 ---
 
-About this site
+------------------------------------------------------------------------
 
-```{r}
-1 + 1
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+# About the PIBIC and PIBITI Jr.
+
+This project is carried out as part of a research initiation (PIBIC and PIBITI Jr.) at PUCPR, focusing on advanced forecasting and optimization techniques applied to agriculture.
+
+::: panel-tabset
+## Rodrigo
+
+<right> ![](https://rhozon.github.io/site/me.jpg){width="5%"} </right>
+
+------------------------------------------------------------------------
+
+**Advisor/Researcher**
+
+-   Economist and Msc. in Economic Development (UFPR, 2008 & 2010), PhD Candidate at PPGEPS/PUCPR (2022-2026)
+
+{{< fa thumbs >}}
+
+<!-- Pra instalar os icones no quarto vide https://github.com/quarto-ext/fontawesome -->
+
+<!-- Pra buscar icones vide https://fontawesome.com/search -->
+
+```{=html}
+
+<div style="margin-top: 10px; text-align: left;">
+
+    <!-- LinkedIn (azul) -->
+    <a href="https://www.linkedin.com/in/rodrigohermontozon/" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-linkedin" style="font-size: 12px; color: #0077b5;"></i>
+    </a>
+
+    <!-- GitHub (preto) -->
+    <a href="https://github.com/rhozon" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-github" style="font-size: 12px; color: #000;"></i>
+    </a>
+
+    <!-- Google Scholar (substituído por ícone de graduation-cap) -->
+    <a href="https://scholar.google.com/citations?user=hPcIR9oAAAAJ&hl=en" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-graduation-cap" style="font-size: 12px; color: #4285F4;"></i>
+    </a>
+
+    <!-- ORCID (verde) -->
+    <a href="https://orcid.org/my-orcid?orcid=0000-0001-8003-4849" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-orcid" style="font-size: 12px; color: #A6CE39;"></i>
+    </a>
+
+    <!-- Curriculum Lattes (ícone de documento) -->
+    <a href="https://wwws.cnpq.br/cvlattesweb/PKG_MENU.menu?f_cod=CAE59CF7D29E4B95B7C13C648C78B21F#" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-user-graduate" style="font-size: 12px; color: #000;"></i>
+    </a>
+
+
+    <!-- R Project (azul) -->
+    <a href="https://rhozon.github.io/selecaodeprodutosnor/index.html" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-r-project" style="font-size: 12px; color: #276DC3;"></i>
+    </a>
+    
+    <!-- Email (vermelho) -->
+    <a href="mailto:rodrigo.hermont@pucpr.edu.br" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-envelope" style="font-size: 12px; color: #D44638;"></i>
+    </a>
+
+</div>
+  
 ```
+
+
+
+------------------------------------------------------------------------
+
+## Ricardo
+
+<right> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/RicardoVianna_oval.png){width="5%"} </right>
+
+------------------------------------------------------------------------
+
+**Computer Science Researcher at PUCPR**
+
+-   Undergratuate student $\Rightarrow$ [Computer Science Website at PUCPR](https://graduacao.pucpr.br/cursos/ciencia-da-computacao?utm_source=google-search&utm_medium=search&utm_source_platform=responsivo&utm_campaign=DG34_grad25.1_google-search_conversao_convers%C3%A3o-site_curitiba-cursos&utm_content=DG34_responsivo_na_cursos_ciencia-da-computacao_curitiba_TR160PR&gad_source=1)
+
+{{< fa thumbs >}}
+
+<!-- Pra instalar os icones no quarto vide https://github.com/quarto-ext/fontawesome -->
+
+<!-- Pra buscar icones vide https://fontawesome.com/search -->
+
+```{=html}
+
+<div style="margin-top: 10px; text-align: left;">
+
+    <!-- LinkedIn (azul) -->
+    <a href="https://www.linkedin.com/in/ricardo-vianna-65bb9731a/" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-linkedin" style="font-size: 12px; color: #0077b5;"></i>
+    </a>
+
+    <!-- GitHub (preto) -->
+    <a href="https://github.com/ricaprof" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-github" style="font-size: 12px; color: #000;"></i>
+    </a>
+
+    <!-- Email (vermelho) -->
+    <a href="mailto:vianna.r@pucpr.edu.br" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-envelope" style="font-size: 12px; color: #D44638;"></i>
+    </a>
+
+</div>
+  
+```
+
+
+
+
+
+
+## Gabrielly
+
+
+<right> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/image_oval.png){width="5%"} </right>
+
+------------------------------------------------------------------------
+
+**Adventist College student**
+
+-   Link for the College institution $\Rightarrow$ [Colégio Adventista Pinhais](https://pinhais.educacaoadventista.org.br/)
+
+{{< fa thumbs >}}
+
+<!-- Pra instalar os icones no quarto vide https://github.com/quarto-ext/fontawesome -->
+
+<!-- Pra buscar icones vide https://fontawesome.com/search -->
+
+```{=html}
+
+<div style="margin-top: 10px; text-align: left;">
+
+    <!-- GitHub (preto) -->
+    <a href="https://github.com/Gaby77-git" target="_blank" style="margin-right: 15px;">
+        <i class="fa-brands fa-github" style="font-size: 12px; color: #000;"></i>
+    </a>
+    
+    <!-- Curriculum Lattes (ícone de documento) -->
+    <a href="https://lattes.cnpq.br/4415158395421439" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-user-graduate" style="font-size: 12px; color: #000;"></i>
+    </a>
+
+    <!-- Email (vermelho) -->
+    <a href="mailto:gabrielly.srosa@eaportal.org" target="_blank" style="margin-right: 15px;">
+        <i class="fa fa-envelope" style="font-size: 12px; color: #D44638;"></i>
+    </a>
+
+</div>
+  
+```
+
+
+:::
