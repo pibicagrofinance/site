@@ -11,22 +11,12 @@ format:
 editor: visual
 ---
 
-```{python}
-#| echo: false
-
-import time
-from datetime import datetime
-
-start_time = datetime.now()
-
-```
-
 
 ::: {.callout-note icon="false"}
 ## Abstract
 
 
-The main idea here is to schedule the publication plan to be sended fo specific indexed magazines, journals, periodicals and scientific research pairs.
+The main idea here is to schedule the publication plan to be sended for specific indexed magazines, journals, periodicals and scientific research pairs.
 
 :::
 
@@ -140,7 +130,7 @@ Keywords: Commodities Portfolio Optimization; Time Series Forecasting; Pareto Fr
 
 ### Paper 4
 
-- Paper title: **"Portfolio Optimization with GARCH Models Using Multiple Time Windows for Pareto Frontiers"** by Rodrigo Hermont Ozon, José Donizzetti da Fonseca e Géremi Dranka
+- Paper title: **"Portfolio Optimization with GARCH Models Using Multiple Time Windows for Pareto Frontiers"** by Rodrigo Hermont Ozon, Gilberto Reynoso-Meza
 
 ### Abstract:
 
@@ -227,6 +217,99 @@ Commodities Portfolio Optimization, Time Series Forecasting, Pareto Front Scenar
 
 ***
 
+***
+
+### Paper 7
+
+- **Paper title:** "Enhancing Grain Portfolio Risk Management with GAMLSS and MSGARCH" by Rodrigo Hermont Ozon, José Donizzetti de Lima, and Géremi Dranka  
+
+### Abstract:
+
+This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.  
+
+**Keywords:**  
+Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series  
+
+| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+
+[Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
+
+***
+
+***
+
+### Paper 8
+
+- **Paper title:** "Improving Risk Management in Grain Portfolios: The Role of GAMLSS and Bayesian MSGARCH Models" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza  
+
+### Abstract:
+
+This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.  
+
+**Keywords:**  
+Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series  
+
+| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+
+[Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
+
+***
+
+***
+
+### Paper 8
+
+- **Paper title:** "Econometric Prices Forecasting Approach and Multiobjective Optimization for Commodity Portfolio Decision-Making" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza  
+
+### Abstract:
+
+This paper proposes an innovative approach to agricultural commodity portfolio optimization, leveraging Bayesian GARCH models with Markov Regime Switching shifts to forecast price return series and estimate their conditional volatilities, a departure from the conventional standard deviation. This research is grounded in a meticulous review of diverse methodologies in commodity price forecasting and portfolio optimization, including the recent works of Zhang *et al.* (2020), who developed a robust framework for forecasting agricultural commodity prices, and Gagnon *et al.* (2020), who explored the diversification benefits of commodities.  
+
+Our approach utilizes time series data of agricultural commodity prices to construct multi-objective optimization models, identifying optimal Pareto fronts for each quarterly time window. This methodology is informed by the advancements in multi-objective optimization by Chen *et al.* (2009) and Zitzler *et al.* (2001), and it is further enriched by the incorporation of reinforcement learning to recommend the most advantageous buy, sell, or hold alternatives. The integration of Bayesian GARCH models with Markov Regime shifts and Reinforcement Learning recommendation models represents a disruptive advancement in the field, offering nuanced insights into the dynamics of commodity prices and refining portfolio theory.  
+
+This novel convergence of methodologies not only enhances the precision in forecasting commodity price returns and their volatilities but also provides a sophisticated framework for portfolio decision-making, contributing significantly to the ongoing discourse in financial research and the modeling of price time series.  
+
+**Keywords:**  
+Bayesian GARCH Models, Markov Regime Shifts, Agricultural Commodity Portfolio, Multi-objective Optimization, Reinforcement Learning Recommendation Models  
+
+| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+
+[Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
+
+***
 
 
 
@@ -235,16 +318,4 @@ Commodities Portfolio Optimization, Time Series Forecasting, Pareto Front Scenar
  
 
 ------------------------------------------------------------------------
-
-```{python}
-
-# Total timing to compile this Quarto document
-
-end_time = datetime.now()
-time_diff = end_time - start_time
-
-print(f"Total Quarto document compiling time: {time_diff}")
-
-```
-
 
