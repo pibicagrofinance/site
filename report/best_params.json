@@ -1,64 +1,48 @@
 {
     "GF=F": {
-        "activation": "relu",
-<<<<<<< HEAD
-        "batch_size": 64,
-=======
+        "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 50
     },
     "KE=F": {
-        "activation": "relu",
-        "batch_size": 32,
->>>>>>> 5c21489a920a0390dacbd60938e6959145ac8e72
-        "learning_rate": 0.01,
-        "neurons": 50
-    },
-<<<<<<< HEAD
-    "KE=F": {
-        "activation": "relu",
-        "batch_size": 32,
-        "learning_rate": 0.01,
-        "neurons": 50
-    },
-    "ZC=F": {
-        "activation": "tanh",
-        "batch_size": 32,
-=======
-    "ZC=F": {
         "activation": "tanh",
         "batch_size": 64,
->>>>>>> 5c21489a920a0390dacbd60938e6959145ac8e72
+        "learning_rate": 0.01,
+        "neurons": 30
+    },
+    "ZC=F": {
+        "activation": "tanh",
+        "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     },
     "ZL=F": {
+        "activation": "relu",
+        "batch_size": 64,
+        "learning_rate": 0.01,
+        "neurons": 30
+    },
+    "ZM=F": {
         "activation": "tanh",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 50
     },
-    "ZM=F": {
+    "ZR=F": {
+        "activation": "tanh",
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "neurons": 30
+    },
+    "ZS=F": {
         "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
     },
-    "ZR=F": {
-        "activation": "tanh",
-        "batch_size": 64,
-        "learning_rate": 0.001,
-        "neurons": 50
-    },
-    "ZS=F": {
-        "activation": "tanh",
-        "batch_size": 64,
-        "learning_rate": 0.01,
-        "neurons": 50
-    },
     "ZW=F": {
-        "activation": "tanh",
+        "activation": "relu",
         "batch_size": 32,
         "learning_rate": 0.01,
         "neurons": 30
