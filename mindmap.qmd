@@ -175,3 +175,99 @@ Here we can see an much more complete and [interactive mindmap: (if the HTML doe
 
 
 ![](https://raw.githubusercontent.com/pibicagrofinance/site/main/mindmap_thesis_proposal.png)
+
+
+
+Another mindmap tryed to be made with plotly
+
+```{r}
+
+# Libraries
+library(networkD3)
+library(dplyr)
+
+# Create the dataset (edges) for the mind map
+data <- data.frame(
+  from = c(
+    # Edges from the root node
+    "PhD Thesis Proposal", "PhD Thesis Proposal", "PhD Thesis Proposal", 
+    "PhD Thesis Proposal", "PhD Thesis Proposal", "PhD Thesis Proposal", "PhD Thesis Proposal",
+    
+    # Edges under "Research Motivation"
+    "Research Motivation", "Research Motivation",
+    
+    # Edges under "Methodological Framework"
+    "Methodological Framework", "Methodological Framework",
+    
+    # Edges under "Econometric Modeling Techniques & Volatility Modeling Approaches"
+    "Econometric Modeling Techniques & Volatility Modeling Approaches", "Econometric Modeling Techniques & Volatility Modeling Approaches",
+    
+    # Edges under "Portfolio Optimization & Allocation"
+    "Portfolio Optimization & Allocation", "Portfolio Optimization & Allocation",
+    
+    # Edges under "Multi-Objective Portfolio Optimization Framework"
+    "Multi-Objective Portfolio Optimization Framework", "Multi-Objective Portfolio Optimization Framework",
+    
+    # Edges under "Optimization Algorithms"
+    "Optimization Algorithms", "Optimization Algorithms",
+    
+    # Edges under "Expected Contributions"
+    "Expected Contributions", "Expected Contributions",
+    
+    # Edges under "Work Plan & Timeline"
+    "Work Plan & Timeline", "Work Plan & Timeline", "Work Plan & Timeline", 
+    "Work Plan & Timeline", "Work Plan & Timeline", "Work Plan & Timeline"
+  ),
+  to = c(
+    # Children of "PhD Thesis Proposal"
+    "Research Motivation", "Methodological Framework", "Dynamic Programming for Multi-Period Optimization", 
+    "Empirical Validation", "Practical Guidelines", "Expected Contributions", "Work Plan & Timeline",
+    
+    # Children of "Research Motivation"
+    "Challenges in Commodity Markets", "Need for Improved Forecasting & Risk Management",
+    
+    # Children of "Methodological Framework"
+    "Econometric Modeling Techniques & Volatility Modeling Approaches", "Portfolio Optimization & Allocation",
+    
+    # Children of "Econometric Modeling Techniques & Volatility Modeling Approaches"
+    "Distributional Analysis (GAMLSS Framework)", "Volatility & Regime Switching (MSGARCH Models)",
+    
+    # Children of "Portfolio Optimization & Allocation"
+    "Reinforcement Learning for Allocation (K-Bandit & Q-Learning)", "Multi-Objective Portfolio Optimization Framework",
+    
+    # Children of "Multi-Objective Portfolio Optimization Framework"
+    "Objective Functions (Return, Risk, Entropy)", "Optimization Algorithms",
+    
+    # Children of "Optimization Algorithms"
+    "Differential Evolution (DE)", "NSGA-II",
+    
+    # Children of "Expected Contributions"
+    "Advances in Volatility Modeling", "Innovative Portfolio Optimization",
+    
+    # Children of "Work Plan & Timeline"
+    "1-3 Months: Data Collection", "4-6 Months: Develop GAMLSS & MSGARCH", 
+    "7-9 Months: Model Comparison & Optimization Framework", "10-12 Months: Integrate Reinforcement Learning", 
+    "13-15 Months: Empirical Validation", "16-18 Months: Final Analysis & Thesis"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Plot the network using simpleNetwork from networkD3
+simpleNetwork(data, 
+              height = "800px", 
+              width = "100%", 
+              Source = 1,      # column number for source nodes
+              Target = 2,      # column number for target nodes
+              linkDistance = 100,  # adjust as needed for spacing
+              charge = -300,       # node repulsion (tweak for layout)
+              fontSize = 14,       # font size for node labels
+              fontFamily = "serif",
+              linkColour = "#666", # color of the links
+              nodeColour = "#69b3a2",  # color of the nodes
+              opacity = 0.9,       # overall opacity
+              zoom = TRUE          # allow zooming
+)
+
+
+```
+
