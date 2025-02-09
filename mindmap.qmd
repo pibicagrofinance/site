@@ -178,7 +178,7 @@ Here we can see an much more complete and [interactive mindmap: (if the HTML doe
 
 
 
-Another mindmap tryed to be made with plotly
+Another mindmap tryed to be made with networkD3
 
 ```{r}
 
