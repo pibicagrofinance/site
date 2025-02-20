@@ -11,13 +11,10 @@ format:
 editor: visual
 ---
 
-
 ::: {.callout-note icon="false"}
 ## Abstract
 
-
 The main idea here is to schedule the publication plan to be sended for specific indexed magazines, journals, periodicals and scientific research pairs.
-
 :::
 
 ------------------------------------------------------------------------
@@ -28,18 +25,13 @@ The main idea here is to schedule the publication plan to be sended for specific
 
 # Intro
 
-
 ## Possible Journals
 
 ### Paper 1
 
-- Paper title: **"Impact of Sentiment Analysis on the Volatility and Structural Breaks in Agricultural Commodity Prices"** by Rodrigo Hermont Ozon and Ricardo Viana [(see the publishing plan for this paper here at this presentation)](https://github.com/pibicagrofinance/site/blob/main/Presentation_MQII___Rodrigo_Hermont_Ozon.pdf)
-
-
-
+-   Paper title: **"Impact of Sentiment Analysis on the Volatility and Structural Breaks in Agricultural Commodity Prices"** by Rodrigo Hermont Ozon and Ricardo Viana [(see the publishing plan for this paper here at this presentation)](https://github.com/pibicagrofinance/site/blob/main/Presentation_MQII___Rodrigo_Hermont_Ozon.pdf)
 
 ### Abstract:
-
 
 This study explores the impact of sentiment analysis on the volatility and structural breaks in agricultural commodity prices. Agricultural markets are often subject to abrupt fluctuations and high volatility, making it essential for investors and policymakers to understand the factors driving these changes. Sentiment analysis, derived from news sources and social media, offers an additional layer of data that complements traditional econometric models, providing a broader understanding of market behavior. This research will utilize time series data of agricultural commodity prices and sentiment metrics obtained through natural language processing (NLP) tools applied to news data.
 
@@ -48,32 +40,27 @@ The proposed methods include the application of econometric models such as condi
 This study will provide valuable insights for portfolio managers and investors, enabling them to incorporate sentiment indicators into their investment strategies and improve the forecasting of commodity market fluctuations. The relevance of this research lies in the growing need to understand how qualitative variables, such as market sentiment, affect agricultural commodity prices in the context of global economic uncertainties.
 
 KeyWords: Sentiment Analysis, Time Series, Volatility, Structural Breaks, Portfolio Optimization, Commodity Prices.
-    
 
 | Journal | Text Match Score (1 to 5) | CiteScore | Acceptance Rate (%) | Time to First Decision (days) |
-|---------|--------------------------|-----------|---------------------|------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+|--------------|---------------|--------------|--------------|------------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24% | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Journal of Business Research](https://www.sciencedirect.com/journal/journal-of-business-research) | 4 | 11.2 | - | 12 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Journal of Business Research](https://www.sciencedirect.com/journal/journal-of-business-research) | 4 | 11.2 | \- | 12 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25% | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30% | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-
-***
-
+------------------------------------------------------------------------
 
 ### Paper 2
 
-- **Paper title:** "Ablation Study of a CNN+LSTM Architecture for Time Series Forecasting of Corn Price Returns" by Rodrigo Hermont Ozon
-
-
+-   **Paper title:** "Ablation Study of a CNN+LSTM Architecture for Time Series Forecasting of Corn Price Returns" by Rodrigo Hermont Ozon
 
 ### Abstract:
 
@@ -81,9 +68,8 @@ This paper presents an ablation study of a hybrid CNN+LSTM architecture applied 
 
 Keywords: Time Series, CNN+LSTM, Ablation Study, Price Forecasting, Artificial Neural Networks.
 
-
-| **Journal**                                         | **Text Match Score** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|----------------------------------------------------|----------------------|---------------|------------------------|----------------------------------|
+| **Journal** | **Text Match Score** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|--------------------|-------------|-------------|-------------|-------------|
 | [Neurocomputing](https://www.sciencedirect.com/journal/neurocomputing) | 5 | 8.7 | 30% | 45 |
 | [Expert Systems with Applications](https://www.sciencedirect.com/journal/expert-systems-with-applications) | 5 | 12.2 | 28% | 30 |
 | [Journal of Forecasting](https://onlinelibrary.wiley.com/journal/10991416) | 4 | 4.1 | 25% | 60 |
@@ -92,16 +78,11 @@ Keywords: Time Series, CNN+LSTM, Ablation Study, Price Forecasting, Artificial N
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-
-
-***
-
+------------------------------------------------------------------------
 
 ### Paper 3
 
-- Paper title: **"Blending Forecasting Models for Commodities Portfolio Optimization"** by Rodrigo Hermont Ozon and Robson Guedes
-
-
+-   Paper title: **"Blending Forecasting Models for Commodities Portfolio Optimization"** by Rodrigo Hermont Ozon and Robson Guedes
 
 ### Abstract:
 
@@ -109,213 +90,226 @@ The intricacies of the global commodities market, characterized by its inherent 
 
 Keywords: Commodities Portfolio Optimization; Time Series Forecasting; Pareto Front Scenarios
 
-
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
-| [Agricultural Economics](https://onlinelibrary.wiley.com/journal/15740862) | 5 | 4.2 | - | 45 |
-| [Food Policy](https://www.sciencedirect.com/journal/food-policy) | 5 | 6.8 | - | 30 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 4 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 4 | 5.8 | - | 18 |
-| [Journal of Agricultural and Resource Economics](https://www.jstor.org/journal/jagecres) | 4 | 1.5 | - | 60 |
-| [Applied Economics](https://www.tandfonline.com/toc/raec20/current) | 4 | 3.0 | - | 50 |
-| [Journal of International Money and Finance](https://www.sciencedirect.com/journal/journal-of-international-money-and-finance) | 4 | 4.1 | - | 40 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 4 | 4.1 | - | 30 |
-| [Journal of Futures Markets](https://onlinelibrary.wiley.com/journal/10969934) | 5 | 3.2 | - | 40 |
-
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
+| [Agricultural Economics](https://onlinelibrary.wiley.com/journal/15740862) | 5 | 4.2 | \- | 45 |
+| [Food Policy](https://www.sciencedirect.com/journal/food-policy) | 5 | 6.8 | \- | 30 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 4 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 4 | 5.8 | \- | 18 |
+| [Journal of Agricultural and Resource Economics](https://www.jstor.org/journal/jagecres) | 4 | 1.5 | \- | 60 |
+| [Applied Economics](https://www.tandfonline.com/toc/raec20/current) | 4 | 3.0 | \- | 50 |
+| [Journal of International Money and Finance](https://www.sciencedirect.com/journal/journal-of-international-money-and-finance) | 4 | 4.1 | \- | 40 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 4 | 4.1 | \- | 30 |
+| [Journal of Futures Markets](https://onlinelibrary.wiley.com/journal/10969934) | 5 | 3.2 | \- | 40 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-***
+------------------------------------------------------------------------
 
 ### Paper 4
 
-- Paper title: **"Portfolio Optimization with GARCH Models Using Multiple Time Windows for Pareto Frontiers"** by Rodrigo Hermont Ozon, Gilberto Reynoso-Meza
+-   Paper title: **"Portfolio Optimization with GARCH Models Using Multiple Time Windows for Pareto Frontiers"** by Rodrigo Hermont Ozon, Gilberto Reynoso-Meza
 
 ### Abstract:
 
 This study introduces a novel approach for portfolio optimization by employing Generalized Autoregressive Conditional Heteroskedasticity (GARCH) models to assess risk and construct Pareto frontiers over multiple time windows. Traditional risk measures such as the standard deviation may fail to capture risk accurately in financial markets where volatility is time-varying. By modeling conditional volatility, GARCH models offer a more comprehensive depiction of risk. In this paper, we implement this approach in the non-diversified portfolio optimization of two commodities, corn and soy, projecting their price dynamics 252 days ahead. The results demonstrate that the application of GARCH models and multi-period Pareto frontiers can significantly enhance portfolio optimization, providing fresh insights into purchasing and selling opportunities in the commodities market. This study adds to the current literature by addressing the gaps in applying Pareto frontiers across multiple time windows and utilizing GARCH models for risk measurement.
 
-**Keywords:** 
-Portfolio Optimization, GARCH Models, Pareto Frontiers.
+**Keywords:** Portfolio Optimization, GARCH Models, Pareto Frontiers.
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
-| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | \- | 50 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
+------------------------------------------------------------------------
 
-***
-
-***
+------------------------------------------------------------------------
 
 ### Paper 5
 
-- **Paper title:** "Impact of the Russia-Ukraine War on Corn Prices, Returns, and Volatility: A Quasi-Experimental Approach" by Rodrigo Hermont Ozon
+-   **Paper title:** "Impact of the Russia-Ukraine War on Corn Prices, Returns, and Volatility: A Quasi-Experimental Approach" by Rodrigo Hermont Ozon
 
 ### Abstract:
 
 This paper investigates the impact of the Russia-Ukraine war on corn futures prices, returns, and volatility. Using a quasi-experimental approach with the CausalImpact model, we estimate changes before and after the war’s escalation. The results highlight how geopolitical conflicts affect commodity markets.
 
-**Keywords:** 
-Russia-Ukraine War, Corn Prices, Futures, Volatility, CausalImpact Model, Quasi-Experimental Approach.
+**Keywords:** Russia-Ukraine War, Corn Prices, Futures, Volatility, CausalImpact Model, Quasi-Experimental Approach.
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
-| [Agricultural Economics](https://onlinelibrary.wiley.com/journal/15740862) | 5 | 4.2 | - | 45 |
-| [Food Policy](https://www.sciencedirect.com/journal/food-policy) | 5 | 6.8 | - | 30 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 4 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 4 | 5.8 | - | 18 |
-| [Journal of Agricultural and Resource Economics](https://www.jstor.org/journal/jagecres) | 4 | 1.5 | - | 60 |
-| [Applied Economics](https://www.tandfonline.com/toc/raec20/current) | 4 | 3.0 | - | 50 |
-| [Journal of International Money and Finance](https://www.sciencedirect.com/journal/journal-of-international-money-and-finance) | 4 | 4.1 | - | 40 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 4 | 4.1 | - | 30 |
-| [Journal of Futures Markets](https://onlinelibrary.wiley.com/journal/10969934) | 5 | 3.2 | - | 40 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
+| [Agricultural Economics](https://onlinelibrary.wiley.com/journal/15740862) | 5 | 4.2 | \- | 45 |
+| [Food Policy](https://www.sciencedirect.com/journal/food-policy) | 5 | 6.8 | \- | 30 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 4 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 4 | 5.8 | \- | 18 |
+| [Journal of Agricultural and Resource Economics](https://www.jstor.org/journal/jagecres) | 4 | 1.5 | \- | 60 |
+| [Applied Economics](https://www.tandfonline.com/toc/raec20/current) | 4 | 3.0 | \- | 50 |
+| [Journal of International Money and Finance](https://www.sciencedirect.com/journal/journal-of-international-money-and-finance) | 4 | 4.1 | \- | 40 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 4 | 4.1 | \- | 30 |
+| [Journal of Futures Markets](https://onlinelibrary.wiley.com/journal/10969934) | 5 | 3.2 | \- | 40 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-
-***
+------------------------------------------------------------------------
 
 ### Paper 6
 
-- **Paper title:** "A Commodities Portfolio Optimization Model Recommendation: Blending Time Series Forecasting Models in Pareto Front Scenarios" by Rodrigo Hermont Ozon and Robson Thiago Guedes da Silva
+-   **Paper title:** "A Commodities Portfolio Optimization Model Recommendation: Blending Time Series Forecasting Models in Pareto Front Scenarios" by Rodrigo Hermont Ozon and Robson Thiago Guedes da Silva
 
 ### Abstract:
 
 The intricacies of the global commodities market, characterized by its inherent volatility, necessitate robust forecasting methodologies to guide stakeholders in their decision-making processes. Traditional time series forecasting models, while foundational, often grapple with capturing the multifaceted dynamics of commodity prices. This paper introduces an innovative approach to commodities portfolio optimization by synergistically blending time series forecasting models within Pareto Front Scenarios. By integrating bootstrapping techniques across models such as Dynamic Harmonic Regression, DHR with multiple seasonal periods, STL with multiple seasonal, Auto ARIMA, and non-linear regression with cubic splines, we enhance the predictive accuracy and robustness of our forecasting framework. Our findings underscore the efficacy of this integrative approach, offering a nuanced, actionable framework for commodities portfolio optimization. This research not only contributes to the academic discourse on commodities forecasting but also provides practical insights for investors, policymakers, and other stakeholders in the commodities market.
 
-**Keywords:** 
-Commodities Portfolio Optimization, Time Series Forecasting, Pareto Front Scenarios.
+**Keywords:** Commodities Portfolio Optimization, Time Series Forecasting, Pareto Front Scenarios.
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
-| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | \- | 50 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
+------------------------------------------------------------------------
 
-***
-
-***
+------------------------------------------------------------------------
 
 ### Paper 7
 
-- **Paper title:** "Enhancing Grain Portfolio Risk Management with GAMLSS and MSGARCH" by Rodrigo Hermont Ozon, José Donizzetti de Lima, and Géremi Dranka  
+-   **Paper title:** "Enhancing Grain Portfolio Risk Management with GAMLSS and MSGARCH" by Rodrigo Hermont Ozon, José Donizzetti de Lima, and Géremi Dranka
 
 ### Abstract:
 
-This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.  
+This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.
 
-**Keywords:**  
-Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series  
+**Keywords:**\
+Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
-| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | \- | 50 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-***
+------------------------------------------------------------------------
 
-***
+------------------------------------------------------------------------
 
 ### Paper 8
 
-- **Paper title:** "Improving Risk Management in Grain Portfolios: The Role of GAMLSS and Bayesian MSGARCH Models" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza  
+-   **Paper title:** "Improving Risk Management in Grain Portfolios: The Role of GAMLSS and Bayesian MSGARCH Models" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza
 
 ### Abstract:
 
-This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.  
+This paper presents a novel method integrating Generalized Additive Models for Location, Scale, and Shape (GAMLSS) with Bayesian Markov-Switching GARCH (MSGARCH) models to enhance forecasting in commodity price returns, focusing on grain portfolios. We leverage GAMLSS to model non-normal distributions of return series, crucial for accurately simulating real options. These models then inform the Bayesian MSGARCH framework, improving projections of returns and volatility, essential for effective financial planning and risk management. This innovative approach not only advances practical portfolio management but also contributes to the theoretical development of real options theory. Demonstrating its efficacy, our methodology offers a more informed, strategic approach to the complex world of commodity trading, bridging the gap between theoretical models and practical financial applications.
 
-**Keywords:**  
-Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series  
+**Keywords:**\
+Commodity Portfolio Management, GAMLSS, Monte Carlo Simulation, Bayesian MSGARCH, Real Options Theory, Financial Time Series
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
-| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | \- | 50 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
-***
+------------------------------------------------------------------------
 
-***
+------------------------------------------------------------------------
 
 ### Paper 8
 
-- **Paper title:** "Econometric Prices Forecasting Approach and Multiobjective Optimization for Commodity Portfolio Decision-Making" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza  
+-   **Paper title:** "Econometric Prices Forecasting Approach and Multiobjective Optimization for Commodity Portfolio Decision-Making" by Rodrigo Hermont Ozon and Gilberto Reynoso-Meza
 
 ### Abstract:
 
-This paper proposes an innovative approach to agricultural commodity portfolio optimization, leveraging Bayesian GARCH models with Markov Regime Switching shifts to forecast price return series and estimate their conditional volatilities, a departure from the conventional standard deviation. This research is grounded in a meticulous review of diverse methodologies in commodity price forecasting and portfolio optimization, including the recent works of Zhang *et al.* (2020), who developed a robust framework for forecasting agricultural commodity prices, and Gagnon *et al.* (2020), who explored the diversification benefits of commodities.  
+This paper proposes an innovative approach to agricultural commodity portfolio optimization, leveraging Bayesian GARCH models with Markov Regime Switching shifts to forecast price return series and estimate their conditional volatilities, a departure from the conventional standard deviation. This research is grounded in a meticulous review of diverse methodologies in commodity price forecasting and portfolio optimization, including the recent works of Zhang *et al.* (2020), who developed a robust framework for forecasting agricultural commodity prices, and Gagnon *et al.* (2020), who explored the diversification benefits of commodities.
 
-Our approach utilizes time series data of agricultural commodity prices to construct multi-objective optimization models, identifying optimal Pareto fronts for each quarterly time window. This methodology is informed by the advancements in multi-objective optimization by Chen *et al.* (2009) and Zitzler *et al.* (2001), and it is further enriched by the incorporation of reinforcement learning to recommend the most advantageous buy, sell, or hold alternatives. The integration of Bayesian GARCH models with Markov Regime shifts and Reinforcement Learning recommendation models represents a disruptive advancement in the field, offering nuanced insights into the dynamics of commodity prices and refining portfolio theory.  
+Our approach utilizes time series data of agricultural commodity prices to construct multi-objective optimization models, identifying optimal Pareto fronts for each quarterly time window. This methodology is informed by the advancements in multi-objective optimization by Chen *et al.* (2009) and Zitzler *et al.* (2001), and it is further enriched by the incorporation of reinforcement learning to recommend the most advantageous buy, sell, or hold alternatives. The integration of Bayesian GARCH models with Markov Regime shifts and Reinforcement Learning recommendation models represents a disruptive advancement in the field, offering nuanced insights into the dynamics of commodity prices and refining portfolio theory.
 
-This novel convergence of methodologies not only enhances the precision in forecasting commodity price returns and their volatilities but also provides a sophisticated framework for portfolio decision-making, contributing significantly to the ongoing discourse in financial research and the modeling of price time series.  
+This novel convergence of methodologies not only enhances the precision in forecasting commodity price returns and their volatilities but also provides a sophisticated framework for portfolio decision-making, contributing significantly to the ongoing discourse in financial research and the modeling of price time series.
 
-**Keywords:**  
-Bayesian GARCH Models, Markov Regime Shifts, Agricultural Commodity Portfolio, Multi-objective Optimization, Reinforcement Learning Recommendation Models  
+**Keywords:**\
+Bayesian GARCH Models, Markov Regime Shifts, Agricultural Commodity Portfolio, Multi-objective Optimization, Reinforcement Learning Recommendation Models
 
-| **Journal**                                    | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
-|-----------------------------------------------|-------------------------------|---------------|-------------------------|-----------------------------------|
-| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | - | 60 |
+| **Journal** | **Text Match Score (1 to 5)** | **CiteScore** | **Acceptance Rate (%)** | **Time to First Decision (days)** |
+|------------------|--------------|--------------|--------------|--------------|
+| [Journal of Commodity Markets](https://www.sciencedirect.com/journal/journal-of-commodity-markets) | 5 | 4.3 | \- | 60 |
 | [Finance Research Letters](https://www.sciencedirect.com/journal/finance-research-letters) | 5 | 11.1 | 24 | 10 |
-| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | - | 30 |
-| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | - | 18 |
+| [Energy Economics](https://www.sciencedirect.com/journal/energy-economics) | 5 | 10.8 | \- | 30 |
+| [Economic Modelling](https://www.sciencedirect.com/journal/economic-modelling) | 5 | 5.8 | \- | 18 |
 | [Journal of Banking and Finance](https://www.sciencedirect.com/journal/journal-of-banking-and-finance) | 5 | 6.4 | 25 | 40 |
-| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | - | 6 |
-| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | - | 30 |
+| [Journal of Behavioral and Experimental Finance](https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-finance) | 4 | 4.5 | \- | 6 |
+| [Emerging Markets Review](https://www.sciencedirect.com/journal/emerging-markets-review) | 5 | 4.1 | \- | 30 |
 | [Computers and Electronics in Agriculture](https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture) | 5 | 7.6 | 30 | 15 |
-| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | - | 45 |
-| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | - | 50 |
+| [International Economics](https://www.sciencedirect.com/journal/international-economics) | 4 | 3.9 | \- | 45 |
+| [Journal of Financial Markets](https://www.sciencedirect.com/journal/journal-of-financial-markets) | 4 | 5.2 | \- | 50 |
 
 [Source: Elsevier Journal Finder Results](https://journalfinder.elsevier.com/)
 
 ***
 
+# Journal Costs
 
+This is the reminder for the publishing associated costs (last update in feb-2025)
+
+```{r}
+
+library(readxl)
+library(DT)
+
+file_path <- "C:/Users/rodri/OneDrive - Grupo Marista/Site_Iniciacao_Cientifica_PUCPR20242025/site/journal_list.xlsx"
+
+df <- read_excel(file_path, sheet = "Sheet1")
+
+
+datatable(df, options = list(pageLength = 10, scrollX = TRUE))
+
+```
+
+
+
+
+
+------------------------------------------------------------------------
 
  
 
  
 
 ------------------------------------------------------------------------
-
