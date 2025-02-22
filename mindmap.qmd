@@ -171,9 +171,9 @@ The research's **innovative contribution** lies in combining these advanced econ
 
 **Final Objective**: The primary goal of this research is to develop **robust methods for volatility modeling** and **portfolio optimization** that dynamically adapt to market conditions. This approach offers a significant advancement in both academic and professional fields by providing actionable insights for managing portfolios in volatile commodity markets.
 
-Here we can see an much more complete and [interactive mindmap: (if the HTML doesn´t work, see the pic below)](https://whimsical.com/thesis-proposal-4KahXwYqBXLwQHDBvjPK5j)
+Here we can see an much more complete and [interactive mindmap: (if the HTML doesn´t work, see the pic below)](https://whimsical.com/refined-thesis-proposal-mindmap-7PmxpSyBtJQ451hP7BxCTC)
 
-![](https://raw.githubusercontent.com/pibicagrofinance/site/main/mindmap_thesis_proposal.png)
+![](https://raw.githubusercontent.com/pibicagrofinance/site/main/RefinedThesisProposalMindmap.png)
 
 Another mindmap tryed to be made with networkD3
 
