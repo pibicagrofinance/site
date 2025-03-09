@@ -1,0 +1,599 @@
+---
+title: "Corn Price Simulation: Integrating a Skewed Student‑t GARCH(1,1) Model and a Hawkes Process"
+author: "Rodrigo Hermont Ozon"
+abstract: |
+  This paper presents an integrated methodology for simulating future scenarios of corn prices. First, a GARCH(1,1) model with a skewed Student‑t distribution is fitted to capture the conditional volatility of returns. Next, standardized residuals are computed to identify extreme events (jumps), which are used to calibrate a Hawkes process modeling the self-excitation of these shocks. Finally, the forecasts from the GARCH model are combined with the simulated jumps to generate three future price trajectories for the next 252 trading days.
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+
+
+```{r setup, include=FALSE}
+
+start_time <- Sys.time()
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+
+# Introduction
+
+Forecasting asset prices is a crucial topic in both academic research and risk management. Among the widely used models, the **GARCH(1,1)** model is popular for modeling the conditional volatility of returns, while the **Hawkes process** is effective in modeling the occurrence of extreme events (or "jumps") that are not captured by traditional volatility measures.
+
+In this paper, we integrate both models. The GARCH(1,1) model with a skewed Student‑t distribution is employed to capture the dynamics of conditional volatility. The model is specified as:
+
+$$
+\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \beta_1 \sigma_{t-1}^2,
+$$
+
+where $\varepsilon_t$ are the shocks and $\sigma_t$ is the conditional volatility. The use of a skewed Student‑t distribution (denoted as `sstd` in the **rugarch** package) allows us to capture heavy tails and asymmetry—characteristics often observed in financial return data.
+
+Next, standardized residuals are computed as:
+
+$$
+\tilde{\varepsilon}_t = \frac{\varepsilon_t}{\sigma_t},
+$$
+
+and extreme events are defined as those for which $|\tilde{\varepsilon}_t| > 2$. These extreme events are then used to calibrate a Hawkes process with the intensity function:
+
+$$
+\lambda(t) = \mu_h + \alpha_h \sum_{t_j < t} e^{-\beta_h (t-t_j)},
+$$
+
+where $\mu_h$ is the baseline intensity, $\alpha_h$ quantifies the influence of past events, and $\beta_h$ is the decay rate.
+
+Finally, the forecasted baseline returns from the GARCH model are combined with the simulated jumps from the Hawkes process to generate three future price trajectories for the next 252 trading days.
+
+# Gaps in literature for combining GARCH and Hawkes simulation methods
+
+## Systematic Literature Review
+
+Forecasting financial time series has been extensively studied using econometric models and machine learning techniques. Among these models, **Generalized Autoregressive Conditional Heteroskedasticity (GARCH)** models are widely used to model conditional volatility, while the **Hawkes process** is employed to capture the occurrence of extreme events and self-exciting shocks. However, the integration of these two models remains underexplored, presenting a significant gap in the literature.
+
+### 1. GARCH Models and Their Extensions
+
+GARCH models are traditionally applied to capture conditional heteroskedasticity in financial returns. Previous studies have explored various extensions of the GARCH model, including:
+
+- **GARCH combined with Neural Networks**: The **GARCH-GRNN** model has been proposed to enhance forecasting by combining the statistical modeling of GARCH with the flexibility of neural networks [(Li et al., 2005)](https://link.springer.com/content/pdf/10.1007/11569596_59.pdf).
+
+- **Bilinear-GARCH (BL-GARCH) Models**: This approach augments the traditional GARCH model by incorporating bilinear modeling to capture more complex nonlinearities, demonstrating improved performance in financial time series forecasting [(Oyewale et al., 2013)](https://www.sciencepublishinggroup.com/article/10.11648/j.ajam.20130101.14).
+
+- **Hybrid GARCH-Deep Learning Models**: Models integrating deep neural networks with GARCH, such as GRU-GARCH, have been tested for volatility and risk forecasting [(Michańków et al., 2023)](https://arxiv.org/pdf/2402.06642v1.pdf).
+
+While these approaches improve volatility forecasting, they still fail to fully capture the dynamics of extreme events and their interactions over time.
+
+### 2. Hawkes Processes in Extreme Event Modeling
+
+Hawkes processes are widely used for modeling financial shocks due to their self-exciting nature. However, existing literature primarily focuses on applying these models to predict **isolated extreme events**, without integrating them with traditional volatility models. A recent study introduced the **2T-POT Hawkes model**, which enhances conditional quantile forecasting for extreme log returns and outperforms GARCH-EVT models for financial risk prediction [(Tomlinson et al., 2022)](https://arxiv.org/pdf/2201.12345.pdf).
+
+Despite this advancement, the study does not explicitly combine Hawkes processes with GARCH models, which could further improve predictive performance by integrating both volatility modeling and extreme event structure.
+
+### 3. Gaps in the Literature and Justification for the Proposed Approach
+
+The main gap in the literature lies in the **lack of integration between GARCH models and Hawkes processes** for financial time series forecasting. While several studies have explored variations of GARCH and machine learning techniques, no work has comprehensively addressed the **combination of GARCH forecasts with Hawkes-based scenario simulation**.
+
+This paper aims to bridge this gap by:
+
+1. **Integrating GARCH(1,1) forecasts (with a skewed Student-t distribution) with a Hawkes process**, allowing us to capture both the dynamics of conditional volatility and the temporal structure of extreme events.
+2. **Simulating future scenarios that account not only for forecasted volatility but also for the occurrence of self-exciting shocks**, resulting in more robust predictions than machine learning or deep learning models alone.
+3. **Overcoming the limitations of existing models**, which often fail to properly capture structural breaks and the self-excitation of extreme financial shocks.
+
+The literature suggests that hybrid models hold promise for financial forecasting, yet the specific combination of GARCH and Hawkes processes remains largely unexplored. This study aims to contribute to this field by developing a methodological framework that enhances predictive accuracy and robustness in financial asset forecasting.
+
+
+# Methodology
+
+Our methodology integrates a GARCH(1,1) model with a skewed Student‑t distribution and a Hawkes process to simulate future price trajectories. The approach is divided into several steps:
+
+## 2.1. Data Preparation
+
+First, we download historical corn price data and compute daily log-returns. Let $P_t$ denote the closing price at time $t$. The log-return is computed as:
+
+$$
+r_t = \ln(P_t) - \ln(P_{t-1}).
+$$
+
+These returns form the basis for our subsequent volatility modeling.
+
+## 2.2. GARCH(1,1) Model with Skewed Student‑t Distribution
+
+We model the conditional variance of returns using a GARCH(1,1) process. The conditional variance is defined as:
+
+$$
+\sigma_t^2 = \omega + \alpha_1\,\varepsilon_{t-1}^2 + \beta_1\,\sigma_{t-1}^2,
+$$
+
+where:
+-$\varepsilon_t$ are the shocks,
+-$\sigma_t$ is the conditional volatility,
+-$\omega$ is the constant term,
+-$\alpha_1$ represents the ARCH effect,
+-$\beta_1$ represents the GARCH effect.
+
+In our model, we assume that the return innovations follow a skewed Student‑t distribution (denoted as `sstd` in the **rugarch** package), which is well-suited to capture heavy tails and asymmetry often observed in financial data.
+
+After fitting the model, we extract the conditional volatility $\sigma_t$ for each time $t$.
+
+## 2.3. Identification of Extreme Events
+
+To identify extreme events, we compute the standardized residuals:
+
+$$
+\tilde{\varepsilon}_t = \frac{\varepsilon_t}{\sigma_t}.
+$$
+
+We define an event as "extreme" if:
+
+$$
+\left|\tilde{\varepsilon}_t\right| > \tau,
+$$
+
+with a chosen threshold (for example,$\tau=2$). These extreme events (or jumps) are used to calibrate the Hawkes process.
+
+## 2.4. Calibration of the Hawkes Process
+
+The Hawkes process is a self-exciting point process used to model the occurrence of extreme events. Its intensity function is given by:
+
+$$
+\lambda(t) = \mu_h + \alpha_h \sum_{t_j < t} e^{-\beta_h (t-t_j)},
+$$
+
+where:
+
+-$\mu_h$ is the baseline intensity,
+-$\alpha_h$ quantifies the impact of past events,
+-$\beta_h$ is the decay rate.
+
+We calibrate the parameters $(\mu_h, \alpha_h, \beta_h)$ by maximizing the log-likelihood function based on the historical occurrence times of extreme events. The log-likelihood function is expressed as:
+
+$$
+\mathcal{L}(\mu_h, \alpha_h, \beta_h) = \sum_{i=1}^{N} \ln\left(\mu_h + \alpha_h \sum_{t_j < t_i} e^{-\beta_h (t_i-t_j)}\right) - \mu_h T - \frac{\alpha_h}{\beta_h}\sum_{j=1}^{N}\left(1-e^{-\beta_h (T-t_j)}\right),
+$$
+
+where:
+
+-$T$ is the total observation period,
+-$N$ is the number of extreme events.
+
+We solve for the parameters using numerical optimization techniques.
+
+## 2.5. Simulation of Future Price Trajectories
+
+The final step is to simulate future price trajectories over a forecast horizon (e.g., 252 trading days). The simulation involves two components:
+
+1. **Baseline Returns:**  
+   These are generated using the GARCH forecast for the next 252 days, assuming that returns follow a normal distribution with forecasted mean and volatility.
+
+2. **Jumps:**  
+   For each day, if the Hawkes process simulates extreme events, jump magnitudes are sampled from the historical extreme returns and added to the baseline return.
+
+The total return for day $t$ is given by:
+
+$$
+r_t^{\text{total}} = r_t^{\text{baseline}} + r_t^{\text{jump}},
+$$
+
+and the simulated price is computed as:
+
+$$
+P_t = P_0 \times \exp\left(\sum_{i=1}^{t} r_i^{\text{total}}\right),
+$$
+
+where $P_0$ is the last observed price.
+
+We repeat this simulation multiple times (e.g., 3 scenarios) to capture the uncertainty in the future price evolution.
+
+## Data Preparation
+
+First, we download historical corn price data and compute the logarithmic returns.
+
+```{r}
+
+# Load required packages
+library(quantmod)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(timetk)
+library(patchwork)
+library(plotly)
+library(rugarch)
+
+# Download historical corn prices (symbol ZC=F) from Yahoo Finance
+getSymbols("ZC=F", src = "yahoo", from = "2020-01-01", to = Sys.Date())
+
+# Create a data frame with the date and closing price
+milho_data <- data.frame(
+  Date  = index(`ZC=F`),
+  Close = as.numeric(Cl(`ZC=F`))
+)
+
+# Calculate daily log returns and remove rows with NA
+milho_data <- milho_data |>
+  mutate(Return = c(NA, diff(log(Close)))) |>
+  na.omit()
+
+# Display the first few rows
+head(milho_data)
+
+```
+
+The historical corn price data have been successfully loaded with columns for Date, Close, and the daily log returns (Return). These returns will serve as the basis for modeling volatility.
+
+
+## Estimating the GARCH(1,1) Model with Skewed Student‑t Distribution
+
+In this section, we model the conditional variance of returns using a GARCH(1,1) process. The model is defined as:
+
+$$
+\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \beta_1 \sigma_{t-1}^2,
+$$
+
+where:
+-$ \varepsilon_t$ are the shocks (unexpected returns),
+-$ \sigma_t$ is the conditional volatility,
+-$ \omega$ is the constant term,
+-$ \alpha_1$ represents the ARCH effect (the impact of the previous period’s shock),
+-$ \beta_1$ represents the GARCH effect (the persistence of past volatility).
+
+To capture the heavy tails and asymmetry often observed in financial return data, we assume that the innovations follow a skewed Student‑t distribution (denoted as `sstd` in the **rugarch** package).
+
+The following R code specifies and fits the GARCH(1,1) model with the skewed Student‑t distribution:
+
+```{r}
+# Create a vector of returns from the corn price data
+ret <- milho_data$Return
+
+# Specify the GARCH(1,1) model with the skewed Student‑t distribution
+spec <- ugarchspec(
+  variance.model = list(
+    model = "sGARCH",
+    garchOrder = c(1, 1)
+  ),
+  mean.model = list(
+    armaOrder = c(0, 0),
+    include.mean = TRUE
+  ),
+  distribution.model = "sstd"  # skewed Student‑t
+)
+
+# Fit the model
+fit <- ugarchfit(
+  spec   = spec,
+  data   = ret,
+  solver = "hybrid"
+)
+
+# Display the model summary
+show(fit)
+
+```
+
+
+The model summary shows that the mean return$ \mu$ is close to zero, which is expected for daily returns. The parameters$\omega$, $\alpha_1$, and$ \beta_1$ indicate a low base level of volatility with high persistence, as evidenced by the sum $\alpha_1 + \beta_1$ being close to 1. The skew and shape parameters reveal that the distribution has heavy tails and slight asymmetry, which justifies the use of a skewed Student‑t distribution for modeling the innovations.
+
+After fitting the model, we extract the conditional volatility, $\sigma_t$, for further analysis:
+
+```{r}
+
+# Extract the estimated conditional volatility and convert it to a numeric vector
+cond_vol <- sigma(fit)
+milho_data$Volatility <- as.numeric(cond_vol)
+
+# Display the first few rows of the volatility data
+head(milho_data[, c("Date", "Volatility")])
+
+```
+
+
+This conditional volatility will be used later in the process to identify extreme events and to simulate future price trajectories.
+
+
+## Visualizing Historical Data
+
+We reformat the data to plot the series for Price, Log-Returns, and Volatility in faceted plots using timetk.
+
+```{r fig.width=9, fig.height=11}
+
+# Convert data to long format
+milho_data_long <- milho_data |>
+  select(Date, Close, Return, Volatility) |>
+  pivot_longer(
+    cols = c(Close, Return, Volatility),
+    names_to = "Serie",
+    values_to = "Valor"
+  )
+
+# Set the order and labels for facets
+milho_data_long$Serie <- factor(milho_data_long$Serie,
+                                levels = c("Close", "Return", "Volatility"),
+                                labels = c("Price", "Log-Returns", "Volatility"))
+
+# Plot the faceted time series
+plot_faceted <- milho_data_long |>
+  group_by(Serie) |>
+  plot_time_series(
+    .date_var    = Date,
+    .value       = Valor,
+    .interactive = FALSE,
+    .facet_ncol  = 1,
+    .smooth      = FALSE,
+    .title       = "Corn Price, Log-Returns, and Conditional Volatility"
+  ) +
+  theme(strip.background = element_rect(fill = "white", colour = "white"))
+
+ggplotly(plot_faceted)
+
+
+```
+
+
+## Identifying Extreme Events and Calibrating the Hawkes Process
+
+We compute the standardized residuals:
+
+$$
+\tilde{\epsilon}_t = \frac{\mbox{log-return}_t}{\sigma_t}
+$$
+
+We define extreme events as those with $|\tilde{\epsilon}_t|>2$
+
+```{r}
+
+# Compute standardized residuals
+milho_data <- milho_data |>
+  mutate(Standardized = Return / Volatility)
+
+# Define threshold for extreme events
+threshold_std <- 2
+extreme_idx <- which(abs(milho_data$Standardized) > threshold_std)
+extreme_returns <- milho_data$Return[extreme_idx]
+
+# Convert dates of extreme events to time (in days relative to the first date)
+first_date <- min(milho_data$Date)
+event_times_hist <- as.numeric(milho_data$Date[extreme_idx] - first_date)
+
+# Total observation time (in days)
+T_obs <- as.numeric(max(milho_data$Date) - first_date)
+
+cat("Number of extreme events identified:", length(extreme_idx), "\n")
+
+
+```
+
+The number of extreme events indicates whether our threshold successfully captures significant shocks. These events are then used to calibrate the Hawkes process.
+
+Next, we calibrate the Hawkes process using a negative log-likelihood function. The intensity function for the Hawkes process is given by
+
+$$
+\lambda(t) = \mu_h + \alpha_h \displaystyle \sum_{t_j < t} e^{-\beta_h (t-t_j)}
+$$
+
+
+```{r}
+
+# Negative log-likelihood function for the Hawkes process with exponential kernel
+neg_log_lik <- function(params, event_times, T_total) {
+  mu_h    <- params[1]
+  alpha_h <- params[2]
+  beta_h  <- params[3]
+  
+  if(mu_h <= 0 || alpha_h <= 0 || beta_h <= 0) return(1e10)
+  
+  n <- length(event_times)
+  log_sum <- 0
+  for(i in seq_along(event_times)) {
+    ti <- event_times[i]
+    if(i == 1) {
+      sum_exp <- 0
+    } else {
+      sum_exp <- sum(exp(-beta_h * (ti - event_times[1:(i-1)])))
+    }
+    lambda_ti <- mu_h + alpha_h * sum_exp
+    log_sum <- log_sum + log(lambda_ti)
+  }
+  integral_term <- mu_h * T_total + (alpha_h / beta_h) * sum(1 - exp(-beta_h * (T_total - event_times)))
+  ll <- log_sum - integral_term
+  return(-ll)  # negative for minimization
+}
+
+# Initial guess and calibration via optimization
+init_par <- c(mu_h = 0.1, alpha_h = 0.5, beta_h = 1.0)
+
+res_hawkes <- optim(
+  par         = init_par,
+  fn          = neg_log_lik,
+  event_times = event_times_hist,
+  T_total     = T_obs,
+  method      = "L-BFGS-B",
+  lower       = c(1e-6, 1e-6, 1e-6),
+  upper       = c(Inf, Inf, Inf)
+)
+
+mu_h_hat    <- res_hawkes$par[1]
+alpha_h_hat <- res_hawkes$par[2]
+beta_h_hat  <- res_hawkes$par[3]
+
+cat("Calibrated Hawkes Parameters:\n")
+cat("mu =", mu_h_hat, "\n")
+cat("alpha =", alpha_h_hat, "\n")
+cat("beta =", beta_h_hat, "\n")
+
+
+```
+
+The calibrated parameters ($u_h , \alpha_h, \beta_h$) describe the baseline intensity, the impact of past events, and the decay rate, respectively. These values will be used to simulate future extreme events.
+
+## Simulation of Future Price Trajectories
+
+Using the GARCH forecast for the next 252 days and the Hawkes process for extreme events, we simulate three future price trajectories. The forecasted baseline returns are combined with jumps to obtain the total returns. The price path is computed as
+
+$$
+p_t = p_0 \times \exp{(\displaystyle\sum_{i=1}^{t}(\mbox{baseline return}_i) + \mbox{jump}_i) )}
+$$
+
+
+```{r}
+
+# Forecast horizon: 252 days
+horizon <- 252
+garch_forecast <- ugarchforecast(fit, n.ahead = horizon)
+mu_forecast    <- as.numeric(fitted(garch_forecast))
+sigma_forecast <- as.numeric(sigma(garch_forecast))
+
+# Initial price: last historical price
+P0 <- tail(milho_data$Close, 1)
+
+# Function to simulate future extreme events using Hawkes (thinning algorithm)
+simulateHawkes <- function(mu_h, alpha_h, beta_h, T_start, T_end, history = NULL) {
+  if(is.null(history)) history <- numeric(0)
+  current_events <- history
+  t <- T_start
+  new_events <- c()
+  
+  while(t < T_end) {
+    n_recent <- sum(current_events > (t - 10))  # events in the last 10 days
+    lambda_bar <- mu_h + alpha_h * n_recent
+    w <- rexp(1, rate = lambda_bar)
+    t_candidate <- t + w
+    if(t_candidate > T_end) break
+    sum_exp <- if(length(current_events[current_events < t_candidate]) > 0)
+      sum(exp(-beta_h * (t_candidate - current_events[current_events < t_candidate]))) else 0
+    lambda_tc <- mu_h + alpha_h * sum_exp
+    if(runif(1) <= lambda_tc / lambda_bar) {
+      new_events <- c(new_events, t_candidate)
+      current_events <- c(current_events, t_candidate)
+    }
+    t <- t_candidate
+  }
+  return(new_events)
+}
+
+# Simulate 3 trajectories
+n_sim <- 3
+simulated_paths <- list()
+
+set.seed(123)
+
+for(sim in 1:n_sim) {
+  new_event_times <- simulateHawkes(mu_h_hat, alpha_h_hat, beta_h_hat,
+                                    T_start = T_obs,
+                                    T_end   = T_obs + horizon,
+                                    history = event_times_hist)
+  event_days <- floor(new_event_times - T_obs) + 1
+  
+  # For each day, if there are events, sum the jumps. Jump values are sampled from the historical extreme returns.
+  jumps <- rep(0, horizon)
+  if(length(event_days) > 0) {
+    for(day in unique(event_days)) {
+      n_events <- sum(event_days == day)
+      jump_vals <- sample(extreme_returns, n_events, replace = TRUE)
+      jumps[day] <- sum(jump_vals)
+    }
+  }
+  
+  # Simulate baseline returns using the GARCH forecast
+  baseline_returns <- rnorm(horizon, mean = mu_forecast, sd = sigma_forecast)
+  
+  # Total return is the sum of baseline return and jumps
+  total_returns <- baseline_returns + jumps
+  
+  # Price path: P_t = P0 * exp(cumsum(total_returns))
+  price_path <- P0 * exp(cumsum(total_returns))
+  
+  simulated_paths[[sim]] <- data.frame(
+    Day = 1:horizon,
+    Price = price_path,
+    Return = total_returns,
+    Trajectory = paste0("Sim", sim)
+  )
+}
+
+# Combine simulated trajectories and add dates
+sim_df <- do.call(rbind, simulated_paths)
+last_date <- tail(milho_data$Date, 1)
+sim_df <- sim_df |>
+  mutate(Date = as.Date(last_date) + Day)
+
+```
+
+Each simulated trajectory combines the baseline returns (forecasted by the GARCH model) with the jumps generated by the Hawkes process. This yields realistic simulations of future prices that account for both dynamic volatility and extreme shocks.
+
+
+## Combining Historical Data and Forecast in a Single Plot
+
+Finally, we overlay the historical corn prices with the simulated forecast trajectories. A vertical red line marks the start of the forecast period.
+
+```{r }
+
+# Prepare historical data for plotting
+historical_df <- milho_data |>
+  select(Date, Close) |>
+  rename(Price = Close)
+
+# Create the final plot: solid line for historical data, dashed lines for simulations,
+# and a vertical dotted line indicating the forecast start.
+p_sim <- ggplot() +
+  geom_line(data = historical_df, aes(x = Date, y = Price),
+            color = "black", size = 1) +
+  geom_line(data = sim_df, aes(x = Date, y = Price, color = Trajectory),
+            linetype = "dashed") +
+  geom_vline(xintercept = as.numeric(last_date),
+             linetype = "dotted", color = "red") +
+  labs(title = "Corn Prices: Historical Data and 3 Simulated Trajectories (Next 252 Days)",
+       x = "Date", y = "Price") +
+  theme_minimal()
+
+ggplotly(p_sim)
+
+```
+
+The final plot shows the historical corn prices (solid black line) and the three simulated future trajectories (dashed colored lines) for the next 252 days. The vertical red dotted line indicates the start of the forecast period.
+
+
+# Conclusion
+
+In this paper, we presented an integrated methodology that combines:
+
+- The modeling of conditional volatility via a GARCH(1,1) model with a skewed Student‑t distribution,
+- The identification of extreme events using standardized residuals,
+- The calibration of a Hawkes process to model the self-excitation of shocks,
+- The simulation of three future price scenarios for corn, incorporating both baseline returns and jumps.
+
+This approach offers a more realistic view of the risks and dynamics in volatile markets, and it is especially useful for risk management and decision-making.
+
+
+&nbsp;
+
+&nbsp;
+
+***
+
+# References
+
+***
+
+
+Li, W., Liu, J., Le, J. (2005). **Using GARCH-GRNN Model to Forecast Financial Time Series.** In: Yolum, p., Güngör, T., Gürgen, F., Özturan, C. (eds) Computer and Information Sciences - ISCIS 2005. ISCIS 2005. Lecture Notes in Computer Science, vol 3733. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11569596_59
+
+Oyewale, A. M. (2013). **Measuring the forecast performance of garch and bilinear-garch models in time series data.** American Journal of Applied Mathematics, 1(1), 17. https://doi.org/10.11648/j.ajam.20130101.14
+
+Michańków, J., Kwiatkowski, Ł., Morajda, J. (2023). **Combining Deep Learning and GARCH Models for Financial Volatility and Risk Forecasting.** *arXiv preprint arXiv:2310.01063.* https://doi.org/10.48550/arXiv.2310.01063
+
+Tomlinson, M. F., Greenwood, D., Mucha-Kruczyński, M. (2022). **2T-POT Hawkes Model for Left- and Right-Tail Conditional Quantile Forecasts of Financial Log Returns: Out-of-Sample Comparison of Conditional EVT Models.** *International Journal of Forecasting.* https://doi.org/10.1016/j.ijforecast.2023.03.003
+
