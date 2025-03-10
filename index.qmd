@@ -80,8 +80,6 @@ This project is carried out as part of a research initiation (PIBIC and PIBITI J
   
 ```
 
-
-
 ------------------------------------------------------------------------
 
 ## Ricardo
@@ -123,13 +121,7 @@ This project is carried out as part of a research initiation (PIBIC and PIBITI J
   
 ```
 
-
-
-
-
-
 ## Gabrielly
-
 
 <right> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/image_oval.png){width="5%"} </right>
 
@@ -167,6 +159,4 @@ This project is carried out as part of a research initiation (PIBIC and PIBITI J
 </div>
   
 ```
-
-
 :::

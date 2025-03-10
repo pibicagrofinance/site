@@ -12,8 +12,6 @@ format:
 editor: visual
 ---
 
-
-
 ```{r setup, include=FALSE}
 
 start_time <- Sys.time()
@@ -29,7 +27,6 @@ knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
 knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
 
 ```
-
 
 # Introduction
 
@@ -69,11 +66,11 @@ Forecasting financial time series has been extensively studied using econometric
 
 GARCH models are traditionally applied to capture conditional heteroskedasticity in financial returns. Previous studies have explored various extensions of the GARCH model, including:
 
-- **GARCH combined with Neural Networks**: The **GARCH-GRNN** model has been proposed to enhance forecasting by combining the statistical modeling of GARCH with the flexibility of neural networks [(Li et al., 2005)](https://link.springer.com/content/pdf/10.1007/11569596_59.pdf).
+-   **GARCH combined with Neural Networks**: The **GARCH-GRNN** model has been proposed to enhance forecasting by combining the statistical modeling of GARCH with the flexibility of neural networks [(Li et al., 2005)](https://link.springer.com/content/pdf/10.1007/11569596_59.pdf).
 
-- **Bilinear-GARCH (BL-GARCH) Models**: This approach augments the traditional GARCH model by incorporating bilinear modeling to capture more complex nonlinearities, demonstrating improved performance in financial time series forecasting [(Oyewale et al., 2013)](https://www.sciencepublishinggroup.com/article/10.11648/j.ajam.20130101.14).
+-   **Bilinear-GARCH (BL-GARCH) Models**: This approach augments the traditional GARCH model by incorporating bilinear modeling to capture more complex nonlinearities, demonstrating improved performance in financial time series forecasting [(Oyewale et al., 2013)](https://www.sciencepublishinggroup.com/article/10.11648/j.ajam.20130101.14).
 
-- **Hybrid GARCH-Deep Learning Models**: Models integrating deep neural networks with GARCH, such as GRU-GARCH, have been tested for volatility and risk forecasting [(Michańków et al., 2023)](https://arxiv.org/pdf/2402.06642v1.pdf).
+-   **Hybrid GARCH-Deep Learning Models**: Models integrating deep neural networks with GARCH, such as GRU-GARCH, have been tested for volatility and risk forecasting [(Michańków et al., 2023)](https://arxiv.org/pdf/2402.06642v1.pdf).
 
 While these approaches improve volatility forecasting, they still fail to fully capture the dynamics of extreme events and their interactions over time.
 
@@ -89,12 +86,11 @@ The main gap in the literature lies in the **lack of integration between GARCH m
 
 This paper aims to bridge this gap by:
 
-1. **Integrating GARCH(1,1) forecasts (with a skewed Student-t distribution) with a Hawkes process**, allowing us to capture both the dynamics of conditional volatility and the temporal structure of extreme events.
-2. **Simulating future scenarios that account not only for forecasted volatility but also for the occurrence of self-exciting shocks**, resulting in more robust predictions than machine learning or deep learning models alone.
-3. **Overcoming the limitations of existing models**, which often fail to properly capture structural breaks and the self-excitation of extreme financial shocks.
+1.  **Integrating GARCH(1,1) forecasts (with a skewed Student-t distribution) with a Hawkes process**, allowing us to capture both the dynamics of conditional volatility and the temporal structure of extreme events.
+2.  **Simulating future scenarios that account not only for forecasted volatility but also for the occurrence of self-exciting shocks**, resulting in more robust predictions than machine learning or deep learning models alone.
+3.  **Overcoming the limitations of existing models**, which often fail to properly capture structural breaks and the self-excitation of extreme financial shocks.
 
 The literature suggests that hybrid models hold promise for financial forecasting, yet the specific combination of GARCH and Hawkes processes remains largely unexplored. This study aims to contribute to this field by developing a methodological framework that enhances predictive accuracy and robustness in financial asset forecasting.
-
 
 # Methodology
 
@@ -118,12 +114,7 @@ $$
 \sigma_t^2 = \omega + \alpha_1\,\varepsilon_{t-1}^2 + \beta_1\,\sigma_{t-1}^2,
 $$
 
-where:
--$\varepsilon_t$ are the shocks,
--$\sigma_t$ is the conditional volatility,
--$\omega$ is the constant term,
--$\alpha_1$ represents the ARCH effect,
--$\beta_1$ represents the GARCH effect.
+where: -$\varepsilon_t$ are the shocks, -$\sigma_t$ is the conditional volatility, -$\omega$ is the constant term, -$\alpha_1$ represents the ARCH effect, -$\beta_1$ represents the GARCH effect.
 
 In our model, we assume that the return innovations follow a skewed Student‑t distribution (denoted as `sstd` in the **rugarch** package), which is well-suited to capture heavy tails and asymmetry often observed in financial data.
 
@@ -155,9 +146,7 @@ $$
 
 where:
 
--$\mu_h$ is the baseline intensity,
--$\alpha_h$ quantifies the impact of past events,
--$\beta_h$ is the decay rate.
+\-$\mu_h$ is the baseline intensity, -$\alpha_h$ quantifies the impact of past events, -$\beta_h$ is the decay rate.
 
 We calibrate the parameters $(\mu_h, \alpha_h, \beta_h)$ by maximizing the log-likelihood function based on the historical occurrence times of extreme events. The log-likelihood function is expressed as:
 
@@ -167,8 +156,7 @@ $$
 
 where:
 
--$T$ is the total observation period,
--$N$ is the number of extreme events.
+\-$T$ is the total observation period, -$N$ is the number of extreme events.
 
 We solve for the parameters using numerical optimization techniques.
 
@@ -176,11 +164,11 @@ We solve for the parameters using numerical optimization techniques.
 
 The final step is to simulate future price trajectories over a forecast horizon (e.g., 252 trading days). The simulation involves two components:
 
-1. **Baseline Returns:**  
-   These are generated using the GARCH forecast for the next 252 days, assuming that returns follow a normal distribution with forecasted mean and volatility.
+1.  **Baseline Returns:**\
+    These are generated using the GARCH forecast for the next 252 days, assuming that returns follow a normal distribution with forecasted mean and volatility.
 
-2. **Jumps:**  
-   For each day, if the Hawkes process simulates extreme events, jump magnitudes are sampled from the historical extreme returns and added to the baseline return.
+2.  **Jumps:**\
+    For each day, if the Hawkes process simulates extreme events, jump magnitudes are sampled from the historical extreme returns and added to the baseline return.
 
 The total return for day $t$ is given by:
 
@@ -235,7 +223,6 @@ head(milho_data)
 
 The historical corn price data have been successfully loaded with columns for Date, Close, and the daily log returns (Return). These returns will serve as the basis for modeling volatility.
 
-
 ## Estimating the GARCH(1,1) Model with Skewed Student‑t Distribution
 
 In this section, we model the conditional variance of returns using a GARCH(1,1) process. The model is defined as:
@@ -244,12 +231,7 @@ $$
 \sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \beta_1 \sigma_{t-1}^2,
 $$
 
-where:
--$ \varepsilon_t$ are the shocks (unexpected returns),
--$ \sigma_t$ is the conditional volatility,
--$ \omega$ is the constant term,
--$ \alpha_1$ represents the ARCH effect (the impact of the previous period’s shock),
--$ \beta_1$ represents the GARCH effect (the persistence of past volatility).
+where: -\$ \varepsilon\_t\$ are the shocks (unexpected returns), -\$ \sigma\_t\$ is the conditional volatility, -\$ \omega\$ is the constant term, -\$ \alpha\_1\$ represents the ARCH effect (the impact of the previous period’s shock), -\$ \beta\_1\$ represents the GARCH effect (the persistence of past volatility).
 
 To capture the heavy tails and asymmetry often observed in financial return data, we assume that the innovations follow a skewed Student‑t distribution (denoted as `sstd` in the **rugarch** package).
 
@@ -284,8 +266,7 @@ show(fit)
 
 ```
 
-
-The model summary shows that the mean return$ \mu$ is close to zero, which is expected for daily returns. The parameters$\omega$, $\alpha_1$, and$ \beta_1$ indicate a low base level of volatility with high persistence, as evidenced by the sum $\alpha_1 + \beta_1$ being close to 1. The skew and shape parameters reveal that the distribution has heavy tails and slight asymmetry, which justifies the use of a skewed Student‑t distribution for modeling the innovations.
+The model summary shows that the mean return\$ \mu\$ is close to zero, which is expected for daily returns. The parameters$\omega$, $\alpha_1$, and\$ \beta\_1\$ indicate a low base level of volatility with high persistence, as evidenced by the sum $\alpha_1 + \beta_1$ being close to 1. The skew and shape parameters reveal that the distribution has heavy tails and slight asymmetry, which justifies the use of a skewed Student‑t distribution for modeling the innovations.
 
 After fitting the model, we extract the conditional volatility, $\sigma_t$, for further analysis:
 
@@ -300,9 +281,7 @@ head(milho_data[, c("Date", "Volatility")])
 
 ```
 
-
 This conditional volatility will be used later in the process to identify extreme events and to simulate future price trajectories.
-
 
 ## Visualizing Historical Data
 
@@ -341,7 +320,6 @@ ggplotly(plot_faceted)
 
 
 ```
-
 
 ## Identifying Extreme Events and Calibrating the Hawkes Process
 
@@ -383,7 +361,6 @@ Next, we calibrate the Hawkes process using a negative log-likelihood function. 
 $$
 \lambda(t) = \mu_h + \alpha_h \displaystyle \sum_{t_j < t} e^{-\beta_h (t-t_j)}
 $$
-
 
 ```{r}
 
@@ -446,7 +423,6 @@ Using the GARCH forecast for the next 252 days and the Hawkes process for extrem
 $$
 p_t = p_0 \times \exp{(\displaystyle\sum_{i=1}^{t}(\mbox{baseline return}_i) + \mbox{jump}_i) )}
 $$
-
 
 ```{r}
 
@@ -534,7 +510,6 @@ sim_df <- sim_df |>
 
 Each simulated trajectory combines the baseline returns (forecasted by the GARCH model) with the jumps generated by the Hawkes process. This yields realistic simulations of future prices that account for both dynamic volatility and extreme shocks.
 
-
 ## Combining Historical Data and Forecast in a Single Plot
 
 Finally, we overlay the historical corn prices with the simulated forecast trajectories. A vertical red line marks the start of the forecast period.
@@ -565,29 +540,26 @@ ggplotly(p_sim)
 
 The final plot shows the historical corn prices (solid black line) and the three simulated future trajectories (dashed colored lines) for the next 252 days. The vertical red dotted line indicates the start of the forecast period.
 
-
 # Conclusion
 
 In this paper, we presented an integrated methodology that combines:
 
-- The modeling of conditional volatility via a GARCH(1,1) model with a skewed Student‑t distribution,
-- The identification of extreme events using standardized residuals,
-- The calibration of a Hawkes process to model the self-excitation of shocks,
-- The simulation of three future price scenarios for corn, incorporating both baseline returns and jumps.
+-   The modeling of conditional volatility via a GARCH(1,1) model with a skewed Student‑t distribution,
+-   The identification of extreme events using standardized residuals,
+-   The calibration of a Hawkes process to model the self-excitation of shocks,
+-   The simulation of three future price scenarios for corn, incorporating both baseline returns and jumps.
 
 This approach offers a more realistic view of the risks and dynamics in volatile markets, and it is especially useful for risk management and decision-making.
 
+ 
 
-&nbsp;
+ 
 
-&nbsp;
-
-***
+------------------------------------------------------------------------
 
 # References
 
-***
-
+------------------------------------------------------------------------
 
 Li, W., Liu, J., Le, J. (2005). **Using GARCH-GRNN Model to Forecast Financial Time Series.** In: Yolum, p., Güngör, T., Gürgen, F., Özturan, C. (eds) Computer and Information Sciences - ISCIS 2005. ISCIS 2005. Lecture Notes in Computer Science, vol 3733. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11569596_59
 
@@ -596,4 +568,3 @@ Oyewale, A. M. (2013). **Measuring the forecast performance of garch and bilinea
 Michańków, J., Kwiatkowski, Ł., Morajda, J. (2023). **Combining Deep Learning and GARCH Models for Financial Volatility and Risk Forecasting.** *arXiv preprint arXiv:2310.01063.* https://doi.org/10.48550/arXiv.2310.01063
 
 Tomlinson, M. F., Greenwood, D., Mucha-Kruczyński, M. (2022). **2T-POT Hawkes Model for Left- and Right-Tail Conditional Quantile Forecasts of Financial Log Returns: Out-of-Sample Comparison of Conditional EVT Models.** *International Journal of Forecasting.* https://doi.org/10.1016/j.ijforecast.2023.03.003
-
