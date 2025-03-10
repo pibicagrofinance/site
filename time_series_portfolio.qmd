@@ -46,7 +46,8 @@ This small document have the goal to share the time series extraction and the tw
 
 ```{python}
 
-import yfinance as yf
+#import yfinance as yf
+from yahooquery import Ticker
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,10 +87,26 @@ TICKERS = [
     "ZL=F"   # SoyBeans Futures
 ]
 
+# Downloading data from Yahoo Finance using yahooquery
+start_date = "2019-01-01"
+end_date = datetime.today().strftime('%Y-%m-%d')
 
-# Downloading data from Yahoo Finance
-portfolio_prices = yf.download(TICKERS, start="2019-01-01")['Adj Close']
+ticker_data = Ticker(TICKERS)
+portfolio_prices = ticker_data.history(start=start_date, end=end_date)
+
+# Check if 'adjclose' exists in the returned data
+if isinstance(portfolio_prices, pd.DataFrame) and 'adjclose' in portfolio_prices.columns:
+    portfolio_prices = portfolio_prices[['adjclose']].reset_index()
+else:
+    raise KeyError("The data fetched does not contain 'adjclose'. Check Yahoo Finance for availability.")
+
+# Pivot the DataFrame to have a similar format to yfinance output
+portfolio_prices = portfolio_prices.pivot(index='date', columns='symbol', values='adjclose')
+portfolio_prices.index = pd.to_datetime(portfolio_prices.index)
 portfolio_prices.dropna(inplace=True)
+
+# Ensure the index is properly named
+portfolio_prices.index.name = "Date"
 
 # Renaming columns for better readability
 portfolio_prices.columns = [
@@ -103,6 +120,7 @@ portfolio_prices.columns = [
     "soybeans_fut"
 ]
 
+
 ```
 
 Showing the prices time series side by side: (data in level)
@@ -111,27 +129,27 @@ Showing the prices time series side by side: (data in level)
 
 from plotnine import ggplot, aes, geom_line, facet_wrap, labs, theme, element_text, theme_minimal, theme_void
 
-# Preparar os dados no formato long (necessário para plotnine/ggplot2)
+# Ensure column name consistency
 portfolio_prices_long = portfolio_prices.reset_index().melt(id_vars='Date', var_name='Commodity', value_name='Price')
 
+# Function for visualization
 def plot_with_ggplot(data, title, ylabel, background='white', fig_height=10, fig_width=10):
-    # Cria o gráfico usando plotnine (ggplot)
+    # Create plot using plotnine (ggplot)
     p = (ggplot(data, aes(x='Date', y='Price', color='Commodity')) +
          geom_line() +
-         facet_wrap('~Commodity', ncol=1, scales='free_y') +  # Um gráfico em cima do outro
+         facet_wrap('~Commodity', ncol=1, scales='free_y') +  # Stack plots vertically
          labs(title=title, x='Date', y=ylabel) +
-         theme_minimal() +  # Define o tema minimalista com fundo branco
+         theme_minimal() +  # Set minimal theme
          theme(
-             figure_size=(fig_width, fig_height),  # Ajuste da altura e largura da figura
+             figure_size=(fig_width, fig_height),
              panel_background=element_text(fill=background),
              plot_background=element_text(fill=background),
              axis_text_x=element_text(rotation=45, hjust=1),
-             subplots_adjust={'wspace': 0.25, 'hspace': 0.5}  # Ajuste do espaçamento entre os gráficos
+             subplots_adjust={'wspace': 0.25, 'hspace': 0.5}  # Adjust subplot spacing
          ))
     return p
 
 p_prices = plot_with_ggplot(portfolio_prices_long, 'Commodity Prices Over Time', 'Price', background='white', fig_height=14, fig_width=8)
-
 p_prices
 
 ```
