@@ -1,5 +1,5 @@
 ---
-title: "Multiobjective Portfolio Optim routines"
+title: "Pareto Front Reinforcement Learning Notebook"
 author: "Rodrigo Hermont Ozon and Ricardo Vianna"
 format: 
   html:
@@ -45,3 +45,5 @@ font-style: italic;
 
 
 We used the following Colab Notebook for this purpose:
+
+- [Click here to see the Colab notebook](https://colab.research.google.com/drive/1VIbQKse8yTzfK-QW50Jh8AMNNIfkVURn)

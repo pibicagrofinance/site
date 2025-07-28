@@ -1,5 +1,5 @@
 ---
-title: "Markovian Bayesian Time Series"
+title: "Multiobjective Portfolio Optim routines"
 author: "Rodrigo Hermont Ozon and Ricardo Vianna"
 format: 
   html:
@@ -44,7 +44,7 @@ font-style: italic;
 ```
 
 
-We used the followinf Colab Notebook for this purpose:
+We used the following Colab Notebook for this purpose:
 
 
 - [https://colab.research.google.com/drive/16IkoDSpoTjtAmpH4CUAVD76pBDzrHIQC](Multiobjective Portfolio)

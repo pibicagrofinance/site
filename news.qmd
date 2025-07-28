@@ -29,15 +29,15 @@ This study will utilize **causal inference techniques** to test whether certain 
 
 ### Methodological Approach
 
-1. **Data Collection**: We will collect time-series data on commodity prices, returns, and volatility from various financial databases. Additionally, news articles and reports related to agricultural commodities will be gathered from reputable financial news sources.
-   
-2. **Google Trends**: We will use Google Trends data to track **search frequencies** for specific keywords related to the commodities under study. The hypothesis here is that increased search activity correlates with heightened market volatility, as more people become aware of emerging news events.
+1.  **Data Collection**: We will collect time-series data on commodity prices, returns, and volatility from various financial databases. Additionally, news articles and reports related to agricultural commodities will be gathered from reputable financial news sources.
 
-3. **News Filtering Using LLMs**: LLMs, such as **GPT**, will be employed to filter news articles and highlight those with the highest potential to influence market dynamics. This automated news filtering process allows us to focus on key events that are likely to cause **market disruptions**.
+2.  **Google Trends**: We will use Google Trends data to track **search frequencies** for specific keywords related to the commodities under study. The hypothesis here is that increased search activity correlates with heightened market volatility, as more people become aware of emerging news events.
 
-4. **Causal Impact Testing**: Once we have identified key news events, we will conduct **causal impact tests** using methodologies such as **Granger causality tests**, **Bayesian structural time series (BSTS)** or maybe the most recent [**CausalImpact**](https://google.github.io/CausalImpact/CausalImpact.html) algorithm (Brodersen et. al., 2015), models. These tests will allow us to determine whether a specific news event had a **statistically significant impact** on commodity prices or volatility.
+3.  **News Filtering Using LLMs**: LLMs, such as **GPT**, will be employed to filter news articles and highlight those with the highest potential to influence market dynamics. This automated news filtering process allows us to focus on key events that are likely to cause **market disruptions**.
 
-5. **Evaluation**: Finally, we will evaluate the overall effectiveness of our news-based predictive models by comparing them against baseline models that do not account for news events or search trends.
+4.  **Causal Impact Testing**: Once we have identified key news events, we will conduct **causal impact tests** using methodologies such as **Granger causality tests**, **Bayesian structural time series (BSTS)** or maybe the most recent [**CausalImpact**](https://google.github.io/CausalImpact/CausalImpact.html) algorithm (Brodersen et. al., 2015), models. These tests will allow us to determine whether a specific news event had a **statistically significant impact** on commodity prices or volatility.
+
+5.  **Evaluation**: Finally, we will evaluate the overall effectiveness of our news-based predictive models by comparing them against baseline models that do not account for news events or search trends.
 
 ### Expected Contributions
 
@@ -45,18 +45,16 @@ The **innovative contribution** of this research is twofold. First, it introduce
 
 This research aims to provide both theoretical insights and practical tools for market participants, enabling them to **anticipate market shifts** based on news events and search trends, and adjust their portfolio strategies accordingly.
 
-&nbsp;
+ 
 
-&nbsp;
+ 
 
-***
+------------------------------------------------------------------------
 
 ### References
 
-- Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). **Inferring causal impact using Bayesian structural time-series models.** *Annals of Applied Statistics*, 9, 247–274.
+-   Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). **Inferring causal impact using Bayesian structural time-series models.** *Annals of Applied Statistics*, 9, 247–274.
 
-- Engle, R. F. (1993). **Statistical Models for Financial Volatility.** *Financial Analysts Journal*.
+-   Engle, R. F. (1993). **Statistical Models for Financial Volatility.** *Financial Analysts Journal*.
 
-- Ozon, R. H. (2008). **Volatility Forecasting in Agricultural Markets.** Available at [this link](http://leg.ufpr.br/doku.php/projetos:ehlers:volprev).
-
-
+-   Ozon, R. H. (2008). **Volatility Forecasting in Agricultural Markets.** Available at [this link](http://leg.ufpr.br/doku.php/projetos:ehlers:volprev).

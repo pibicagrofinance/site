@@ -11,7 +11,7 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-<center> ![](https://static.pucpr.br/pucpr/2022/02/banner_ic.png){width="50%"} </center>
+<center>![](https://static.pucpr.br/pucpr/2022/02/banner_ic.png){width="50%"}</center>
 
 ------------------------------------------------------------------------
 

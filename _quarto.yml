@@ -35,7 +35,6 @@ website:
       - section: "Commodities (grains) news"
         href: news.qmd
         contents:
-          - news_google_trends.qmd
           - openAi_agent.qmd
       - section: "Predictive Models"
         href: predictive_model.qmd
