@@ -37,7 +37,7 @@ website:
         contents:
           - openAi_agent.qmd
       - section: "Predictive Models"
-        href: predictive_model.qmd
+        href: models_ablation_NN.qmd
         contents:
           - time_series_portfolio.qmd
           - garch_hawkes_simmodel.qmd

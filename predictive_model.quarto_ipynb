@@ -16,7 +16,7 @@
         "editor: visual\n",
         "---"
       ],
-      "id": "255422e7"
+      "id": "034ccaff"
     },
     {
       "cell_type": "code",
@@ -29,7 +29,7 @@
         "from datetime import datetime\n",
         "start_time = datetime.now()"
       ],
-      "id": "c342384d",
+      "id": "f70a67c7",
       "execution_count": null,
       "outputs": []
     },
@@ -76,7 +76,7 @@
         "\n",
         "Python libs\n"
       ],
-      "id": "09663e3b"
+      "id": "83eb3812"
     },
     {
       "cell_type": "code",
@@ -105,7 +105,7 @@
         "from statsmodels.stats.diagnostic import acorr_ljungbox, het_breuschpagan\n",
         "import statsmodels.api as sm"
       ],
-      "id": "35949049",
+      "id": "b8d90584",
       "execution_count": null,
       "outputs": []
     },
@@ -115,7 +115,7 @@
       "source": [
         "First of all, we need to check the hardware availability:\n"
       ],
-      "id": "59c57d62"
+      "id": "d2e292f4"
     },
     {
       "cell_type": "code",
@@ -135,7 +135,7 @@
         "system_info = get_system_info()\n",
         "print(\"System Information:\", system_info)"
       ],
-      "id": "535f727c",
+      "id": "78bbd679",
       "execution_count": null,
       "outputs": []
     },
@@ -145,7 +145,7 @@
       "source": [
         "Loading data:\n"
       ],
-      "id": "70cc8544"
+      "id": "753fbeed"
     },
     {
       "cell_type": "code",
@@ -217,7 +217,7 @@
         "\n",
         "returns.head()  # Exibindo as séries temporais utilizadas (sem features adicionais)"
       ],
-      "id": "6ab22fc8",
+      "id": "6a4f9ce3",
       "execution_count": null,
       "outputs": []
     },
@@ -227,7 +227,7 @@
       "source": [
         "Plotting the time series of prices and returns side by side (2 per row)\n"
       ],
-      "id": "5a5af142"
+      "id": "7c4d48c5"
     },
     {
       "cell_type": "code",
@@ -285,7 +285,7 @@
         "plt.show()\n",
         "plt.close()"
       ],
-      "id": "4143f842",
+      "id": "6d41d6e8",
       "execution_count": null,
       "outputs": []
     },
@@ -295,7 +295,7 @@
       "source": [
         "Preprocessing data for LSTM time series modelling:\n"
       ],
-      "id": "2d068aba"
+      "id": "20e1a23f"
     },
     {
       "cell_type": "code",
@@ -309,7 +309,7 @@
         "        y.append(series[i + time_steps])\n",
         "    return np.array(X), np.array(y)"
       ],
-      "id": "dfa036b1",
+      "id": "8fec6f60",
       "execution_count": null,
       "outputs": []
     },
@@ -319,7 +319,7 @@
       "source": [
         "Setting the parameters:\n"
       ],
-      "id": "18acb367"
+      "id": "9b92afad"
     },
     {
       "cell_type": "code",
@@ -343,7 +343,7 @@
         "if not os.path.exists(report_dir):\n",
         "    os.makedirs(report_dir)"
       ],
-      "id": "114617b7",
+      "id": "425dacbc",
       "execution_count": null,
       "outputs": []
     },
@@ -353,7 +353,7 @@
       "source": [
         "## LSTM time series model fitting\n"
       ],
-      "id": "832e7032"
+      "id": "9f4bd71a"
     },
     {
       "cell_type": "code",
@@ -502,7 +502,7 @@
         "results_table = pd.DataFrame(mse_results)\n",
         "print(results_table)"
       ],
-      "id": "060b88ee",
+      "id": "36fc57a9",
       "execution_count": null,
       "outputs": []
     },
@@ -512,7 +512,7 @@
       "source": [
         "Saving the results in a table:\n"
       ],
-      "id": "c085f960"
+      "id": "6ad8ee7d"
     },
     {
       "cell_type": "code",
@@ -529,7 +529,7 @@
         "with open(os.path.join(report_dir, 'residuals_analysis.json'), 'w') as f:\n",
         "    json.dump(residuals_analysis, f, indent=4)\n"
       ],
-      "id": "6646da84",
+      "id": "cb13b738",
       "execution_count": null,
       "outputs": []
     },
@@ -539,7 +539,7 @@
       "source": [
         "Ploting the MSEs for each time series:\n"
       ],
-      "id": "1b39f5bf"
+      "id": "a16bfa57"
     },
     {
       "cell_type": "code",
@@ -558,7 +558,7 @@
         "    plt.savefig(os.path.join(report_dir, f'mse_comparison_{col}.png'))\n",
         "    plt.close()\n"
       ],
-      "id": "c061dbea",
+      "id": "f7eba587",
       "execution_count": null,
       "outputs": []
     },
@@ -568,7 +568,7 @@
       "source": [
         "Saving system info:\n"
       ],
-      "id": "2f0ac03c"
+      "id": "d0790cdf"
     },
     {
       "cell_type": "code",
@@ -584,7 +584,7 @@
         "with open(os.path.join(report_dir, 'system_info.json'), 'w') as f:\n",
         "    json.dump(system_info, f, indent=4)\n"
       ],
-      "id": "aec6f12f",
+      "id": "8055c489",
       "execution_count": null,
       "outputs": []
     },
@@ -594,7 +594,7 @@
       "source": [
         "Generating an automatic final report:\n"
       ],
-      "id": "c8aa1b24"
+      "id": "b719de58"
     },
     {
       "cell_type": "code",
@@ -649,7 +649,7 @@
         "    \n",
         "    report_file.write(\"End of Report.\\n\")\n"
       ],
-      "id": "1ca7be5b",
+      "id": "b91e800e",
       "execution_count": null,
       "outputs": []
     },
@@ -661,7 +661,7 @@
         "\n",
         "We begin reading the stored results by MSEs:\n"
       ],
-      "id": "474564e1"
+      "id": "46a2f77a"
     },
     {
       "cell_type": "code",
@@ -683,7 +683,7 @@
         "print(\"\\nMSE Results of the models:\")\n",
         "print(mse_results)"
       ],
-      "id": "63cedd99",
+      "id": "c0805433",
       "execution_count": null,
       "outputs": []
     },
@@ -693,7 +693,7 @@
       "source": [
         "Then we go to the best hyperparametes file for each time series univariate modelling:\n"
       ],
-      "id": "36a0eaa8"
+      "id": "3199ec92"
     },
     {
       "cell_type": "code",
@@ -712,7 +712,7 @@
         "for series, params in best_params.items():\n",
         "    print(f\"{series}: {params}\")\n"
       ],
-      "id": "da9de917",
+      "id": "6d445bdc",
       "execution_count": null,
       "outputs": []
     },
@@ -722,7 +722,7 @@
       "source": [
         "And then we read the final report:\n"
       ],
-      "id": "e7d52665"
+      "id": "3c6ff956"
     },
     {
       "cell_type": "code",
@@ -740,7 +740,7 @@
         "print(\"\\nFinal Report Content:\")\n",
         "print(report_content)"
       ],
-      "id": "4b22007d",
+      "id": "4ebb4752",
       "execution_count": null,
       "outputs": []
     },
@@ -750,7 +750,7 @@
       "source": [
         "At the end we read the graphs for MSEs:\n"
       ],
-      "id": "9fbdd9a3"
+      "id": "e7d1af23"
     },
     {
       "cell_type": "code",
@@ -785,7 +785,7 @@
         "\n",
         "# End of code"
       ],
-      "id": "66966125",
+      "id": "30ba190e",
       "execution_count": null,
       "outputs": []
     },
@@ -805,7 +805,7 @@
         "\n",
         "------------------------------------------------------------------------\n"
       ],
-      "id": "8a67d836"
+      "id": "ceaaecbd"
     },
     {
       "cell_type": "code",
@@ -819,7 +819,7 @@
         "\n",
         "print(f\"Total Quarto document compiling time: {time_diff}\")"
       ],
-      "id": "81f76e0b",
+      "id": "abe041f0",
       "execution_count": null,
       "outputs": []
     }
