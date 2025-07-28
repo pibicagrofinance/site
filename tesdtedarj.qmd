@@ -1,0 +1,458 @@
+---
+title: "<span style='font-size:18pt;'>Rodrigo Hermont Ozon -- Curriculum Vitae</span>"
+subtitle: "<span style='font-size:15pt;'>Economist (econometrics) and Data Scientist</span>"
+date: last-modified
+language:
+  en:
+    title-block-published: "Updated"
+  pt:
+    title-block-published: "Atualizado"
+crossref:
+  lof-title: "List of Figures"
+author:
+  - name: "Rodrigo Hermont Ozon"
+    roles: [investigation, data curation]
+    id: RHO
+    affiliation:
+      - name: "Pontifical Catholic University of Parana (PUCPR)"
+        city: Curitiba
+        state: PR
+        url: "https://www.pucpr.br/escola-politecnica/mestrado-doutorado/engenharia-de-producao-e-sistemas/"
+citation:
+  url: "https://example.com/summarizing-output"
+funding:
+  statement: "The author(s) received no specific funding for this work."
+geometry:
+  - left=.75in
+  - textwidth=.5in
+  - marginparsep=.25in
+  - marginparwidth=.25in
+copyright:
+  holder: "Rodrigo Hermont Ozon"
+  year: 2025
+bibliography: references.bib
+comments:
+  hypothesis: true
+header-includes:
+  - '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">'
+format:
+  html:
+    include-after-body: script.js
+#    self-contained: true
+#    theme: cyborg
+    code-annotations: hover
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    code-fold: true
+    code-tools:
+      source: repo
+    citations-hover: true
+    footnotes-hover: true
+    crossrefs-hover: false
+    anchor-sections: true
+#    embed-resources: true
+    smooth-scroll: true
+    link-external-icon: false
+    toc: true
+    toc-location: left
+    toc-depth: 5
+    other-links:
+      - text: "Tutorials and classes"
+        href: "https://rhozon.github.io/selecaodeprodutosnor/index.html"
+      - text: "Scientific Initiation Project (PUCPR)"
+        href: "https://pibicagrofinance.github.io/site/"
+      - text: "Data Science and Fin. Classes (FAE Business School)"
+        href: "https://profrhozon.github.io/site/"
+    code-links:
+      - text: "This CV code"
+        icon: file-code
+        href: "RodrigoHermontOzon_CV.qmd"
+    code-copy: true
+    html-math-method: katex
+    css: stylessz.css
+editor: visual
+theme:
+  dark: darkly
+---
+
+------------------------------------------------------------------------
+
+::::: {#right-sidebar}
+![](Me_Ohio_Univ.jpeg)
+
+::: {style="font-size: 12px;"}
+**Resumé**
+
+------------------------------------------------------------------------
+
+*Econometrician and PhD. researcher at Systems and Industrial Engineering at PUCPR, Msc. in Economic Development from UFPR, experienced for over 15 years in his career with data analysis, modeling, processing and presentation of information in knowledge and intelligent decision making.*
+:::
+
+------------------------------------------------------------------------
+
+::: {#icon-list}
+[<i class="fab fa-linkedin icon-fa" style="font-size:12.5px;"></i>](https://www.linkedin.com/in/SEU-PERFIL){title="Meu LinkedIn"} [<i class="fab fa-github icon-fa" style="font-size:12.5px;"></i>](https://github.com/SEU-USUARIO){title="Meu GitHub"} [<i class="fab fa-whatsapp icon-fa" style="font-size:12.5px;"></i>](https://wa.me/NUMERO){title="WhatsApp"} [<i class="fas fa-envelope icon-fa" style="font-size:12.5px;"></i>](mailto:seuemail@dominio.com){title="E-mail"} [<i class="fas fa-school icon-fa" style="font-size:12.5px;"></i>](https://www.pucpr.br){title="PUCPR"} [<i class="fas fa-building-columns icon-fa" style="font-size:12.5px;"></i>](https://fae.edu){title="FAE"} [<i class="fab fa-google icon-fa" style="font-size:12.5px;"></i>](https://scholar.google.com){title="Google Scholar"} [<i class="fab fa-orcid icon-fa" style="font-size:12.5px;"></i>](https://orcid.org/XXXX-XXXX-XXXX-XXXX){title="ORCID"} [<i class="fas fa-id-card icon-fa" style="font-size:12.5px;"></i>](http://lattes.cnpq.br/XXXXXX){title="CV Lattes"}
+:::
+:::::
+
+:::: panel-tabset
+## Academic Background {style="font-size:14pt;"}
+
+```{=html}
+
+<style>
+/* CSS for timeline hover and collapsible extra details */
+.timeline-block .content {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.timeline-block:hover .content {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+/* Style for extra details (collapsible content) */
+.extra-details {
+  display: none;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #ccc;
+}
+</style>
+
+<div class="zigzag-timeline">
+
+  <!-- Block 1 (left side) -->
+  <div class="timeline-block left" onclick="toggleDetails(this)">
+    <div class="marker"></div>
+    <div class="content">
+      <h3>2022 to 2027 (expected)</h3>
+      <h4>PhD Candidate – Systems &amp; Industrial Eng.</h4>
+      <p style="font-size: 12px;">
+        Research in applied time series analysis, Financial Econometrics, Bayesian Econometrics, Portfolio Multiobjective Optimization, Modelling Extremal Events.
+      </p>
+      <!-- Container to center the logo at the bottom -->
+      <div style="text-align: center; margin-top: 10px;">
+        <a href="https://www.pucpr.br/escola-politecnica/mestrado-doutorado/engenharia-de-producao-e-sistemas/" title="PPGEPS – PUCPR">
+          <img src="Pucpr-logo.jpg" alt="PUCPR Logo" style="width:50px; height:60px; display: inline-block;">
+        </a>
+      </div>
+      <!-- Extra details collapsible -->
+      <div class="extra-details">
+        <p>Please, visit our research project by visiting <a href="https://pibicagrofinance.github.io/site/introduction.html">PIBIC AgroFinance Page</a> </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 2 (right side) -->
+  <div class="timeline-block right" onclick="toggleDetails(this)">
+    <div class="marker"></div>
+    <div class="content">
+      <h3>2011</h3>
+      <h4>MSc. in Economic Development</h4>
+      <p style="font-size: 12px;">
+        Course completed at <a href="https://www.ufpr.br">UFPR</a> with an emphasis on big data, multivariate analysis and econometrics. Thesis available at <a href="https://acervodigital.ufpr.br/xmlui/bitstream/handle/1884/25651/Disserta_v12.pdf?sequence=1&amp;isAllowed=y">acervodigital.ufpr.br</a>.
+      </p>
+      <!-- Container to center the logo at the bottom -->
+      <div style="text-align: center; margin-top: 10px;">
+        <a href="https://sociaisaplicadas.ufpr.br/depecon/pos-graduacao/" title="PPGEDE – UFPR">
+          <img src="logo_ufpr.jpg" alt="UFPR Logo" style="width:65px; height:50px; display: inline-block;">
+        </a>
+      </div>
+      <!-- Extra details collapsible -->
+      <div class="extra-details">
+        <p>Check out the post in IBQP/Sebrae website visiting <a href="https://ibqp.org.br/idmpe/">here</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 3 (left side) -->
+  <div class="timeline-block left" onclick="toggleDetails(this)">
+    <div class="marker"></div>
+    <div class="content">
+      <h3>2007</h3>
+      <h4>Bachelor Degree in Economics</h4>
+      <p style="font-size: 12px;">
+        Undergraduate studies at UFPR, featuring a thesis that was honored and awarded, which was subsequently transformed into a research project at the UFPR Laboratory of Statistics and GeoInformation, which can be viewed at <a href="http://leg.ufpr.br/doku.php/projetos:ehlers:volprev" title="LEG -- UFPR">leg.ufpr.br</a>.
+      </p>
+      <!-- Extra details collapsible -->
+      <div class="extra-details">
+<p>Check out the <a href="https://economia.ufpr.br/" title="Undergraduate course at UFPR">Economics undergraduate course at UFPR</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repeat as needed (alternating left and right)... -->
+
+</div>
+
+<script>
+function toggleDetails(block) {
+  var details = block.querySelector('.extra-details');
+  if (details) {
+    if (details.style.display === 'none' || details.style.display === '') {
+      details.style.display = 'block';
+    } else {
+      details.style.display = 'none';
+    }
+  }
+}
+</script>
+```
+
+------------------------------------------------------------------------
+
+### Last publications {style="font-size:13pt;"}
+
+::: {style="font-size: 12px;"}
+**Ozon, R., H. (2024).** *Evaluation Declaration for SEMIC/SEMITI.* In XXXI Scientific Initiation Seminar at PUCPR.\
+[Link](https://github.com/rhozon/Doutorado/blob/main/DeclaraC3A7C3A3o-Rodrigo20Hermont20Ozon-XXXI20SeminC3A1rio20de20IniciaC3A7C3A3o20CientC3ADfica20da20PUCPR.pdf)
+
+**Ozon, R., H. (2024–2025).** *Scientific Initiation Advisorship (PUCPR).*\
+[Link](https://pibicagrofinance.github.io/site/)
+
+**Ozon, R., H., Reynoso-Meza, G. (2024).** *Comparative Analysis of Fuzzy Regression Models and Multicriteria Decision-Making for Commodity Market Forecasting Scenarios.* In SBPO.\
+\[Material: paper_6925.pdf\]
+
+**Ozon, R., H., Reynoso-Meza, G. (2024).** *Predictive Maintenance Strategies in Agriculture Using Survival Analysis.* In SBA. \[Material: galoa-proceedings--sbpo-2024--193764.pdf\]
+
+**Ozon, R., H., Reynoso-Meza, G. (2024).** *Efficiency and Efficacy Comparison between NSGA-II and Differential Evolution in Multi-Objective Portfolio Optimization.* In ICPR Americas 2024 (Ohio University). \[Material: Optimization\_\_Paper_ID.pdf\]
+
+**Ozon, R., H., (2024).** *Integrating GAMLSS and Bayesian MSGARCH Models for Enhanced Forecasting of Commodity Price Returns: A Novel Approach in Financial Econometrics.* In 1st SouthStat Meeting (UFPR). \[Material: \_poster Rodrigo Hermont Ozon.pdf\]
+
+**Ozon, R., H. (2023).** *The Use of Time Series Disaggregation with the tempdisagg Package in Econometric Models.* In R Day (UFPR). \[Material: \_Presentation\_\_Desagragação_de_Séries_Temporais\_*R_Day*\]
+
+**Ozon, R., H., Reynoso-Meza, G. (2023).** *Portfolio Optimization with GARCH Models Using Multiple Time Windows for Pareto Frontiers.* In APREPRO. [Link](https://aprepro.org.br/conbrepro/anais/2023/arquivos/10012023_161031_6519cd0fed1f2.pdf)
+
+**Ozon, R., Viana, R. (2024).** *Impact of Sentiment Analysis on the Volatility and Structural Breaks in Agricultural Commodity Prices.* In [See the publishing plan for this paper in this presentation](https://github.com/pibicagrofinance/site/blob/main/Presentation_MQII___Rodrigo_Hermont_Ozon.pdf)
+
+**Ozon, R. (2024).** *Ablation Study of a CNN+LSTM Architecture for Time Series Forecasting of Corn Price Returns.*
+
+**Ozon, R., Guedes, R. (2024).** *Blending Forecasting Models for Commodities Portfolio Optimization.*
+
+**Ozon, R. (2024).** *Impact of the Russia-Ukraine War on Corn Prices, Returns, and Volatility: A Quasi-Experimental Approach.*
+
+**Ozon, R., Guedes da Silva, R. T. (2024).** *A Commodities Portfolio Optimization Model Recommendation: Blending Time Series Forecasting Models in Pareto Front Scenarios.*
+
+**Ozon, R., de Lima, J. D., Dranka, G. (2024).** *Enhancing Grain Portfolio Risk Management with GAMLSS and MSGARCH.* Avaiable in <https://doity.com.br/anais/24ebfin/area/36699>
+
+**Ozon, R., Reynoso-Meza, G. (2024).** *Improving Risk Management in Grain Portfolios: The Role of GAMLSS and Bayesian MSGARCH Models.*
+
+**Ozon, R., Reynoso-Meza, G. (2023).** *Econometric Prices Forecasting Approach and Multiobjective Optimization for Commodity Portfolio Decision-Making.*
+:::
+
+## Programming Languages {style="font-size:14pt;"}
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA)    # Remove all coments # of R outputs
+knitr::opts_chunk$set(warning = FALSE) # Remove all warnings # of R outputs
+knitr::opts_chunk$set(message = FALSE) # Remove all messages # of R outputs
+
+```
+
+```{r}
+#| echo: false
+
+library(plotly)
+
+# Define o ano atual
+current_year <- 2025
+
+# Criação do data frame com os dados e na ordem desejada
+df_energy <- data.frame(
+  language  = c("Python", "R", "SQL", "Quarto", "LaTeX", "VBA", "DAX", "HTML5/CSS"),
+  since     = c(2021, 2008, 2020, 2022, 2001, 2003, 2016, 2022),
+  knowledge = c(7, 8, 7, 8, 8, 6, 5, 6)  # Escala de 1 a 10
+)
+
+# Reordena o fator de linguagem na ordem desejada
+df_energy$language <- factor(
+  df_energy$language,
+  levels = c("Python", "R", "SQL", "Quarto", "LaTeX", "VBA", "DAX", "HTML5/CSS")
+)
+
+# Calcula quantos anos de uso para cada linguagem
+df_energy$years_used <- current_year - df_energy$since + 1
+
+# Calcula a "energia" como porcentagem (por exemplo, nível 7 = 70% de energia)
+df_energy$energy <- (df_energy$knowledge / 10) * 100
+
+# Cria um texto de hover customizado para cada barra
+df_energy$hover_txt <- with(df_energy, paste0(
+  "<b>", language, "</b><br>",
+  "Years used: ", years_used, "<br>",
+  "Expertise level: ", knowledge, "/10<br>",
+  "Since: ", since, "<br>",
+  "Energy: ", round(energy, 1), "%"
+))
+
+# Cria o gráfico de barras horizontais
+fig_energy <- plot_ly(
+  data = df_energy,
+  x = ~energy,
+  y = ~language,
+  type = "bar",
+  orientation = "h",
+  text = ~paste0(round(energy), "%"),  # Mostra a porcentagem dentro da barra
+  textposition = "inside",
+  insidetextfont = list(color = "white", size = 16),
+  hoverinfo = "text",
+  hovertext = ~hover_txt,
+  marker = list(
+    color = "#58acd8",      # Azul claro (ajuste conforme desejar)
+    line = list(
+      width = 2,
+      color = "#2c7eb6"     # Azul mais escuro, para a borda
+    )
+  )
+) %>%
+  layout(
+    title = list(text = "Energy Levels and Expertise in Programming Languages", x = 0.5),
+    xaxis = list(
+      title = "Energy (%)",
+      range = c(0, 100),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showticklabels = FALSE
+    ),
+    yaxis = list(
+      title = "",
+      showgrid = FALSE,
+      zeroline = FALSE,
+      autorange = "reversed"  # Faz com que o primeiro nível (Python) apareça no topo
+    ),
+    paper_bgcolor = "black",
+    plot_bgcolor  = "black",
+    font = list(color = "white"),
+    margin = list(l = 100, r = 50, t = 60, b = 60)
+  ) %>%
+  config(displayModeBar = FALSE)
+
+fig_energy
+
+
+```
+::::
+
+ 
+
+ 
+
+------------------------------------------------------------------------
+
+::: {.panel-tabset group="language"}
+## Quarto {style="font-size:14pt;"}
+
+> "You can be only mathematician with econometrics." (Xie, 2015)
+
+Quarto é uma ferramenta poderosa para compor documentos dinâmicos [@xie2015].
+
+Este é um exemplo de texto com uma nota de rodapé[^1].
+
+...
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code {style="font-size:14pt;"}
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                      # <1>
+  mutate(                                        # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm, # <2>
+    bill_area  = bill_depth_mm * bill_length_mm  # <2>
+  )                                              # <2>
+```
+
+1.  Take `penguins`, and then,
+2.  add new columns for the bill ratio and bill area.
+:::
+
+[^1]: Este é o conteúdo da minha nota de rodapé.
+
+### Tese {style="font-size:14pt;"}
+
+$$
+\widehat{Y} = \alpha +\beta X_t +\epsilon
+$$
+
+### Teste b {style="font-size:14pt;"}
+
+``` {.python filename="matplotlib.py"}
+
+import matplotlib.pyplot as plt
+plt.plot([1,23,2,4])
+plt.show()
+
+```
+
+#### Testing {style="font-size:14pt;"}
+
+### My house {style="font-size:14pt;"}
+
+```{r}
+#| warning: false
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+
+```
+
+```{r}
+#| label: fig-cap-margin
+#| fig-cap: "MPG vs horsepower, colored by transmission."
+#| cap-location: bottom
+#| warning: false
+
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor(
+  mtcars$am, labels = c('automatic', 'manual')
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "loess") +
+  theme(legend.position = 'bottom')
+```
+
+This will appear in portrait mode.
+
+::: landscape
+This will appear in landscape.
+:::
+
+This will appear in portrait mode again.
+
+------------------------------------------------------------------------
+
+## Acknowledgments {.appendix}
+
+I am grateful for the insightful comments offered by the anonymous peer reviewers at Books & Texts. The generosity and expertise of one and all have improved this study in innumerable ways and saved me from many errors; those that inevitably remain are entirely my own responsibility.
+
+------------------------------------------------------------------------

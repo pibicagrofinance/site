@@ -1,0 +1,51 @@
+---
+title: "Reinforcement Learning Decision Making Notebook"
+author: "Rodrigo Hermont Ozon and Ricardo Vianna"
+format: 
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    df-print: paged
+editor: visual
+---
+
+------------------------------------------------------------------------
+
+<left> ![](https://raw.githubusercontent.com/rhozon/Doutorado/main/pucpr_logo.png){width="10%"} </left>
+
+------------------------------------------------------------------------
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = NA
+)
+knitr::opts_chunk$set(comment = NA) # Remove todos os coments # dos outputs do R
+knitr::opts_chunk$set(warning = FALSE) # Remove todos os warnings # dos outputs do R
+knitr::opts_chunk$set(message = FALSE) # Remove todas as mensagens # dos outputs do R
+
+```
+
+```{=html}
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+</style>
+```
+
+
+We used the following Colab Notebook for this purpose:
+
+- [Follow here](https://colab.research.google.com/drive/1UjIJX3Y-46llSu5lSbm-Jt3RcG4V2Ezd)
+
+- [And here too](https://colab.research.google.com/drive/1yiRo15YYZlgPp0J2xTa66C18oRAwVUyS)

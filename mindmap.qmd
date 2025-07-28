@@ -42,60 +42,6 @@ font-style: italic;
 </style>
 ```
 
-```{r echo=FALSE}
-
-# Libraries
-library(igraph)
-library(networkD3)
-library(dplyr)
-
-# Updated Topics:
-# A = Volatility Modeling (GAMLSS)
-# B = Regime Switching Models (MSGARCH)
-# C = Econometric Analysis
-# D = Predictive Models for Commodity Prices
-# E = Statistical Methods
-# F = Multiobjective Optimization
-# G = Reinforcement Learning for Portfolio Management
-# H = Financial Data Science
-# I = Temporal Analysis (Time Series Forecasting)
-
-# create a dataset:
-data <- data_frame(
-  from = c("Volatility Modeling (GAMLSS)", "Volatility Modeling (GAMLSS)", 
-           "Regime Switching Models (MSGARCH)", "Predictive Models for Commodity Prices", 
-           "Econometric Analysis", "Predictive Models for Commodity Prices", 
-           "Statistical Methods", "Regime Switching Models (MSGARCH)", 
-           "Econometric Analysis", "Predictive Models for Commodity Prices", 
-           "Reinforcement Learning for Portfolio Management", "Volatility Modeling (GAMLSS)", 
-           "Financial Data Science", "Temporal Analysis (Time Series Forecasting)"),
-  
-  to = c("Regime Switching Models (MSGARCH)", "Statistical Methods", 
-         "Financial Analytics", "Volatility Modeling (GAMLSS)", 
-         "Econometric Analysis", "Volatility Modeling (GAMLSS)", 
-         "Regime Switching Models (MSGARCH)", "Programming in R", 
-         "Volatility Modeling (GAMLSS)", "Econometric Analysis", 
-         "Volatility Modeling (GAMLSS)", "Regime Switching Models (MSGARCH)", 
-         "Reinforcement Learning for Portfolio Management", "Regime Switching Models (MSGARCH)")
-)
-
-# Plot the network
-p <- simpleNetwork(data, height="600px", width="100%",        
-                   Source = 1,                 # column number of source
-                   Target = 2,                 # column number of target
-                   linkDistance = 50,          # distance between nodes
-                   charge = -500,              # repulsion/attraction strength
-                   fontSize = 14,              # size of node names
-                   fontFamily = "serif",       # font of node names
-                   linkColour = "#666",        # color of edges
-                   nodeColour = "#69b3a2",     # color of nodes
-                   opacity = 0.9,              # opacity of nodes
-                   zoom = TRUE                 # enable zoom functionality
-)
-
-p
-
-```
 
 # Overview
 
@@ -267,16 +213,3 @@ simpleNetwork(data,
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-

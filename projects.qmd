@@ -49,19 +49,13 @@ A tendência de baixa continuou nos meses seguintes, com os preços internaciona
 
 Embora o registro de preço zero no dia 16 de junho tenha causado estranheza, a hipótese mais plausível é a ocorrência de um erro técnico na plataforma, devido à falta de movimentação no mercado nesse dia. Ainda assim, a volatilidade observada no mercado global de arroz durante o período reflete tendências de oferta e demanda, com a expectativa de safras robustas influenciando significativamente a queda nos preços. É essencial que plataformas financeiras revisem suas metodologias de coleta de dados para evitar informações equivocadas que possam confundir investidores e analistas.
 
-
 **Appendix**
 
-Gráfico feito pela plataforma Yahoo finance 
+Gráfico feito pela plataforma Yahoo finance
 
-![](https://raw.githubusercontent.com/rhozon/Doutorado/main/yahoofinancecorn_quotes.png) 
+![](https://raw.githubusercontent.com/rhozon/Doutorado/main/yahoofinancecorn_quotes.png)
 
-
-
-
-
-**REFERÊNCIAS** 
-
+**REFERÊNCIAS**
 
 [astera.com](https://www.astera.com/pt/type/blog/api-errors/)
 
@@ -73,6 +67,86 @@ Gráfico feito pela plataforma Yahoo finance
 
 Por: Gabrielly dos Santos Mateus da Rosa, Rodrigo Hermont Ozon e Ricardo Vianna.
 
-
-
 ## Project 3
+
+# Cenário recente dos preços do milho, soja e CBOT em Julho de 2025
+
+**Autores:** Gabrielly dos Santos Mateus da Rosa, Rodrigo Vermont Ozon e Ricardo Vianna
+
+**Data:** 2025-07-25
+
+No final de julho de 2025, os preços do milho e soja na CBOT atingiram seu menor nível combinado pela inflação desde 2006, refletindo em expectativas de oferta numerosas nos Estados Unidos e grande concorrência do Brasil.
+
+O milho fechou ao torno de US$ 3,99/Bushel, enquanto a soja se dispôs perto de US$ 9,99/Bushel, ambos acumulando quedas mensais e semanais.
+
+Inesperadamente, os Estados Unidos mostraram exportações recordes do milho (2,75 bilhões de Bushels) no período de 2024-2025, mesmo que a China esteja quase fora do mercado movida por volumes crescentes do Brasil.
+
+Em contrapartida, a soja encontra suporte na demanda doméstica: A produção do óleo vegetal para biocombustíveis pode bater recorde (~15,5 bilhões de libras) nos anos de 2025-2026, estimulada por políticas de incentivo.
+
+## ATUALIDADE E FATORES QUE MOLDAM O CENÁRIO
+
+### Milho (CBOT):
+
+Na virada de junho, as cotações caíram para mínimas de seis meses, em torno de US$ 4,20/bu, e voltaram a rondar US$ 4,50/bu com previsões de calor intenso no Corn Belt.
+
+O Crop Watch da Reuters projeta rendimento de 184 bu/acre, acima da tendência do USDA, mas aponta vulnerabilidade do milho na polinização se julho terminar muito quente e danos localizados por tempestades.
+
+Apesar de um corte de 50 milhões de bushels nos estoques finais no último WASDE, o USDA manteve o preço médio projetado da safra 25/26 em US$ 4,20/bu, sinalizando conforto na oferta global.
+
+Mesmo com a retração chinesa (‑79% YoY), as exportações americanas seguem históricas, sustentando firmeza em contratos mais curtos.
+
+### Soja (CBOT):
+
+Tocou piso de três meses em US$ 10,32/bu no início de julho e ensaia reação técnica.
+
+Pequim suspendeu licenças de três tradings dos EUA e reduziu compras, pressionando prêmios.
+
+O deslocamento da demanda para biodiesel (esmagamento projetado recorde de 2,54 bi bushels) garante suporte parcial.
+
+A soja depende ainda mais das chuvas de agosto, análises mostram forte conexão entre precipitação nesse período e rendimento final.
+
+## OUTROS FATORES QUE AUMENTAM A VOLATILIDADE
+
+### Organização e frete
+
+O nível baixo do rio Mississipi aumenta o frete fluvial e reduz o "basis" em regiões de produção, tendo a possibilidade de de tirar milhões em receita dos agricultores
+
+No Brasil, as chuvas e geadas atrasam a colheita da 2° safra de milho, conservando oferta doméstica alta, mas ampliando exportações, pressionando spreads CBOT-FOB.
+
+### Fundos e fluxos Globais
+
+Os fundos seguem com moderada posição vendida em grãos e oleaginosas, porém reduziram rapidamente o "Net short" antes do pico climático, deixando espaço para movimentos rápidos de cobertura caso o clima piore.
+
+## POSSÍVEIS CENÁRIOS PARA OS PREÇOS
+
+**Clima favorável e Oferta abundante:** Milho deve oscilar em US$ 4,10-4,60/bu e soja em US$ 10-11/bu.
+
+**Impacto Climático (calor ou seca):** Cada perda de ponto percentual do milho pode subir o milho em 25-30 cent/bu; seca em agosto pode fazer com que a soja eleve acima de US$ 11, 50/bu.
+
+**Dificuldades logísticas persistentes:** O basis negativo e fretes mais caros apertam o preço interno recebido, no entanto podem ampliar spreads exportadores e até beneficiar prêmios em portos brasileiros.
+
+**Demanda interna por biodiesel:** Expansões de mandatos nos Estados Unidos garantem amparo parcial para o óleo de soja, fortificando spreads "oilshare" e beneficiando a soja mesmo se as exportações caírem.
+
+**Afastamento da China:** Preserva um teto para rallies, uma eventual desaceleração comercial estimularia a demanda rapidamente, gerando alta expressiva.
+
+## CONCLUSÃO
+
+Os preços do milho e da soja estão pressionados agora, muito por causa da expectativa de safra grande nos EUA e pela queda das compras da China. Mesmo assim, o mercado continua super sensível: se o clima apertar as lavouras ou se continuar difícil de escoar pelo Mississippi, os preços podem reagir rápido.
+
+Além disso, a demanda interna nos EUA para biodiesel deve ajudar a segurar as quedas, principalmente na soja, que depende bastante disso.
+
+Ou seja: nas próximas semanas, tudo deve girar em torno do clima no Corn Belt, da logística e de qualquer sinal de melhora na relação comercial entre EUA e China. E pra quem faz hedge ou acompanha de perto, vale mais ficar de olho no basis (diferença entre preços locais e futuros) e nos dados diários de exportação do que só olhar a cotação na tela.
+
+## REFERÊNCIAS
+
+- https://www.reuters.com/markets/commodities/chicago-corn-soybeans-sink-effective-19-year-lows-2025-07-16/
+
+- https://www.reuters.com/markets/commodities/crop-watch-yield-threats-still-possible-despite-near-ideal-season-2025-07-14/
+
+- https://soygrowers.com/news-releases/july-2025-wasde-a-mixed-bag-for-soy-markets/
+
+- https://www.reuters.com/markets/commodities/usda-rundown-record-us-corn-exports-us-biofuel-boom-2025-07-13/
+
+- https://www.ers.usda.gov/topics/crops/soybeans-and-oil-crops/market-outlook
+- https://www.agricultureofamerica.com/2025/04/01/estimating-the-impact-of-low-mississippi-river-levels-on-soybean-basis-in-the-midsouth
+
